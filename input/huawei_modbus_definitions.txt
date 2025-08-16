@@ -1,0 +1,13040 @@
+SUN2000-12/15/17/20/25K-MB0
+Modbus Interface Definitions
+Issue
+
+01
+
+Date
+
+2023-09-28
+
+HUAWEI TECHNOLOGIES CO., LTD.
+Copyright © Huawei Technologies Co., Ltd. 2023. All rights reserved.
+No part of this document may be reproduced or transmitted in any form or by any means without prior
+written consent of Huawei Technologies Co., Ltd.
+
+Trademarks and Permissions
+and other Huawei trademarks are trademarks of Huawei Technologies Co., Ltd.
+All other trademarks and trade names mentioned in this document are the property of their respective
+holders.
+
+Notice
+The purchased products, services and features are stipulated by the contract made between Huawei and
+the customer. All or part of the products, services and features described in this document may not be
+within the purchase scope or the usage scope. Unless otherwise specified in the contract, all statements,
+information, and recommendations in this document are provided "AS IS" without warranties,
+guarantees or representations of any kind, either express or implied.
+The information in this document is subject to change without notice. Every effort has been made in the
+preparation of this document to ensure accuracy of the contents, but all statements, information, and
+recommendations in this document do not constitute a warranty of any kind, express or implied.
+
+Huawei Technologies Co., Ltd.
+Address:
+
+Huawei Industrial Base
+Bantian, Longgang
+Shenzhen 518129
+People's Republic of China
+
+Website:
+
+https://www.huawei.com
+
+Email:
+
+support@huawei.com
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+i
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+ii
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+Contents
+
+Contents
+1 Supported Models .................................................................................................................. 1
+1.1 Model Description ........................................................................................................................................................... 1
+
+2 Overview .................................................................................................................................. 3
+2.1 Terms and Abbreviations ............................................................................................................................................... 3
+
+3 Register Definitions ............................................................................................................... 5
+4 Customized Interfaces .........................................................................................................66
+4.1 Obtaining the System Information of Optimizers ................................................................................................ 66
+4.2 Obtaining Real-time Data of Optimizers ................................................................................................................ 68
+
+5 Interface Instructions ..........................................................................................................72
+5.1 Alarm Information ......................................................................................................................................................... 72
+5.2 Power Grid Scheduling ................................................................................................................................................. 75
+5.2.1 cosφ-P/Pn Characteristic Curve .............................................................................................................................. 75
+5.2.2 Q-U Characteristic Curve.......................................................................................................................................... 76
+5.2.3 PF-U Characteristic Curve ........................................................................................................................................ 77
+5.3 Grid Codes ....................................................................................................................................................................... 78
+5.4 Energy Storage Specifications .................................................................................................................................... 89
+
+6 Overview of the Communications Protocol ...................................................................92
+6.1 Physical Layer ................................................................................................................................................................. 92
+6.2 Data Link Layer .............................................................................................................................................................. 92
+6.2.1 Modbus-RTU ................................................................................................................................................................ 93
+6.2.1.1 ADU Length .............................................................................................................................................................. 93
+6.2.1.2 Communications Address...................................................................................................................................... 93
+6.2.1.3 CRC .............................................................................................................................................................................. 93
+6.2.2 Modbus-TCP................................................................................................................................................................. 95
+6.2.2.1 ADU Length .............................................................................................................................................................. 95
+6.2.2.2 MBAP Packet Header ............................................................................................................................................. 95
+6.2.2.3 Communications Address...................................................................................................................................... 96
+6.2.2.4 TCP Port ..................................................................................................................................................................... 97
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+iii
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+Contents
+
+6.2.2.5 TCP Link Establishment Process .......................................................................................................................... 97
+6.3 Application Layer ........................................................................................................................................................... 98
+6.3.1 Function Code List...................................................................................................................................................... 98
+6.3.2 Exception Code List .................................................................................................................................................... 99
+6.3.3 Reading Registers (0x03) ....................................................................................................................................... 100
+6.3.3.1 Frame Format of a Request from a Master Node ....................................................................................... 100
+6.3.3.2 Frame Format of a Normal Response from a Slave Node ........................................................................ 100
+6.3.3.3 Frame Format of an Abnormal Response from a Slave Node ................................................................. 100
+6.3.3.4 Examples.................................................................................................................................................................. 101
+6.3.4 Writing a Single Register (0x06) .......................................................................................................................... 102
+6.3.4.1 Frame Format of a Request from a Master Node ....................................................................................... 102
+6.3.4.2 Frame Format of a Normal Response from a Slave Node ........................................................................ 103
+6.3.4.3 Frame Format of an Abnormal Response from a Slave Node ................................................................. 103
+6.3.4.4 Examples.................................................................................................................................................................. 103
+6.3.5 Writing Multiple Registers (0x10)........................................................................................................................ 105
+6.3.5.1 Frame Format of a Request from a Master Node ....................................................................................... 105
+6.3.5.2 Frame Format of a Normal Response from a Slave Node ........................................................................ 105
+6.3.5.3 Frame Format of an Abnormal Response from a Slave Node ................................................................. 105
+6.3.5.4 Examples.................................................................................................................................................................. 105
+6.3.6 Reading Device Identifiers (0x2B)........................................................................................................................ 107
+6.3.6.1 Command for Querying Device Identifiers..................................................................................................... 108
+6.3.6.2 Command for Querying a Device List ............................................................................................................. 109
+6.3.6.3 Device Description Definition ............................................................................................................................ 111
+6.3.7 Huawei-defined Functions (0x41) ....................................................................................................................... 112
+6.3.7.1 Uploading Files ...................................................................................................................................................... 112
+6.3.7.1.1 Starting the Upload........................................................................................................................................... 113
+6.3.7.1.2 Uploading Data .................................................................................................................................................. 115
+6.3.7.1.3 Completing the Data Upload ......................................................................................................................... 116
+6.3.7.1.4 Timeout Processing ........................................................................................................................................... 116
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+iv
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+1 Supported Models
+
+1
+
+Supported Models
+
+1.1 Model Description
+
+1.1 Model Description
+Table 1-1 Supported models and firmware versions
+Model
+
+Model ID
+
+Earliest Firm Version
+
+SUN2000-12KTL-M5
+
+473
+
+V200R022C10
+
+SUN2000-15KTL-M5
+
+474
+
+V200R022C10
+
+SUN2000-17KTL-M5
+
+475
+
+V200R022C10
+
+SUN2000-20KTL-M5
+
+476
+
+V200R022C10
+
+SUN2000-25KTL-M5
+
+477
+
+V200R022C10
+
+SUN2000-15KTL-ZHM5
+
+478
+
+V200R022C10
+
+SUN2000-17KTL-ZHM5
+
+479
+
+V200R022C10
+
+SUN2000-20KTL-ZHM5
+
+480
+
+V200R022C10
+
+SUN2000-25KTL-ZHM5
+
+481
+
+V200R022C10
+
+SUN2000-15K-MB0-ZH
+
+492
+
+V200R023C10PSC110
+
+SUN2000-17K-MB0-ZH
+
+493
+
+V200R023C10PSC110
+
+SUN2000-20K-MB0-ZH
+
+494
+
+V200R023C10PSC110
+
+SUN2000-25K-MB0-ZH
+
+495
+
+V200R023C10PSC110
+
+SUN2000-12K-MB0
+
+487
+
+V200R023C10PSC110
+
+SUN2000-15K-MB0
+
+488
+
+V200R023C10PSC110
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+1
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+1 Supported Models
+
+Model
+
+Model ID
+
+Earliest Firm Version
+
+SUN2000-17K-MB0
+
+489
+
+V200R023C10PSC110
+
+SUN2000-20K-MB0
+
+490
+
+V200R023C10PSC110
+
+SUN2000-25K-MB0
+
+491
+
+V200R023C10PSC110
+
+SUN600-15KTL-ZHM0
+
+482
+
+V200R022C10
+
+SUN600-17KTL-ZHM0
+
+483
+
+V200R022C10
+
+SUN600-20KTL-ZHM0
+
+484
+
+V200R022C10
+
+SUN600-23KTL-ZHM0
+
+485
+
+V200R022C10
+
+SUN600-25KTL-ZHM0
+
+486
+
+V200R022C10
+
+The maximum active power (Pmax), maximum reactive power (Qmax), and rated
+power (Pn) corresponding to each model can be obtained from the register interface.
+The model ID is the unique code of the model.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+2
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+2 Overview
+
+2
+
+Overview
+
+2.1 Terms and Abbreviations
+
+2.1 Terms and Abbreviations
+Table 2-1 Terms and abbreviations
+Name
+
+Description
+
+Master node
+
+During master-slave communication, the party that
+initiates a communication request is referred to as the
+master node.
+
+Slave node
+
+During master-slave communication, the party that
+responds to a communication request is referred to as
+the slave node.
+
+Broadcast address
+
+Fixed to 0.
+
+Register address
+
+A register address is recorded in two bytes.
+
+U16
+
+Unsigned integer (16 bits)
+
+U32
+
+Unsigned integer (32 bits)
+
+I16
+
+Signed integer (16 bits)
+
+I32
+
+Signed integer (32 bits)
+
+STR
+
+Character string
+
+MLD
+
+Multiple bytes
+
+Bitfield16
+
+16-bit data expressed by bit
+
+Bitfield32
+
+32-bit data expressed by bit
+
+N/A
+
+Not applicable
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+3
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+2 Overview
+
+Name
+
+Description
+
+s
+
+Second
+
+Epoch seconds
+
+The number of seconds that have elapsed since
+1970-01-01 00:00:00
+
+RO
+
+Data that is readable only
+
+RW
+
+Data that is readable and writable
+
+WO
+
+Data that is writable only
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+4
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+3
+
+Register Definitions
+
+Table 3-1 Register definitions
+No
+.
+
+Signal
+name
+
+Read
+and
+writ
+e
+
+Ty
+pe
+
+1
+
+Model
+
+RO
+
+2
+
+SN
+
+3
+4
+
+Un
+it
+
+Addre
+ss
+
+Numb
+er of
+Reg
+
+Scope
+
+ST
+R
+
+30000
+
+15
+
+Nameplate name of
+the machine, original
+"model name"
+
+RO
+
+ST
+R
+
+30015
+
+10
+
+Device SN, which is
+obtained from the
+electronic label of
+the entire system.
+
+PN
+
+RO
+
+ST
+R
+
+30025
+
+10
+
+Product Code
+
+Firmwa
+re
+Version
+
+RO
+
+ST
+R
+
+30035
+
+15
+
+Character string
+reporting: initial
+version VX00R00X
+(default VR version)
+
+Gain
+
+VX00R00XD01,
+VX00R00XD02...
+(D0X is provided by
+the test and
+certification
+personnel.)
+Different country
+codes may be
+displayed differently.
+5
+
+Issue 01 (2023-09-28)
+
+Softwar
+e
+version
+
+RO
+
+ST
+R
+
+30050
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+15
+
+In
+V800R021C10SPCXX
+X, the offering name
+5
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+and software version
+are displayed on the
+display page.
+6
+
+Protoco
+l
+version
+[Modbu
+s]
+
+RO
+
+U3
+2
+
+30068
+
+2
+
+high-character: main
+version; Upgrade on
+Incompatible
+Changes
+low-letter: revision;
+Compatible upgrade
+The baseline version
+is D8.0. 0x00080000
+
+7
+
+Model
+ID
+
+RO
+
+U1
+6
+
+8
+
+Number
+of PV
+strings
+
+RO
+
+U1
+6
+
+9
+
+Number
+of
+MPPTs
+
+RO
+
+U1
+6
+
+10
+
+Rated
+power
+
+RO
+
+U3
+2
+
+11
+
+Maximu
+m
+active
+power
+(Pmax)
+
+RO
+
+12
+
+Maximu
+m
+apparen
+t
+(Smax)
+
+13
+
+Real-ti
+me
+maximu
+m
+reactive
+power
+(Qmax,
+fed to
+the
+
+Issue 01 (2023-09-28)
+
+Model ID. For details,
+see the Inverter
+Model
+Definition.xlsm.
+
+30070
+
+1
+
+1
+
+30071
+
+1
+
+1
+
+30072
+
+1
+
+kW
+
+1000
+
+30073
+
+2
+
+Pn
+
+U3
+2
+
+kW
+
+1000
+
+30075
+
+2
+
+Read-only interface
+to 42027
+
+RO
+
+U3
+2
+
+kV
+A
+
+1000
+
+30077
+
+2
+
+Read-only interface
+to 42025
+
+RO
+
+I32
+
+kV
+ar
+
+1000
+
+30079
+
+2
+
+Reported to the
+monitoring,
+indicating the
+reactive power
+adjustment range.
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Feature data is
+updated when the
+power grid standard
+code and derating
+6
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+power
+grid)
+14
+
+15
+
+change except for
+model differences.
+
+Real-ti
+me
+maximu
+m
+reactive
+power
+(-Qmax
+,
+absorbe
+d from
+the
+power
+grid)
+
+RO
+
+Maximu
+m
+active
+power
+(Pmax_
+real)
+
+RO
+
+I32
+
+kV
+ar
+
+1000
+
+30081
+
+2
+
+Reported to the
+monitoring,
+indicating the
+reactive power
+adjustment range.
+Feature data is
+updated when the
+power grid standard
+code and derating
+change except for
+model differences.
+
+U3
+2
+
+kW
+
+1000
+
+30083
+
+2
+
+The default
+maximum active
+power capacity is
+fixed on the
+nameplate of the
+machine, and the
+maximum active
+power capacity will
+not change for one
+machine.
+as a set upper limit
+for the reference
+range (42027);
+The relationship is as
+follows:
+0<Pmax≤Smax≤Pma
+x_real≤Smax_real
+Or the
+0<Pmax≤Pmax_real≤
+Smax≤Smax_real
+
+16
+
+Issue 01 (2023-09-28)
+
+Maximu
+m
+apparen
+t
+capabili
+ty
+(Smax_r
+eal)
+
+RO
+
+U3
+2
+
+kV
+A
+
+1000
+
+30085
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+2
+
+The default apparent
+maximum capacity
+value is fixed on the
+machine nameplate,
+and one machine will
+not change.
+as a set upper limit
+for the reference
+range (42025);
+
+7
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+The relationship is as
+follows:
+0<Pmax≤Smax≤Pma
+x_real≤Smax_real
+Or the
+0<Pmax≤Pmax_real≤
+Smax≤Smax_real
+17
+
+Product
+sales
+area
+
+RO
+
+ST
+R
+
+30105
+
+2
+
+XX: Two uppercase
+letters, indicating the
+sales area or
+application area of
+the product, mainly
+related to the AC
+power system.
+CN: Chinese
+mainland;
+EU: Europe;
+JP: Japan;
+US: North America
+(US/Canada/and
+regions with the
+same grid or
+certification
+requirements as the
+US);
+UK: United Kingdom;
+Default value:
+CN/EU: All areas
+where CE
+certification
+requirements are
+applicable.
+Huawei FusionSolar
+Smart PV Solution
+and Product Naming
+Specifications
+
+18
+
+Product
+softwar
+e ID
+
+RO
+
+U1
+6
+
+30107
+
+1
+
+Unique ID of the
+software publishing
+entity.
+Used for processing
+the compatibility of
+the power grid
+standard code.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+8
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+U1
+6
+
+Software release
+entity specific release
+version sequence
+number
+
+Product
+Softwar
+e
+Version
+Number
+
+RO
+
+20
+
+Power
+Grid
+Standar
+d Code
+Protoco
+l
+Version
+
+RO
+
+U1
+6
+
+30109
+
+1
+
+Protocol loading and
+verification is similar
+to CAN1.0 and
+CAN2.0.
+
+21
+
+Unique
+ID of
+the
+softwar
+e.
+
+RO
+
+U1
+6
+
+30110
+
+1
+
+Unique ID of a
+software version.
+Upgrade packages
+with different IDs
+cannot be upgraded
+to each other.
+(Broadcast Upgrade
+Signature)
+
+22
+
+Number
+of
+upgrad
+e
+packag
+es
+
+RO
+
+U1
+6
+
+30111
+
+1
+
+The number of
+upgrade packages
+must be sufficient
+because more and
+more devices need to
+be upgraded.
+
+23
+
+Informa
+tion
+about
+subpack
+age 1
+
+RO
+
+U3
+2
+
+30112
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+24
+
+Subpac
+kage 2
+informa
+tion
+
+RO
+
+U3
+2
+
+30114
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+25
+
+Informa
+tion
+about
+subpack
+age 3
+
+RO
+
+U3
+2
+
+30116
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+19
+
+Issue 01 (2023-09-28)
+
+30108
+
+1
+
+Used to process the
+compatibility of the
+power grid standard
+code.
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+9
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+26
+
+Subpac
+kage 4
+informa
+tion
+
+RO
+
+U3
+2
+
+30118
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+27
+
+Subpac
+kage 5
+informa
+tion
+
+RO
+
+U3
+2
+
+30120
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+28
+
+Informa
+tion
+about
+subpack
+age 6
+
+RO
+
+U3
+2
+
+30122
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+29
+
+Subpac
+kage 7
+informa
+tion
+
+RO
+
+U3
+2
+
+30124
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+30
+
+Subpac
+kage 8
+informa
+tion
+
+RO
+
+U3
+2
+
+30126
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+31
+
+Subpac
+kage 9
+informa
+tion
+
+RO
+
+U3
+2
+
+30128
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+32
+
+Informa
+tion
+about
+subpack
+age 10
+
+RO
+
+U3
+2
+
+30130
+
+2
+
+high-character: file
+type ID; Low
+character: device
+type ID.
+
+33
+
+[Third-p
+arty
+labeling
+] SN
+
+RO
+
+ST
+R
+
+30191
+
+10
+
+Serial number of
+third-party OEM
+equipment,
+customized by
+third-party
+manufacturers
+
+34
+
+[Third-p
+arty
+label]
+Manufa
+cturer
+model
+
+RO
+
+U1
+6
+
+30201
+
+1
+
+Model of third-party
+OEM equipment
+manufacturer
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+10
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+35
+
+Subdevi
+ce
+Support
+ID
+
+RO
+
+Bit
+fiel
+d3
+2
+
+30207
+
+2
+
+36
+
+Subdevi
+ce
+presenc
+e flag.
+
+RO
+
+Bit
+fiel
+d3
+2
+
+30209
+
+2
+
+37
+
+Hardwa
+re
+version
+
+RO
+
+ST
+R
+
+31000
+
+15
+
+38
+
+Monitor
+ing
+Board
+SN
+
+RO
+
+ST
+R
+
+31015
+
+10
+
+From the electronic
+label of the
+monitoring board
+
+39
+
+Monitor
+ing
+softwar
+e
+version
+
+RO
+
+ST
+R
+
+31025
+
+15
+
+MCU1 version
+
+40
+
+Main
+DSP
+version
+
+RO
+
+ST
+R
+
+31040
+
+15
+
+MCU2 version
+
+41
+
+CPLD
+version
+number
+
+RO
+
+ST
+R
+
+31070
+
+15
+
+MCU4 version
+
+42
+
+AFCI
+version
+number
+
+RO
+
+ST
+R
+
+31085
+
+15
+
+MCU5 version
+
+43
+
+Registra
+tion
+code
+
+RO
+
+ST
+R
+
+31200
+
+10
+
+44
+
+[Remot
+e
+commu
+nication
+]
+Single-n
+ode
+remote
+commu
+nication
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32000
+
+1
+
+Issue 01 (2023-09-28)
+
+1
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Reported by IEC104,
+which indicates the
+merged PCS running
+status.
+
+11
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+45
+
+[Remot
+e
+signal]
+Runnin
+g status
+(monito
+ring)
+
+RO
+
+Bit
+fiel
+d1
+6
+
+46
+
+[Remot
+e
+signal]
+Runnin
+g status
+(power
+processi
+ng)
+
+RO
+
+Bit
+fiel
+d3
+2
+
+47
+
+[Remot
+e
+signal]
+Alarm 1
+
+RO
+
+48
+
+[Remot
+e
+signal]
+Alarm 2
+
+49
+
+50
+
+3 Register Definitions
+
+32002
+
+1
+
+32003
+
+2
+
+Bit
+fiel
+d1
+6
+
+32008
+
+1
+
+For details, see the
+Alarm Mapping
+sheet.
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32009
+
+1
+
+For details, see the
+Alarm Mapping
+sheet.
+
+[Remot
+e
+signal]
+Alarm 3
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32010
+
+1
+
+For details, see the
+Alarm Mapping
+sheet.
+
+Device
+SN
+feature
+code
+
+RO
+
+U1
+6
+
+32015
+
+1
+
+Indicates the CRC16
+value of the SN,
+which is the key data
+ID.
+
+1
+
+Used to prevent
+incorrect energy
+yield from being
+modified due to
+incorrect energy
+yield reported by
+devices with the
+same address. The
+SN CRC is added to
+ensure that the
+energy yield source is
+correct.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+12
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+51
+
+PV1
+voltage
+
+RO
+
+I16
+
+V
+
+3 Register Definitions
+
+10
+
+32016
+
+1
+
+When bit 9 of power
+parameter mask 14
+is 0, the signal name
+is PV1 voltage.
+When bit 9 of the
+power parameter
+mask 14 is 1, the
+processing logic is as
+follows:
+When DC Input
+Display Mode 30205
+is set to 0, the signal
+name is PV1 Voltage.
+When DC input
+30205 is set to 1, the
+signal name is
+MPPT1 Voltage.
+
+52
+
+PV1
+current
+
+RO
+
+I16
+
+A
+
+100
+
+32017
+
+1
+
+When bit 9 of power
+parameter mask 14
+is 0, the signal name
+is PV1 current.
+When bit 9 of power
+parameter mask 14
+is 1, the following
+logic is used:
+When DC input
+display mode 30205
+is set to 0, the signal
+name is PV1 current.
+When DC Input
+Display Mode 30205
+is set to 1, the signal
+name is MPPT1
+Current.
+
+53
+
+PV2
+Voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32018
+
+1
+
+When bit 9 of power
+parameter mask 14
+is 0, the signal name
+is PV2 voltage.
+When bit 9 of the
+power parameter
+mask 14 is 1, the
+processing logic is as
+follows:
+When DC Input
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+13
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+Display Mode 30205
+is set to 0, the signal
+name is PV2 Voltage.
+When DC input
+30205 is set to 1, the
+signal name is
+MPPT2 Voltage.
+54
+
+PV2
+current
+
+RO
+
+I16
+
+A
+
+100
+
+32019
+
+1
+
+When bit 9 of power
+parameter mask 14
+is 0, the signal name
+is PV2 current.
+When bit 9 of the
+power parameter
+mask 14 is 1, the
+following logic is
+used:
+When DC Input
+Display Mode 30205
+is set to 0, the signal
+name is PV2 Current.
+When DC input
+display mode 30205
+is set to 1, the signal
+name is MPPT2
+current.
+
+55
+
+PV3
+Voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32020
+
+1
+
+56
+
+PV3
+current
+
+RO
+
+I16
+
+A
+
+100
+
+32021
+
+1
+
+57
+
+PV4
+Voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32022
+
+1
+
+58
+
+PV4
+current
+
+RO
+
+I16
+
+A
+
+100
+
+32023
+
+1
+
+59
+
+PV5
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32024
+
+1
+
+60
+
+PV5
+current
+
+RO
+
+I16
+
+A
+
+100
+
+32025
+
+1
+
+61
+
+PV6
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32026
+
+1
+
+62
+
+PV6
+current
+
+RO
+
+I16
+
+A
+
+100
+
+32027
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+14
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+63
+
+DC
+power
+
+RO
+
+I32
+
+kW
+
+1000
+
+32064
+
+2
+
+64
+
+Power
+grid line
+A and B
+voltage
+
+RO
+
+U1
+6
+
+V
+
+10
+
+32066
+
+1
+
+When the output
+mode is L/N, the
+signal name is Grid
+Voltage.
+When Output Mode
+is set to L1/L2/N or
+L1/L2, the signal
+name is UW Grid
+Voltage.
+
+65
+
+Power
+grid B/C
+line
+voltage
+
+RO
+
+U1
+6
+
+V
+
+10
+
+32067
+
+1
+
+This parameter is
+invalid when the
+output mode is L/N,
+L1/L2/N, or L1/L2.
+
+66
+
+Power
+grid CA
+line
+voltage
+
+RO
+
+U1
+6
+
+V
+
+10
+
+32068
+
+1
+
+This parameter is
+invalid when the
+output mode is L/N,
+L1/L2/N, or L1/L2.
+
+67
+
+Power
+grid
+phase A
+voltage
+
+RO
+
+U1
+6
+
+V
+
+10
+
+32069
+
+1
+
+This parameter is
+invalid when the
+output mode is L/N.
+When Output Mode
+is set to L1/L2/N or
+L1/L2, the signal
+name is UO Grid
+Voltage.
+Not displayed in
+off-grid mode
+
+68
+
+Power
+grid
+phase B
+voltage
+
+RO
+
+U1
+6
+
+V
+
+10
+
+32070
+
+1
+
+This parameter is
+invalid when the
+output mode is L/N.
+When Output Mode
+is set to L1/L2/N or
+L1/L2, the signal
+name is WO Grid
+Voltage.
+Not displayed in
+off-grid mode
+
+69
+
+Issue 01 (2023-09-28)
+
+Power
+grid
+phase C
+
+RO
+
+U1
+6
+
+V
+
+10
+
+32071
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+1
+
+This parameter is
+invalid when the
+output mode is L/N,
+
+15
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+voltage
+
+L1/L2/N, or L1/L2.
+
+70
+
+Power
+grid
+phase A
+current
+
+RO
+
+I32
+
+A
+
+1000
+
+32072
+
+2
+
+When the output
+mode is L/N,
+L1/L2/N, or L1/L2,
+the signal name is
+Grid Current.
+
+71
+
+Power
+grid
+phase B
+current
+
+RO
+
+I32
+
+A
+
+1000
+
+32074
+
+2
+
+This parameter is
+invalid when the
+output mode is L/N,
+L1/L2/N, or L1/L2.
+
+72
+
+Power
+grid
+phase C
+current
+
+RO
+
+I32
+
+A
+
+1000
+
+32076
+
+2
+
+This parameter is
+invalid when the
+output mode is L/N,
+L1/L2/N, or L1/L2.
+
+73
+
+Peak
+active
+power
+of the
+current
+day
+
+RO
+
+I32
+
+kW
+
+1000
+
+32078
+
+2
+
+74
+
+Active
+power
+
+RO
+
+I32
+
+kW
+
+1000
+
+32080
+
+2
+
+75
+
+reactive
+power
+
+RO
+
+I32
+
+kV
+ar
+
+1000
+
+32082
+
+2
+
+76
+
+Power
+factor
+
+RO
+
+I16
+
+1000
+
+32084
+
+1
+
+77
+
+Grid
+frequen
+cy
+
+RO
+
+U1
+6
+
+Hz
+
+100
+
+32085
+
+1
+
+78
+
+Inverter
+efficien
+cy
+
+RO
+
+U1
+6
+
+%
+
+100
+
+32086
+
+1
+
+79
+
+Internal
+temper
+ature
+
+RO
+
+I16
+
+°C
+
+10
+
+32087
+
+1
+
+80
+
+Insulati
+
+RO
+
+U1
+
+M
+
+1000
+
+32088
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+When PCS is used to
+generate power, it
+indicates the power
+generation
+efficiency. When PCS
+is used to absorb, it
+indicates the
+absorption efficiency.
+
+16
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+on
+impeda
+nce
+
+6
+
+3 Register Definitions
+
+Ω
+
+81
+
+Device
+Status
+
+RO
+
+E1
+6
+
+32089
+
+1
+
+82
+
+Fault
+Code
+
+RO
+
+U1
+6
+
+32090
+
+1
+
+Fault code
+corresponding to the
+alarm with the
+highest priority. For
+details, see the
+Alarm Description
+sheet.
+
+83
+
+Start-up
+time
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32091
+
+2
+
+Monitoring
+Calculation
+
+84
+
+Shutdo
+wn time
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32093
+
+2
+
+Monitoring
+Calculation
+
+85
+
+Accumu
+lated
+power
+generat
+ion
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32106
+
+2
+
+86
+
+Total
+DC
+Input
+Power
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32108
+
+2
+
+87
+
+Statistic
+al time
+of the
+current
+energy
+yield.
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32110
+
+2
+
+88
+
+Current
+Hour
+Electrici
+ty
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32112
+
+2
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+17
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+89
+
+Current
+-day
+power
+generat
+ion
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32114
+
+2
+
+90
+
+Electrici
+ty
+generat
+ed in
+the
+current
+month
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32116
+
+2
+
+91
+
+Electrici
+ty
+generat
+ed in
+the
+current
+year
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32118
+
+2
+
+92
+
+Number
+of
+critical
+alarms
+
+RO
+
+U1
+6
+
+1
+
+32151
+
+1
+
+93
+
+Number
+of
+major
+alarms
+
+RO
+
+U1
+6
+
+1
+
+32152
+
+1
+
+94
+
+Number
+of
+Minor
+Alarms
+
+RO
+
+U1
+6
+
+1
+
+32153
+
+1
+
+95
+
+Number
+of
+Warnin
+g
+Alarms
+
+RO
+
+U1
+6
+
+1
+
+32154
+
+1
+
+96
+
+Alarm
+clearan
+ce SN
+
+RO
+
+U1
+6
+
+32155
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+After the alarm is
+cleared, the serial
+number increases by
+1. After the alarm is
+reversed, the serial
+number starts from 1
+and skips 0.
+
+18
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+97
+
+Last
+Hour
+Power
+Statistic
+s Time
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32156
+
+2
+
+98
+
+Electrici
+ty
+generat
+ed in
+the
+previou
+s hour
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32158
+
+2
+
+99
+
+Electrici
+ty
+statistic
+s time
+of the
+previou
+s day
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32160
+
+2
+
+10
+0
+
+Electrici
+ty
+generat
+ed in
+the
+previou
+s day
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32162
+
+2
+
+10
+1
+
+Statistic
+al time
+of the
+previou
+s
+month.
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32164
+
+2
+
+10
+2
+
+Electrici
+ty
+generat
+ed in
+the
+previou
+s month
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32166
+
+2
+
+10
+3
+
+Electrici
+ty
+statistic
+s time
+of the
+previou
+s year
+
+RO
+
+Ep
+oc
+h
+Sec
+on
+d
+
+s
+
+1
+
+32168
+
+2
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+include
+generate/absorbed
+power
+
+include
+generate/absorbed
+power
+
+include
+generate/absorbed
+power
+
+include
+generate/absorbed
+power
+
+19
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+10
+4
+
+Electrici
+ty
+generat
+ed in
+the
+previou
+s year
+
+RO
+
+U3
+2
+
+10
+5
+
+Serial
+number
+of the
+latest
+active
+alarm.
+
+RO
+
+10
+6
+
+Latest
+Historic
+al
+Alarm
+Serial
+Number
+
+10
+7
+
+kW
+h
+
+32170
+
+2
+
+U3
+2
+
+32172
+
+2
+
+When a new active
+alarm is generated,
+the serial number
+increases by 1.
+
+RO
+
+U3
+2
+
+32174
+
+2
+
+When an active
+alarm is transferred
+to the historical
+alarm, the serial
+number of the
+historical alarm is
+the same as the
+serial number of the
+last active alarm
+transferred to the
+historical alarm.
+
+Total
+bus
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32176
+
+1
+
+Data reported by
+PID, used in
+single-level scenarios
+
+10
+8
+
+Maximu
+m PV
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32177
+
+1
+
+Data reported by
+PID, used in
+single-level scenarios
+
+10
+9
+
+Minimu
+m PV
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32178
+
+1
+
+Data reported by
+PID, used in
+single-level scenarios
+
+11
+0
+
+Average
+PV
+negativ
+e-to-gr
+ound
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32179
+
+1
+
+Data reported by
+PID, used in
+single-level scenarios
+
+11
+
+Maximu
+
+RO
+
+I16
+
+V
+
+10
+
+32180
+
+1
+
+Data reported by
+
+Issue 01 (2023-09-28)
+
+100
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+20
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+1
+
+m PV
+positive
+-to-gro
+und
+voltage
+
+PID, used in
+single-level scenarios
+
+11
+2
+
+Minimu
+m PV
+negativ
+e-to-gr
+ound
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+32181
+
+1
+
+Data reported by
+PID, used in
+single-level scenarios
+
+11
+3
+
+Inverter
+-to-PE
+withsta
+nd
+voltage
+
+RO
+
+U1
+6
+
+V
+
+1
+
+32182
+
+1
+
+Data reported by
+PID, used in
+single-level scenarios
+To be compatible
+with PID 2.0, the PCS
+reports 1502.
+0:100 V or 1100 V
+inverter;
+1500: HAV1 inverter;
+1502: HAV2 inverter;
+
+11
+4
+
+ISO
+feature
+informa
+tion
+
+RO
+
+Bit
+fiel
+d1
+6
+
+11
+5
+
+Built-in
+PID
+running
+status
+
+RO
+
+E1
+6
+
+11
+6
+
+PV
+negativ
+e-to-gr
+ound
+voltage
+
+RO
+
+I16
+
+11
+7
+
+Directio
+n of the
+built-in
+PID
+compen
+sation
+
+RO
+
+E1
+6
+
+11
+8
+
+Total
+DC
+
+RO
+
+U3
+2
+
+Issue 01 (2023-09-28)
+
+1
+
+V
+
+kW
+h
+
+10
+
+100
+
+32183
+
+1
+
+32190
+
+1
+
+32191
+
+1
+
+32192
+
+1
+
+32212
+
+2
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Data reported by
+PID, used in
+single-level scenarios
+
+TD Tech NMS GUI
+Display [5/4]
+
+21
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+energy
+yield of
+MPPT1
+11
+9
+
+Total
+DC
+energy
+yield of
+MPPT2
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32214
+
+2
+
+TD Tech NMS GUI
+Display [5/4]
+
+12
+0
+
+MPPT3
+DC
+Total
+Energy
+Yield
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32216
+
+2
+
+TD Tech NMS GUI
+Display [5/4]
+
+12
+1
+
+MPPT4
+DC
+Accumu
+lated
+Energy
+Yield
+
+RO
+
+U3
+2
+
+kW
+h
+
+100
+
+32218
+
+2
+
+TD Tech NMS GUI
+Display [5/4]
+
+12
+2
+
+Monitor
+ing
+alarm 1
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32252
+
+1
+
+GroupID:0xFF00
+
+12
+3
+
+Monitor
+ing
+alarm 2
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32253
+
+1
+
+GroupID:0xFF01
+
+12
+4
+
+Monitor
+alarm 3
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32254
+
+1
+
+GroupID:0xFF02
+
+12
+5
+
+[Extern
+al]
+Power
+alarm 1
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32255
+
+1
+
+GroupID:0x0000
+
+12
+6
+
+[Extern
+al]
+Power
+alarm 2
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32256
+
+1
+
+GroupID:0x0001
+
+12
+7
+
+[Extern
+al]
+Power
+
+RO
+
+Bit
+fiel
+d1
+
+32257
+
+1
+
+GroupID:0x0002
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+22
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+alarm 3
+
+3 Register Definitions
+
+6
+
+12
+8
+
+[Extern
+al]
+Power
+alarm 4
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32258
+
+1
+
+GroupID:0x0003
+
+12
+9
+
+[Extern
+al]
+Power
+alarm 5
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32259
+
+1
+
+GroupID:0x0004
+
+13
+0
+
+[Extern
+al]
+Power
+alarm 6
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32260
+
+1
+
+GroupID:0x0005
+
+13
+1
+
+[Extern
+al]
+Power
+alarm 7
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32261
+
+1
+
+GroupID:0x0006
+
+13
+2
+
+[Extern
+al]
+Power
+alarm 8
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32262
+
+1
+
+GroupID:0x0007
+
+13
+3
+
+[Extern
+al]
+Power
+alarm 9
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32263
+
+1
+
+GroupID:0x0008
+
+13
+4
+
+[Extern
+al]
+Power
+alarm
+10
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32264
+
+1
+
+GroupID:0x0009
+
+13
+5
+
+[Extern
+al]
+Power
+alarm
+11
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32265
+
+1
+
+GroupID:0x000A
+
+13
+6
+
+[Extern
+al]
+Power
+alarm
+12
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32266
+
+1
+
+GroupID:0x000B
+
+13
+
+[Extern
+al]
+
+RO
+
+Bit
+fiel
+
+32267
+
+1
+
+GroupID:0x000C
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+23
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+7
+
+Power
+alarm
+13
+
+13
+8
+
+Internal
+PID
+alarm
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32268
+
+1
+
+GroupID:0x000D
+
+13
+9
+
+[Extern
+al]
+Power
+alarm
+15
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32269
+
+1
+
+GroupID:0x000E
+
+14
+0
+
+Monitor
+alarm 4
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32271
+
+1
+
+GroupID:0xFF03
+
+14
+1
+
+Monitor
+alarm 5
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32272
+
+1
+
+GroupID:0xFF04
+
+14
+2
+
+Monitor
+alarm 6
+
+RO
+
+Bit
+fiel
+d1
+6
+
+32274
+
+1
+
+GroupID:0x0010
+
+14
+3
+
+Stent
+System
+Status
+
+RO
+
+Bit
+fiel
+d3
+2
+
+34000
+
+2
+
+BIT0–BIT15: state of
+support system 1–16;
+
+14
+4
+
+Runnin
+g time
+of
+capacit
+or bank
+
+RO
+
+U3
+2
+
+ho
+ur
+
+10
+
+35000
+
+2
+
+Used to inspect data.
+
+14
+5
+
+Internal
+fan 1
+running
+time
+
+RO
+
+U3
+2
+
+ho
+ur
+
+10
+
+35002
+
+2
+
+Used to inspect data.
+
+14
+6
+
+Internal
+alarm
+
+RO
+
+U1
+6
+
+V
+
+1
+
+35010
+
+1
+
+Used for R&D data
+storage.
+
+14
+
+Internal
+
+RO
+
+I16
+
+°C
+
+10
+
+35021
+
+1
+
+Temperature of INV
+
+Issue 01 (2023-09-28)
+
+d1
+6
+
+BIT16–BIT31:
+reserved for future
+expansion.
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+24
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+7
+
+14
+8
+
+14
+9
+
+15
+0
+
+3 Register Definitions
+
+Temper
+ature 1
+
+module A
+Used for R&D
+5-minute data
+recording.
+
+Internal
+Temper
+ature 2
+
+RO
+
+Internal
+Temper
+ature 3
+
+RO
+
+Internal
+Temper
+ature 4
+
+RO
+
+I16
+
+°C
+
+10
+
+35022
+
+1
+
+Temperature of INV
+module B
+Used for R&D
+5-minute data
+recording.
+
+I16
+
+°C
+
+10
+
+35023
+
+1
+
+INV module C
+temperature
+Used for R&D
+5-minute data
+recording.
+
+I16
+
+°C
+
+10
+
+35024
+
+1
+
+Temperature
+sampling of
+anti-reverse module
+1
+Used for R&D
+5-minute data
+recording.
+
+15
+1
+
+Internal
+Temper
+ature 5
+
+RO
+
+I16
+
+°C
+
+10
+
+35025
+
+1
+
+Output board relay,
+ambient
+temperature maximum
+temperature
+Used for R&D
+5-minute data
+recording.
+
+15
+2
+
+Internal
+Temper
+ature 6
+
+RO
+
+I16
+
+°C
+
+10
+
+35026
+
+1
+
+Output board, power
+board input, and
+power board inverter
+temperature
+sampling maximum
+temperature
+Used for R&D
+5-minute data
+recording.
+
+15
+3
+
+Issue 01 (2023-09-28)
+
+Internal
+temper
+ature 7
+
+RO
+
+I16
+
+°C
+
+10
+
+35027
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+1
+
+Temperature
+sampling of
+anti-reverse module
+
+25
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+2
+Used for R&D
+5-minute data
+recording.
+15
+4
+
+Internal
+temper
+ature 8
+
+RO
+
+I16
+
+°C
+
+10
+
+35028
+
+1
+
+DC terminal
+temperature 1 / 2 maximum
+temperature
+Used for R&D
+5-minute data
+recording.
+
+15
+5
+
+Internal
+temper
+ature 9
+
+RO
+
+I16
+
+°C
+
+10
+
+35029
+
+1
+
+AC Terminal
+Temperature 1 / 2 / 3
+- Maximum
+Temperature
+Used for R&D
+5-minute data
+recording.
+
+15
+6
+
+Internal
+temper
+ature
+10
+
+RO
+
+I16
+
+°C
+
+10
+
+35030
+
+1
+
+Used for R&D data
+storage.
+
+15
+7
+
+Internal
+temper
+ature
+11
+
+RO
+
+I16
+
+°C
+
+10
+
+35031
+
+1
+
+Used for R&D data
+storage.
+
+15
+8
+
+Internal
+temper
+ature
+12
+
+RO
+
+I16
+
+°C
+
+10
+
+35032
+
+1
+
+Used for R&D data
+storage.
+
+15
+9
+
+Phase A
+DC
+compon
+ent DCI
+
+RO
+
+I16
+
+A
+
+1000
+
+35038
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+16
+0
+
+Phase B
+DC
+compon
+ent DCI
+
+RO
+
+I16
+
+A
+
+1000
+
+35039
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+16
+1
+
+Phase C
+DC
+compon
+ent DCI
+
+RO
+
+I16
+
+A
+
+1000
+
+35040
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+26
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+16
+2
+
+Leakag
+e
+current
+RCD
+
+RO
+
+I16
+
+m
+A
+
+1
+
+35041
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+16
+3
+
+Positive
+bus
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+35042
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+16
+4
+
+Negativ
+e bus
+voltage
+
+RO
+
+I16
+
+V
+
+10
+
+35043
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+16
+5
+
+BUS
+negativ
+e
+voltage
+to
+ground
+
+RO
+
+I16
+
+V
+
+10
+
+35044
+
+1
+
+Used for R&D
+5-minute data
+recording.
+
+16
+6
+
+I-V scan
+status
+
+RO
+
+E1
+6
+
+35094
+
+1
+
+16
+7
+
+I-V
+scannin
+g
+capabili
+ty
+
+RO
+
+E1
+6
+
+35095
+
+1
+
+16
+8
+
+Deferre
+d
+activati
+on state
+
+RO
+
+E1
+6
+
+35115
+
+1
+
+16
+9
+
+Active
+power
+adjustm
+ent
+status
+
+RO
+
+ML
+D
+
+35300
+
+4
+
+17
+0
+
+Reactiv
+e power
+adjustm
+ent
+status
+
+RO
+
+ML
+D
+
+35304
+
+4
+
+17
+1
+
+Inverter
+compre
+hensive
+status
+
+RO
+
+Bit
+fiel
+d1
+6
+
+37518
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+27
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+17
+2
+
+Inverter
+integrat
+ed
+status
+support
+flag
+
+RO
+
+U1
+6
+
+17
+3
+
+System
+time
+(local
+time)
+
+RW
+
+Ep
+oc
+h
+Sec
+on
+d
+
+17
+4
+
+Q-U
+charact
+eristic
+curve
+mode
+
+RW
+
+E1
+6
+
+17
+5
+
+Q-U
+Schedul
+ing
+Trigger
+Power
+Percent
+age
+
+RW
+
+I16
+
+%
+
+17
+6
+
+Active
+power
+is
+derated
+by a
+fixed
+value.
+
+RW
+
+U1
+6
+
+kW
+
+17
+7
+
+Power
+factor
+
+RW
+
+17
+8
+
+Reactiv
+e power
+compen
+sation
+(Q/S)
+[low
+precisio
+n]
+
+17
+9
+
+Reactiv
+e power
+
+Issue 01 (2023-09-28)
+
+3 Register Definitions
+
+1
+
+37519
+
+1
+
+1
+
+40000
+
+2
+
+40037
+
+1
+
+1
+
+40038
+
+1
+
+10
+
+40120
+
+1
+
+I16
+
+1000
+
+40122
+
+1
+
+RW
+
+I16
+
+1000
+
+40123
+
+1
+
+The equipment end
+converts the value
+into a fixed Q value
+for reactive power
+control. S is Smax.
+
+RW
+
+U1
+6
+
+1
+
+40124
+
+1
+
+Change requirement:
+The "Reactive power
+
+s
+
+s
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+The data is in the
+epoch second
+format, that is, the
+local time.
+
+28
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+adjustm
+ent
+time
+
+adjustment time"
+broadcast interface is
+added to the Q-P
+characteristic curve
+and cosphi-P
+characteristic curve
+delivery interface,
+which is the same as
+the Q-U
+characteristic curve
+20190918.
+
+18
+0
+
+Active
+power
+percent
+age
+deratin
+g (low
+precisio
+n)
+
+RW
+
+I16
+
+%
+
+10
+
+40125
+
+1
+
+Active power fine
+adjustment interface
+
+18
+1
+
+Active
+power
+is
+derated
+by a
+fixed
+value.
+
+RW
+
+U3
+2
+
+W
+
+1
+
+40126
+
+2
+
+Value range: [0,
+Pmax]
+
+18
+2
+
+Night
+reactive
+power
+compen
+sation
+(Q/S)
+
+RW
+
+I16
+
+1000
+
+40128
+
+1
+
+The equipment end
+converts the value
+into a fixed Q value
+for reactive power
+control. S is Smax.
+
+18
+3
+
+Fixed
+value of
+reactive
+power
+at night
+
+RW
+
+I32
+
+1000
+
+40129
+
+2
+
+18
+4
+
+Cos?-P/
+Pn
+charact
+eristic
+curve
+
+RW
+
+ML
+D
+
+40133
+
+21
+
+18
+5
+
+Q-U
+charact
+
+RW
+
+ML
+D
+
+40154
+
+21
+
+Issue 01 (2023-09-28)
+
+kV
+ar
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+29
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+eristic
+curve
+18
+6
+
+PF-U
+charact
+eristic
+curve
+
+RW
+
+ML
+D
+
+18
+7
+
+[Charac
+teristic
+curve]
+Reactiv
+e power
+adjustm
+ent
+time
+
+RW
+
+U1
+6
+
+s
+
+18
+8
+
+Q-U
+Schedul
+ing Exit
+Power
+Percent
+age
+
+RW
+
+I16
+
+18
+9
+
+Active
+power
+percent
+age
+control
+[low
+precisio
+n]
+
+RW
+
+I16
+
+19
+0
+
+Start
+the
+system.
+
+WO
+
+19
+1
+
+Shut
+down.
+
+WO
+
+Issue 01 (2023-09-28)
+
+40175
+
+21
+
+1
+
+40196
+
+1
+
+%
+
+1
+
+40198
+
+1
+
+%
+
+10
+
+40199
+
+1
+
+E1
+6
+
+40200
+
+1
+
+E1
+6
+
+40201
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Change requirement:
+The "Reactive power
+adjustment time"
+broadcast interface is
+added to the Q-P
+characteristic curve
+and cosphi-P
+characteristic curve
+delivery interface,
+which is the same as
+the Q-U
+characteristic curve
+20190918.
+
+This interface is used
+in distributed mode.
+It is used to control
+the active power
+percentage. It is
+issued to the power
+software in the
+anti-backflow
+control, and controls
+the upper limit of the
+output active power
+when the power is
+increased due to
+underfrequency.
+
+30
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+19
+2
+
+Quick
+poweron and
+poweroff
+
+WO
+
+E1
+6
+
+40202
+
+1
+
+Not affected by
+shutdown gradient
+
+19
+3
+
+reset
+
+WO
+
+E1
+6
+
+40205
+
+1
+
+After receiving the
+command, the DSP
+responds
+immediately and
+then resets.
+After receiving the
+command, the
+inverter monitoring
+module sends the
+command to the
+DSP. After receiving
+a normal response,
+the inverter
+monitoring module
+sends the command
+to the northbound
+port. After 3s, the
+system is reset.
+Otherwise, the
+system does not
+restart.
+
+19
+4
+
+Q-P
+charact
+eristic
+curve
+
+RW
+
+ML
+D
+
+19
+5
+
+Q-U
+charact
+eristic
+curve
+minimu
+m PF
+limit
+
+RW
+
+U1
+6
+
+Issue 01 (2023-09-28)
+
+1000
+
+40354
+
+21
+
+40375
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+This MPI is used to
+limit the reactive
+power output by the
+QU curve by limiting
+the current PF value.
+The country code
+that is not required
+by this function is set
+to 0 by default,
+indicating that the
+reactive power
+output is not limited.
+The country code in
+EN50549 can be set
+to 0 to 1, and the
+
+31
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+default value is 0.9.
+19
+6
+
+Q-U
+charact
+eristic
+curve
+validity
+delay
+time
+
+RW
+
+U1
+6
+
+19
+7
+
+Power
+grid
+standar
+d code
+
+RW
+
+U1
+6
+
+19
+8
+
+Output
+mode
+
+RW
+
+E1
+6
+
+19
+9
+
+Voltage
+level
+
+RW
+
+U1
+6
+
+V
+
+20
+0
+
+Frequen
+cy Class
+
+RW
+
+U1
+6
+
+Hz
+
+20
+1
+
+Remote
+power
+scheduli
+ng
+
+RW
+
+E1
+6
+
+Issue 01 (2023-09-28)
+
+s
+
+1
+
+40376
+
+1
+
+After the QU curve
+reaches the trigger
+voltage, the reactive
+power starts to
+change after a
+period of time is
+delayed. Italy
+CEI0-16/21 requires
+that the default
+value be 3s,
+indicating that the
+QU curve takes
+effect after the
+triggering delay is 3s,
+which can be set on
+the GUI. For other
+countries, the default
+value is 0.
+
+1
+
+42000
+
+1
+
+CHINA_MV800
+For details about the
+scope, see the Power
+Grid Standard Code.
+
+42001
+
+1
+
+On the customer
+interface, only read
+signals can be
+displayed. Currently,
+only three-phase
+three-wire signals
+are supported. No
+configuration is
+required. In the
+future, the interface
+changes will be used
+to notify each
+interface.
+
+1
+
+42002
+
+1
+
+Vn
+
+1
+
+42003
+
+1
+
+Fn
+
+42014
+
+1
+
+If this parameter is
+disabled, the inverter
+will be locked.
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+32
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+20
+2
+
+reactive
+power
+gradien
+t
+
+RW
+
+U3
+2
+
+%/
+s
+
+1000
+
+42015
+
+2
+
+20
+3
+
+Active
+power
+change
+gradien
+t
+
+RW
+
+U3
+2
+
+%/
+s
+
+1000
+
+42017
+
+2
+
+Limits the speed at
+which the power
+changes caused by
+the power
+scheduling
+command
+
+20
+4
+
+Schedul
+ed
+instructi
+on hold
+time
+
+RW
+
+U3
+2
+
+s
+
+1
+
+42019
+
+2
+
+Permanently valid
+when the value is 0.
+
+20
+5
+
+Maximu
+m
+apparen
+t power
+
+RW
+
+U3
+2
+
+kV
+A
+
+1000
+
+42021
+
+2
+
+["Maximum active
+power",Smax]
+
+20
+6
+
+Maximu
+m
+active
+power
+
+RW
+
+U3
+2
+
+kW
+
+1000
+
+42023
+
+2
+
+[0.1,Pmax]
+
+20
+7
+
+apparen
+t power
+referenc
+e
+
+RW
+
+U3
+2
+
+kV
+ar
+
+1000
+
+42025
+
+2
+
+Sn: upper limit of the
+maximum active
+power (PMax), which
+is used as the
+reference for reactive
+power scheduling
+(Q/S).
+
+20
+8
+
+Active
+power
+referenc
+e
+
+RW
+
+U3
+2
+
+kW
+
+1000
+
+42027
+
+2
+
+Set the lower limit of
+the maximum
+apparent value
+(SMax), which is also
+used as the reference
+for active power
+scheduling
+(percentage).
+
+20
+9
+
+Plant
+active
+power
+gradien
+t
+
+RW
+
+U1
+6
+
+mi
+n/1
+00
+%
+
+1
+
+42029
+
+1
+
+China standards
+require that the
+active power change
+caused by light
+fluctuation must
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+33
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+meet the speed
+requirements during
+normal operation of
+the equipment.
+21
+0
+
+Plant
+active
+average
+filtering
+time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42030
+
+2
+
+21
+1
+
+Filtering
+time for
+PF-U
+voltage
+detectio
+n
+
+RW
+
+U1
+6
+
+s
+
+10
+
+42032
+
+1
+
+21
+2
+
+Dry
+contact
+scheduli
+ng
+
+RW
+
+E1
+6
+
+42033
+
+1
+
+21
+3
+
+Audible
+and
+visual
+alarm
+
+RW
+
+E1
+6
+
+42034
+
+1
+
+21
+4
+
+Frequen
+cy
+Active
+Power
+Deratin
+g
+Recover
+y Delay
+Time
+
+RW
+
+U1
+6
+
+s
+
+1
+
+42040
+
+1
+
+21
+5
+
+Frequen
+cy
+Active
+Power
+Deratin
+g
+Effectiv
+e Delay
+Time
+
+RW
+
+U1
+6
+
+ms
+
+1
+
+42041
+
+1
+
+21
+6
+
+Frequen
+cy
+
+RW
+
+E1
+6
+
+42042
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+34
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+active
+power
+deratin
+g
+hysteres
+is
+21
+7
+
+Frequen
+cy
+modula
+tion
+control
+respons
+e dead
+band
+
+RW
+
+U1
+6
+
+21
+8
+
+PQ
+mode
+
+RW
+
+21
+9
+
+PV
+Panel
+Type
+
+22
+0
+
+42043
+
+1
+
+E1
+6
+
+42046
+
+1
+
+RW
+
+E1
+6
+
+42047
+
+1
+
+PID
+compen
+sation
+directio
+n
+
+RW
+
+E1
+6
+
+42048
+
+1
+
+22
+1
+
+String
+connect
+ion
+mode
+
+RW
+
+E1
+6
+
+42049
+
+1
+
+22
+2
+
+Isolatio
+n
+Settings
+
+RW
+
+E1
+6
+
+42050
+
+1
+
+22
+3
+
+Frequen
+cy
+modula
+
+RW
+
+U1
+6
+
+42051
+
+1
+
+Issue 01 (2023-09-28)
+
+Hz
+
+%/
+mi
+n
+
+1000
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+On the customer
+interface, only read
+signals can be
+displayed. Currently,
+only the input is not
+grounded and
+transformer is
+supported. Interface
+changes will be used
+to notify each
+interface during
+setting.
+
+35
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+tion
+control
+power
+change
+gradien
+t
+22
+4
+
+Frequen
+cy
+modula
+tion
+control
+power
+change
+limiting
+amplitu
+de
+
+RW
+
+U1
+6
+
+%
+
+10
+
+42052
+
+1
+
+22
+5
+
+FM
+control
+delay
+respons
+e time
+
+RW
+
+U1
+6
+
+ms
+
+1
+
+42053
+
+1
+
+22
+6
+
+MPPT
+multim
+odal
+scannin
+g
+
+RW
+
+E1
+6
+
+22
+7
+
+MPPT
+scannin
+g
+interval
+
+RW
+
+U1
+6
+
+mi
+n
+
+22
+8
+
+Predicte
+d MPPT
+power
+
+RO
+
+U3
+2
+
+kW
+
+22
+9
+
+Power
+grid
+fault
+recover
+y
+automa
+tic
+startup
+
+RW
+
+23
+
+Power
+
+RW
+
+Issue 01 (2023-09-28)
+
+Polish national
+requirements, open
+and configurable
+Initial delay in the
+frequency sensitive
+mode
+
+42054
+
+1
+
+1
+
+42055
+
+1
+
+1000
+
+42056
+
+2
+
+E1
+6
+
+42061
+
+1
+
+E1
+
+42062
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+36
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+0
+
+limit
+0%
+shutdo
+wn
+
+23
+1
+
+Automa
+tic
+poweroff
+when
+commu
+nication
+is
+disconn
+ected
+
+3 Register Definitions
+
+6
+
+RW
+
+E1
+6
+
+42063
+
+1
+
+In a parallel system,
+the system
+automatically shuts
+down when the
+communication link
+is interrupted by
+default. The
+communication
+interruption duration
+is 1 minute. The PCS
+power system
+determines the
+priority of the
+default power policy
+and the parameter
+setting.
+The affected
+parameters include
+all parameters under
+"Communication
+Disconnection
+Protection".
+
+23
+2
+
+Automa
+tic
+poweron after
+commu
+nication
+recover
+y
+
+RW
+
+E1
+6
+
+42064
+
+1
+
+23
+3
+
+Power
+Quality
+Optimiz
+ation
+Mode
+
+RW
+
+E1
+6
+
+42065
+
+1
+
+23
+4
+
+RCD
+Enhanc
+ement
+
+RW
+
+E1
+6
+
+42066
+
+1
+
+23
+5
+
+Night
+reactive
+
+RW
+
+E1
+6
+
+42067
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+37
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+power
+23
+6
+
+Night
+PID
+protecti
+on
+
+RW
+
+E1
+6
+
+42069
+
+1
+
+23
+7
+
+Night
+reactive
+power
+parame
+ters
+take
+effect
+
+RW
+
+E1
+6
+
+42070
+
+1
+
+23
+8
+
+Commu
+nication
+Disconn
+ection
+Detecti
+on Time
+
+RW
+
+U1
+6
+
+42072
+
+1
+
+23
+9
+
+AFCI
+
+RW
+
+E1
+6
+
+42073
+
+1
+
+24
+0
+
+AFCI
+detectio
+n
+adaptat
+ion
+mode
+
+RW
+
+E1
+6
+
+42074
+
+1
+
+24
+1
+
+Commu
+nication
+link
+failure
+protecti
+on
+
+RW
+
+E1
+6
+
+42075
+
+1
+
+Used to initiate the
+security protection
+function after the
+communication
+between the device
+and the northbound
+interface is
+interrupted.
+
+24
+2
+
+Failure
+protecti
+on
+active
+power
+mode
+
+RW
+
+E1
+6
+
+42076
+
+1
+
+This parameter is
+displayed when the
+protection against
+communication
+disconnection is
+enabled.
+
+24
+3
+
+Active
+Power
+Limit
+
+RW
+
+U3
+2
+
+42077
+
+2
+
+This parameter is
+displayed only when
+the communication
+
+Issue 01 (2023-09-28)
+
+s
+
+kW
+
+1
+
+10
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+This parameter is
+displayed when the
+protection against
+communication
+disconnection is
+enabled.
+
+38
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+for
+Failure
+Protecti
+on [kW]
+[Low
+Precisio
+n]
+
+link failure
+protection is set to
+Enable and the
+active power mode is
+set to a fixed value.
+
+24
+4
+
+Failure
+protecti
+on
+reactive
+power
+mode
+
+RW
+
+E1
+6
+
+42079
+
+1
+
+24
+5
+
+Frequen
+cy rate
+protecti
+on
+
+RW
+
+E1
+6
+
+42080
+
+1
+
+24
+6
+
+Frequen
+cy
+change
+rate
+protecti
+on
+point
+
+RW
+
+U1
+6
+
+Hz
+/s
+
+10
+
+42081
+
+1
+
+24
+7
+
+Frequen
+cy
+change
+rate
+protecti
+on time
+
+RW
+
+U1
+6
+
+s
+
+10
+
+42082
+
+1
+
+24
+8
+
+Reactiv
+e power
+limit for
+failure
+protecti
+on
+[Q/S]
+[low
+precisio
+n]
+
+RW
+
+I16
+
+1000
+
+42083
+
+1
+
+24
+9
+
+Poweron
+voltage
+upper
+
+RW
+
+Issue 01 (2023-09-28)
+
+This parameter is
+displayed when the
+protection against
+communication
+disconnection is
+enabled.
+
+(Deliver Q/S value)
+This parameter is
+displayed only when
+Communication
+Disconnection
+Failure Protection is
+set to Enable and
+Reactive Power
+Mode is set to Q/S.
+
+U1
+6
+
+V
+
+10
+
+42084
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+1
+
+Parameters for
+normal reconnection
+
+39
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+limit for
+grid
+connect
+ion
+25
+0
+
+Poweron
+voltage
+lower
+limit for
+grid
+connect
+ion
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42085
+
+1
+
+Parameters for
+normal reconnection
+
+25
+1
+
+Poweron
+frequen
+cy
+upper
+limit for
+grid
+connect
+ion
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42086
+
+1
+
+Parameters for
+normal reconnection
+
+25
+2
+
+Poweron
+frequen
+cy lower
+limit for
+grid
+connect
+ion
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42087
+
+1
+
+Parameters for
+normal reconnection
+
+25
+3
+
+Power
+grid
+reconne
+ction
+voltage
+upper
+limit
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42088
+
+1
+
+Parameters for
+reconnection after a
+fault
+
+25
+4
+
+Power
+Grid
+Reconn
+ection
+Voltage
+Lower
+Thresho
+ld
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42089
+
+1
+
+Parameters for
+reconnection after a
+fault
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+40
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+25
+5
+
+Power
+grid
+reconne
+ction
+frequen
+cy
+upper
+limit
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42090
+
+1
+
+Parameters for
+reconnection after a
+fault
+
+25
+6
+
+Power
+grid
+reconne
+ction
+frequen
+cy lower
+limit
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42091
+
+1
+
+Parameters for
+reconnection after a
+fault
+
+25
+7
+
+Automa
+tic
+Power
+Grid
+Reconn
+ection
+Time
+
+RW
+
+U1
+6
+
+s
+
+1
+
+42092
+
+1
+
+25
+8
+
+Insulati
+on
+impeda
+nce
+protecti
+on
+point
+
+RW
+
+U1
+6
+
+M
+Ω
+
+1000
+
+42097
+
+1
+
+Value range: [0.02,
+1.5]
+Actual protection is
+implemented by the
+inverter based on the
+DC voltage.
+600 V DC inverter:
+[0.02, 1.5]
+1000 V DC inverter:
+[0.033, 1.5]
+1500 V DC inverter:
+[0.05, 1.5]
+
+25
+9
+
+Voltage
+unbalan
+ce
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+%
+
+10
+
+42098
+
+1
+
+26
+0
+
+Phase
+protecti
+
+RW
+
+U1
+6
+
+°
+
+10
+
+42099
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+41
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+on
+point
+26
+1
+
+Poweron soft
+start
+time
+due to
+power
+grid
+faults
+
+RW
+
+U1
+6
+
+s
+
+1
+
+42100
+
+1
+
+26
+2
+
+Cos?-P/
+Pn
+trigger
+voltage
+
+RW
+
+U1
+6
+
+%
+
+1
+
+42101
+
+1
+
+26
+3
+
+Cos?-P/
+Pn exit
+voltage
+
+RW
+
+U1
+6
+
+%
+
+1
+
+42102
+
+1
+
+26
+4
+
+Startup
+soft
+start
+time
+
+RW
+
+U1
+6
+
+s
+
+1
+
+42103
+
+1
+
+26
+5
+
+Power
+grid
+fault
+recover
+y time
+
+RW
+
+U1
+6
+
+s
+
+1
+
+42104
+
+1
+
+26
+6
+
+Time
+for
+determi
+ning
+short-te
+rm
+power
+grid
+interrup
+tion
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42105
+
+2
+
+26
+7
+
+Shutdo
+wn
+gradien
+t
+
+RW
+
+U3
+2
+
+%/
+s
+
+1000
+
+42107
+
+2
+
+26
+8
+
+Line
+loss
+compen
+
+RW
+
+U1
+6
+
+%
+
+10
+
+42109
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Power rise gradient
+during equipment
+startup after a power
+grid fault
+
+Quick Start After
+Power Grid Fault is
+enabled and can be
+set.
+
+42
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+sation
+26
+9
+
+Grid
+fault
+zero
+current
+mode
+
+RW
+
+E1
+6
+
+27
+0
+
+Grid
+voltage
+jump
+trigger
+threshol
+d
+
+RW
+
+U1
+6
+
+27
+1
+
+HVRT
+
+RW
+
+E1
+6
+
+27
+2
+
+HVRT
+Trigger
+Thresho
+ld
+
+RW
+
+U1
+6
+
+27
+3
+
+HVRT
+positive
+sequenc
+e
+reactive
+power
+compen
+sation
+factor
+
+RW
+
+U1
+6
+
+27
+4
+
+Short-te RW
+rm
+power
+grid
+interrup
+tion and
+quick
+startup
+
+E1
+6
+
+Issue 01 (2023-09-28)
+
+%
+
+V
+
+42110
+
+1
+
+42111
+
+1
+
+42112
+
+1
+
+10
+
+42113
+
+1
+
+10
+
+42114
+
+1
+
+42116
+
+1
+
+10
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+This parameter can
+be set only for the
+VDE4120.
+
+Indicates whether to
+enable the fast
+startup function
+after the power grid
+recovers from a
+short-term
+interruption. If this
+parameter is set to 0,
+the power grid is
+connected according
+to the normal
+startup process after
+a short-term
+interruption. If this
+parameter is set to 1,
+the power grid is
+enabled. After a
+43
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+short-term
+interruption occurs
+on the power grid,
+the quick startup
+process is used.
+Some detection
+items are skipped
+and the power grid is
+quickly connected to
+the power grid.
+Whether a
+short-term
+interruption occurs
+on the power grid
+depends on whether
+the power grid can
+be recovered within
+the "short-term
+interruption time".
+27
+5
+
+LVRT
+active
+current
+mainte
+nance
+coeffici
+ent
+
+RW
+
+U1
+6
+
+27
+6
+
+LVRT
+
+RW
+
+E1
+6
+
+27
+7
+
+LVRT
+Trigger
+Thresho
+ld
+
+RW
+
+U1
+6
+
+27
+8
+
+Power
+grid
+voltage
+protecti
+on
+
+RW
+
+E1
+6
+
+Issue 01 (2023-09-28)
+
+100
+
+V
+
+10
+
+42118
+
+1
+
+42119
+
+1
+
+By default, this
+function is enabled
+in the BDEW
+standard. In other
+standards, this
+function is disabled
+by default.
+
+42120
+
+1
+
+Sets the threshold
+for triggering low
+voltage ride-through.
+The threshold must
+comply with the
+local power grid
+standards.
+
+42121
+
+1
+
+It is used to set
+whether the voltage
+protection function
+needs to be shielded
+during the voltage
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+44
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+shield
+during
+VRT
+27
+9
+
+ride-through.
+
+LVRT
+positive
+sequenc
+e
+reactive
+power
+compen
+sation
+factor
+
+RW
+
+U1
+6
+
+10
+
+42122
+
+1
+
+During the low
+voltage ride through
+(LVRT), the device
+needs to generate
+positive-sequence
+reactive power to
+support the power
+grid. This parameter
+is used to set the
+positive-sequence
+reactive power
+emitted by the
+device.
+For example, if the
+LVRT
+positive-sequence
+reactive power
+compensation factor
+is set to 2, the
+positive-sequence
+reactive current
+generated by the
+device increases by
+20% of the rated
+current every time
+the AC voltage
+decreases by 10%
+during the
+low-voltage
+ride-through process.
+
+28
+0
+
+VRT exit
+hysteres
+is
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42123
+
+1
+
+Sets the LVRT/HVRT
+recovery threshold.
+LVRT recovery
+threshold = LVRT
+trigger threshold +
+VRT exit hysteresis
+threshold
+HVRT recovery
+threshold = HVRT
+trigger threshold –
+VRT exit hysteresis
+threshold
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+45
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+28
+1
+
+VRT
+active
+current
+limiting
+percent
+age
+
+RW
+
+U1
+6
+
+%
+
+1
+
+42124
+
+1
+
+28
+2
+
+VRT
+active
+power
+recover
+y
+gradien
+t
+
+RW
+
+U1
+6
+
+%/
+s
+
+1
+
+42125
+
+1
+
+28
+3
+
+HVRT
+negativ
+e
+sequenc
+e
+reactive
+compen
+sation
+factor
+
+RW
+
+U1
+6
+
+10
+
+42126
+
+1
+
+28
+4
+
+LVRT
+negativ
+e
+sequenc
+e
+reactive
+power
+compen
+sation
+factor
+
+RW
+
+U1
+6
+
+10
+
+42127
+
+1
+
+During low voltage
+ride through (LVRT),
+the device needs to
+generate
+negative-sequence
+reactive power to
+support the power
+grid. This parameter
+is used to set the
+negative-sequence
+reactive power
+emitted by the
+device.
+For example, if the
+LVRT negative
+sequence reactive
+power compensation
+factor is set to 2, the
+negative sequence
+reactive current
+generated by the
+device increases by
+20% of the rated
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+46
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+current every time
+the AC voltage
+decreases by 10%
+during the low
+voltage ride-through
+process.
+28
+5
+
+phase
+angle
+deviatio
+n
+protecti
+on
+
+RW
+
+E1
+6
+
+42128
+
+1
+
+28
+6
+
+Active
+Islandin
+g
+Protecti
+on
+
+RW
+
+E1
+6
+
+42129
+
+1
+
+28
+7
+
+Passive
+Islandin
+g
+Protecti
+on
+
+RW
+
+E1
+6
+
+42130
+
+1
+
+28
+8
+
+OVGR
+Associat
+ed
+Shutdo
+wn
+
+RW
+
+E1
+6
+
+42131
+
+1
+
+28
+9
+
+Dry
+contact
+functio
+n
+
+RW
+
+E1
+6
+
+42132
+
+1
+
+29
+0
+
+LVRT
+reactive
+current
+limiting
+percent
+age
+
+RW
+
+U1
+6
+
+42133
+
+1
+
+%
+
+1
+
+During low voltage
+ride-through, the
+equipment needs to
+limit the reactive
+current emitted by
+the equipment.
+For example, if LVRT
+Reactive Current
+Limit Percentage is
+set to 50, the upper
+limit of the reactive
+current of the device
+is 50% of the rated
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+47
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+current during low
+voltage ride-through.
+29
+1
+
+LVRT
+zero
+current
+mode
+threshol
+d
+
+RW
+
+U1
+6
+
+29
+2
+
+LVRT
+mode
+
+RW
+
+E1
+6
+
+29
+3
+
+RCD
+current
+limit
+
+RW
+
+U1
+6
+
+29
+4
+
+Voltage
+rise
+suppres
+sion
+
+RW
+
+E1
+6
+
+29
+5
+
+Voltage
+rise
+suppres
+sion
+reactive
+power
+adjustm
+ent
+point
+
+RW
+
+U1
+6
+
+%
+
+29
+6
+
+Voltage
+rise
+suppres
+sion
+active
+deratin
+g
+threshol
+d
+
+RW
+
+U1
+6
+
+%
+
+29
+7
+
+frequen
+cy
+modula
+tion
+
+RW
+
+E1
+6
+
+Issue 01 (2023-09-28)
+
+V
+
+m
+A
+
+10
+
+If the zero current
+mode is enabled and
+the voltage of the
+grid is less than the
+zero current mode
+threshold during
+LVRT, the zero
+current mode is used.
+Otherwise, the zero
+current mode is used.
+
+42134
+
+1
+
+42135
+
+1
+
+42136
+
+1
+
+42138
+
+1
+
+10
+
+42139
+
+1
+
+The value of
+"Voltage Rise Reject
+Active Derating
+Point" must be
+greater than the
+value of "Voltage
+Rise Reject Reactive
+Adjust Point".
+
+10
+
+42140
+
+1
+
+The value of
+"Voltage Rise Reject
+Active Derating
+Point" must be
+greater than the
+value of "Voltage
+Rise Reject Reactive
+Adjust Point".
+
+42141
+
+1
+
+According to the
+standards of some
+countries or regions,
+the power grid
+
+10
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+48
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+frequency changes
+around the rated
+value. If the device
+needs to fine-tune
+the active power
+output based on the
+frequency
+modulation control
+adjustment rate to
+help stabilize the
+power grid
+frequency, set this
+parameter to Enable.
+
+control
+
+Frequency sensitive
+mode (FSM), which
+is required by the
+G99 standard.
+29
+8
+
+frequen
+cy
+modula
+tion
+control
+differen
+tial
+modula
+tion
+rate
+
+RW
+
+U1
+6
+
+29
+9
+
+Overfre
+quency
+deratin
+g
+
+RW
+
+E1
+6
+
+30
+0
+
+Overfre
+quency
+deratin
+g cutoff
+frequen
+cy
+
+RW
+
+U1
+6
+
+Hz
+
+30
+
+Overfre
+
+RW
+
+U1
+
+%
+
+Issue 01 (2023-09-28)
+
+%
+
+42142
+
+1
+
+Frequency sensitive
+mode (FSM) Droop,
+which is required by
+the G99 standard.
+
+42143
+
+1
+
+If this parameter is
+set to Enable, the
+device derates the
+active power based
+on a certain gradient
+when the power grid
+frequency exceeds
+the triggering
+frequency of
+overfrequency
+derating.
+
+100
+
+42144
+
+1
+
+Specifies the cutoff
+frequency for
+overfrequency
+derating.
+
+1
+
+42145
+
+1
+
+Indicates the cutoff
+
+1
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+49
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+1
+
+quency
+deratin
+g
+cut-off
+power
+
+30
+2
+
+Triggeri
+ng
+frequen
+cy of
+overfre
+quency
+deratin
+g
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42146
+
+1
+
+According to the
+standards in some
+countries or regions,
+the active power
+output by the device
+must be derated
+when the power grid
+frequency exceeds a
+specified value.
+
+30
+3
+
+Overfre
+quency
+deratin
+g exit
+frequen
+cy
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42147
+
+1
+
+Specifies the exit
+frequency of
+overfrequency
+derating.
+
+30
+4
+
+Overfre
+quency
+deratin
+g power
+recover
+y
+gradien
+t
+
+RW
+
+U1
+6
+
+%/
+mi
+n
+
+1
+
+42148
+
+1
+
+Indicates the speed
+at which the
+overfrequency
+derating power
+recovers.
+
+30
+5
+
+Underfr
+equenc
+y Power
+Increase
+
+RW
+
+E1
+6
+
+42151
+
+1
+
+According to the
+standards in some
+countries or regions,
+the power grid
+frequency is lower
+than the triggering
+frequency of
+underfrequency
+power increase. In
+this case, the active
+power output needs
+to be increased to
+help increase the
+power grid
+frequency. In this
+case, set this
+parameter to Enable.
+
+Issue 01 (2023-09-28)
+
+power point for
+overfrequency
+derating.
+
+6
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+50
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+30
+6
+
+Underfr
+equenc
+y Power
+Increase
+Recover
+y
+Gradien
+t
+
+RW
+
+U1
+6
+
+30
+7
+
+LVRT
+charact
+eristic
+curve
+
+RW
+
+ML
+D
+
+%/
+mi
+n
+
+3 Register Definitions
+
+1
+
+42152
+
+1
+
+Indicates the speed
+for recovering the
+underfrequency
+power increase.
+
+42155
+
+21
+
+Set the low-voltage
+ride-through
+capability of the
+equipment.
+For details, see the
+Key Information
+Description Table.
+The SmartLogger
+and NMS support
+batch settings and
+provide a separate
+GUI for users to edit.
+
+30
+8
+
+Cutoff
+frequen
+cy of
+underfr
+equenc
+y power
+increase
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42176
+
+1
+
+Indicates the cutoff
+frequency for
+underfrequency
+power increase.
+
+30
+9
+
+Cut-off
+power
+for
+underfr
+equenc
+y power
+increase
+
+RW
+
+U1
+6
+
+%
+
+1
+
+42177
+
+1
+
+Indicates the cutoff
+power point for
+underfrequency
+power increase.
+
+31
+0
+
+Underfr
+equenc
+y Power
+Increase
+Triggeri
+ng
+Frequen
+cy
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42178
+
+1
+
+Set the triggering
+frequency for
+underfrequency
+power increase.
+
+31
+1
+
+Underfr
+equenc
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42179
+
+1
+
+Specifies the exit
+frequency for
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+51
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+y Power
+Increase
+Exit
+Frequen
+cy
+
+underfrequency
+power increase.
+
+31
+2
+
+Built-in
+PID
+mode
+
+RW
+
+E1
+6
+
+31
+3
+
+PID
+output
+voltage
+
+RW
+
+I16
+
+31
+4
+
+PID
+
+RW
+
+31
+5
+
+Night
+off-grid
+repair
+
+31
+6
+
+42180
+
+1
+
+42181
+
+1
+
+Fixed output. This
+interface is reserved.
+The GUI is closed.
+
+E1
+6
+
+42182
+
+1
+
+Currently reserved
+only for equipment
+
+RW
+
+E1
+6
+
+42183
+
+1
+
+Active
+power
+change
+gradien
+t
+
+RW
+
+U3
+2
+
+42192
+
+2
+
+31
+7
+
+Q-U
+curve
+
+RW
+
+ML
+D
+
+42200
+
+21
+
+31
+8
+
+P-U
+curve
+
+RW
+
+ML
+D
+
+42221
+
+21
+
+31
+9
+
+P-U
+curve
+adjustm
+ent
+time
+
+RW
+
+U1
+6
+
+s
+
+100
+
+42242
+
+1
+
+32
+0
+
+Underv
+oltage
+protecti
+on
+threshol
+d for 10
+minutes
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42287
+
+1
+
+32
+
+Ten-mi
+nute
+
+RW
+
+U3
+
+ms
+
+1
+
+42288
+
+2
+
+Issue 01 (2023-09-28)
+
+V
+
+%/
+s
+
+10
+
+1000
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Dedicated broadcast
+interface for the
+SmartLogger, which
+does not support
+incremental
+reporting and is used
+in the remote output
+scenario in Japan.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+52
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+1
+
+undervo
+ltage
+protecti
+on time
+
+32
+2
+
+Ten-mi
+nute
+overvolt
+age
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42290
+
+1
+
+32
+3
+
+Ten-mi
+nute
+overvolt
+age
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42291
+
+2
+
+32
+4
+
+Level-1
+overvolt
+age
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42293
+
+1
+
+32
+5
+
+Level-1
+overvolt
+age
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42294
+
+2
+
+32
+6
+
+Level-2
+overvolt
+age
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42296
+
+1
+
+32
+7
+
+Level 2
+Overvol
+tage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42297
+
+2
+
+32
+
+Level-3
+
+RW
+
+U1
+
+V
+
+10
+
+42299
+
+1
+
+Issue 01 (2023-09-28)
+
+2
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+
+53
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+8
+
+overvolt
+age
+protecti
+on
+threshol
+d
+
+32
+9
+
+Level-3
+overvolt
+age
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42300
+
+2
+
+33
+0
+
+Level-4
+overvolt
+age
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42302
+
+1
+
+33
+1
+
+Level-4
+overvolt
+age
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42303
+
+2
+
+33
+2
+
+Level-5
+overvolt
+age
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42305
+
+1
+
+33
+3
+
+Level-5
+overvolt
+age
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42306
+
+2
+
+33
+4
+
+Level-6
+overvolt
+age
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42308
+
+1
+
+33
+
+Level-6
+
+RW
+
+U3
+
+ms
+
+1
+
+42309
+
+2
+
+Issue 01 (2023-09-28)
+
+voltage level, which
+is related to the
+power grid code.
+
+6
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+54
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+5
+
+overvolt
+age
+protecti
+on time
+
+33
+6
+
+Level-1
+undervo
+ltage
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42311
+
+1
+
+33
+7
+
+Level-1
+Underv
+oltage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42312
+
+2
+
+33
+8
+
+Level-2
+undervo
+ltage
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42314
+
+1
+
+33
+9
+
+Level 2
+Underv
+oltage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42315
+
+2
+
+34
+0
+
+Level-3
+undervo
+ltage
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42317
+
+1
+
+34
+1
+
+Level-3
+Underv
+oltage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42318
+
+2
+
+34
+2
+
+Level-4
+undervo
+ltage
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42320
+
+1
+
+Issue 01 (2023-09-28)
+
+2
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+
+55
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+protecti
+on
+threshol
+d
+
+power grid code.
+
+34
+3
+
+Level-4
+Underv
+oltage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42321
+
+2
+
+34
+4
+
+Level-5
+undervo
+ltage
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42323
+
+1
+
+34
+5
+
+Level-5
+Underv
+oltage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42324
+
+2
+
+34
+6
+
+Level-6
+undervo
+ltage
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+V
+
+10
+
+42326
+
+1
+
+34
+7
+
+Level-6
+Underv
+oltage
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42327
+
+2
+
+34
+8
+
+Level-1
+overfre
+quency
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42329
+
+1
+
+34
+9
+
+Level-1
+Overfre
+quency
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42330
+
+2
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Vn: indicates the
+voltage level, which
+is related to the
+power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+56
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+Protecti
+on Time
+35
+0
+
+Level-2
+overfre
+quency
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42332
+
+1
+
+35
+1
+
+Level-2
+overfre
+quency
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42333
+
+2
+
+35
+2
+
+Level-3
+overfre
+quency
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42335
+
+1
+
+35
+3
+
+Level-3
+overfre
+quency
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42336
+
+2
+
+35
+4
+
+Level-4
+overfre
+quency
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42338
+
+1
+
+35
+5
+
+Level-4
+overfre
+quency
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42339
+
+2
+
+35
+6
+
+Level-5
+overfre
+quency
+protecti
+on
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42341
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+57
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+threshol
+d
+35
+7
+
+Level-5
+overfre
+quency
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42342
+
+2
+
+35
+8
+
+Level-6
+overfre
+quency
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42344
+
+1
+
+35
+9
+
+Six-leve
+l
+overfre
+quency
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42345
+
+2
+
+36
+0
+
+Level-1
+underfr
+equenc
+y
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42347
+
+1
+
+36
+1
+
+Level-1
+Underfr
+equenc
+y
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42348
+
+2
+
+36
+2
+
+Level-2
+underfr
+equenc
+y
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42350
+
+1
+
+36
+
+Level-2
+
+RW
+
+U3
+
+ms
+
+1
+
+42351
+
+2
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+58
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+3
+
+underfr
+equenc
+y
+protecti
+on time
+
+36
+4
+
+Level-3
+underfr
+equenc
+y
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42353
+
+1
+
+36
+5
+
+Level-3
+underfr
+equenc
+y
+protecti
+on time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42354
+
+2
+
+36
+6
+
+Level-4
+underfr
+equenc
+y
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42356
+
+1
+
+36
+7
+
+Level-4
+Underfr
+equenc
+y
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42357
+
+2
+
+36
+8
+
+Level-5
+underfr
+equenc
+y
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42359
+
+1
+
+36
+9
+
+Level-5
+Underfr
+equenc
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42360
+
+2
+
+Issue 01 (2023-09-28)
+
+2
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+59
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+y
+Protecti
+on Time
+37
+0
+
+Level-6
+underfr
+equenc
+y
+protecti
+on
+threshol
+d
+
+RW
+
+U1
+6
+
+Hz
+
+100
+
+42362
+
+1
+
+37
+1
+
+Level-6
+Underfr
+equenc
+y
+Protecti
+on Time
+
+RW
+
+U3
+2
+
+ms
+
+1
+
+42363
+
+2
+
+37
+2
+
+Delayed
+upgrad
+e
+
+RW
+
+E1
+6
+
+42590
+
+1
+
+37
+3
+
+Intellige
+nt
+string
+monitor
+ing
+
+RW
+
+E1
+6
+
+42594
+
+1
+
+37
+4
+
+String
+detectio
+n
+referenc
+e
+asymm
+etry
+coeffici
+ent
+
+RW
+
+U1
+6
+
+100
+
+42595
+
+1
+
+37
+5
+
+String
+detectio
+n start
+power
+percent
+age
+
+RW
+
+U1
+6
+
+%
+
+1
+
+42596
+
+1
+
+37
+6
+
+Commu
+nication
+Interrup
+
+RW
+
+I16
+
+mi
+n
+
+1
+
+42597
+
+1
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Fn: indicates the
+frequency level,
+which is related to
+the power grid code.
+
+60
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+tion
+Time
+37
+7
+
+PMI
+
+WO
+
+E1
+6
+
+42730
+
+1
+
+Broadcast command
+interface
+Note: The instruction
+range extension
+design is made here.
+The higher eight bits
+are used to mask
+specified inspection
+actions in the
+inspection function.
+This feature
+improves the
+inspection efficiency
+for specific purposes.
+Shen Yanbai
+20190702
+
+37
+8
+
+IV
+Curve
+Scannin
+g
+
+WO
+
+E1
+6
+
+37
+9
+
+[System
+Time]
+Year
+
+WO
+
+U1
+6
+
+38
+0
+
+[System
+Time]
+Month
+
+WO
+
+38
+1
+
+[System
+time]
+day
+
+38
+2
+
+42779
+
+1
+
+1
+
+43000
+
+1
+
+U1
+6
+
+1
+
+43001
+
+1
+
+WO
+
+U1
+6
+
+1
+
+43002
+
+1
+
+[System
+time]
+hour
+
+WO
+
+U1
+6
+
+1
+
+43003
+
+1
+
+38
+3
+
+[System
+Time]
+Min.
+
+WO
+
+U1
+6
+
+1
+
+43004
+
+1
+
+38
+4
+
+[System
+Time]
+Second
+
+WO
+
+U1
+6
+
+1
+
+43005
+
+1
+
+38
+5
+
+Time
+zone
+
+RW
+
+I16
+
+1
+
+43006
+
+1
+
+Issue 01 (2023-09-28)
+
+mi
+n
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Broadcast command
+interface
+
+61
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+38
+6
+
+Clock
+source
+
+RW
+
+E1
+6
+
+43007
+
+1
+
+38
+7
+
+City
+code
+
+RW
+
+U3
+2
+
+43008
+
+2
+
+(UTC+08:00) Beijing
+
+38
+8
+
+Inverter
+Installat
+ion
+Position
+Longitu
+de
+
+RW
+
+I32
+
+°
+
+1000
+0000
+
+43014
+
+2
+
+Set this parameter
+only on the app. The
+NMS can read the
+data.
+
+38
+9
+
+Inverter
+Installat
+ion
+Position
+Latitude
+
+RW
+
+I32
+
+°
+
+1000
+0000
+
+43016
+
+2
+
+Set this parameter
+only on the app. The
+NMS can read the
+data.
+
+39
+0
+
+[RS4851]
+Protoco
+l Type
+
+RW
+
+E1
+6
+
+43018
+
+1
+
+39
+1
+
+[RS4851]
+Commu
+nication
+address
+
+RW
+
+U1
+6
+
+43019
+
+1
+
+39
+2
+
+[RS4851] Baud
+Rate
+
+RW
+
+E1
+6
+
+43020
+
+1
+
+39
+3
+
+[RS4851]
+Verifica
+tion
+mode
+
+RW
+
+E1
+6
+
+43021
+
+1
+
+39
+4
+
+[RS4851] Port
+mode
+
+RW
+
+E1
+6
+
+43022
+
+1
+
+39
+5
+
+[RS4851]
+Modbus
+Protoco
+l Model
+Version
+
+RW
+
+E1
+6
+
+43023
+
+1
+
+Issue 01 (2023-09-28)
+
+1
+
+0: broadcast address;
+1–247: device
+address;
+248–255: reserved
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+115200 baud rate,
+corresponding to bit
+26 of feature code 3.
+
+This parameter is
+used only when the
+northbound port is
+used in the old
+model replacement
+scenario.
+
+62
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+39
+6
+
+[RS4852]
+Protoco
+l Type
+
+RW
+
+E1
+6
+
+39
+7
+
+[RS4852]
+Commu
+nication
+address
+
+RW
+
+U1
+6
+
+39
+8
+
+[RS4852] Baud
+Rate
+
+RW
+
+E1
+6
+
+43035
+
+1
+
+39
+9
+
+[RS4852]
+Verifica
+tion
+Mode
+
+RW
+
+E1
+6
+
+43036
+
+1
+
+40
+0
+
+[RS4852] Port
+mode
+
+RW
+
+E1
+6
+
+43037
+
+1
+
+40
+1
+
+Device
+name
+
+RW
+
+ST
+R
+
+43349
+
+10
+
+This parameter is left
+blank by default. It is
+used by the customer
+to modify the device
+name.
+
+40
+2
+
+[App]
+Initial
+poweron flag
+
+RW
+
+E1
+6
+
+43359
+
+1
+
+After the
+SmartLogger is
+deployed, the
+power-on flag needs
+to be cleared.
+
+40
+3
+
+Restore WO
+factory
+settings.
+
+E1
+6
+
+45000
+
+1
+
+40
+4
+
+Clearin
+g active
+alarms
+
+WO
+
+ML
+D
+
+45001
+
+2
+
+40
+5
+
+Alarm
+setting
+
+WO
+
+ML
+D
+
+45003
+
+2
+
+40
+6
+
+Alarm
+clearan
+ce
+
+WO
+
+E1
+6
+
+45005
+
+1
+
+Issue 01 (2023-09-28)
+
+1
+
+43033
+
+1
+
+43034
+
+1
+
+0: broadcast address
+1–247: device
+address
+248–255: reserved
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+115200 baud rate,
+corresponding to bit
+27 of feature code 3.
+
+63
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+40
+7
+
+Alarm
+maskin
+g
+
+WO
+
+E1
+6
+
+40
+8
+
+AFCI
+self-che
+ck start
+
+WO
+
+U1
+6
+
+40
+9
+
+Accumu
+lated
+energy
+yield
+correcti
+on
+
+WO
+
+U3
+2
+
+41
+0
+
+Clear
+historic
+al
+battery
+level.
+
+WO
+
+41
+1
+
+Clear
+the
+running
+time
+informa
+tion.
+
+41
+2
+
+3 Register Definitions
+
+1
+
+45006
+
+1
+
+45007
+
+1
+
+Set the field to 0.
+Associate the AFCI
+controller in the
+in-position ID of the
+subdevice.
+
+kW
+h
+
+45008
+
+2
+
+E1
+6
+
+45010
+
+1
+
+Including the
+accumulated power
+generation capacity
+and accumulated
+charging capacity on
+the power side
+
+WO
+
+E1
+6
+
+45011
+
+1
+
+Clears the
+accumulated
+running time, fault
+duration, and
+grid-tied running
+time.
+
+Spot
+Check
+
+WO
+
+E1
+6
+
+45012
+
+1
+
+41
+3
+
+ESN
+validati
+on
+comma
+nd
+
+WO
+
+U1
+6
+
+1
+
+45015
+
+1
+
+41
+4
+
+Restore
+the
+default
+passwor
+d.
+
+WO
+
+ML
+D
+
+1
+
+45016
+
+10
+
+Issue 01 (2023-09-28)
+
+100
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Enter the equipment
+ESN in the Data field.
+
+64
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+3 Register Definitions
+
+Signals marked with * are supported only by certain models or standard codes.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+65
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+4 Customized Interfaces
+
+4
+
+Customized Interfaces
+
+4.1 Obtaining the System Information of Optimizers
+4.2 Obtaining Real-time Data of Optimizers
+
+4.1 Obtaining the System Information of Optimizers
+Data synchronization mechanism: The host is driven to refresh the system
+information of optimizers by the change of the serial number (SN).
+Synchronization process: For details, see 6.3.7.1 Uploading Files.
+Data storage of the solar inverters: After the device search and positioning are
+complete, the record is updated. The record format is as follows:
+File type: 0x45
+Table 4-1 File format(V102)
+Data
+
+Length (Bytes)
+
+Remarks
+
+File version
+
+4
+
+V103
+
+Feature data sequence
+number
+
+2
+
+Length
+
+2
+
+Reserved
+
+1
+
+The reserved byte 0 is
+defined as the status.
+bit0: inverter
+disconnection status
+(1=disconnected)
+
+3
+Number of optimizers
+
+Issue 01 (2023-09-28)
+
+2
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+Total number, including
+
+66
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+Data
+
+Length (Bytes)
+
+4 Customized Interfaces
+
+Remarks
+the offline optimizers.
+
+Feature data of optimizer
+1
+
+108
+
+Feature data of optimizer
+2
+
+108
+
+Feature data of
+optimizer…
+
+108
+
+Feature data of optimizer
+N
+
+108
+
+For details about the data
+domain definition, see the
+Optimizer Feature Data
+Domain Definition.
+
+Table 4-2 Feature data unit format(V102)
+Data
+
+Length (Bytes)
+
+Remarks
+
+Optimizer address
+
+2
+
+RS485 address
+
+Online status
+
+2
+
+0: offline
+1: online
+2: disconnected
+
+String number
+
+2
+
+Position in current string
+
+2
+
+SN
+
+20
+
+Software version
+
+30
+
+Alias
+
+20
+
+Model
+
+30
+
+relative positive
+connection starting point
+
+Table 4-3 Record format(V101)
+Data
+
+Length (Byte)
+
+Remarks
+
+Format version
+
+4
+
+V101
+
+SN
+
+2
+
+-
+
+Length
+
+2
+
+-
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+67
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+4 Customized Interfaces
+
+Data
+
+Length (Byte)
+
+Remarks
+
+Reserved
+
+4
+
+-
+
+Number of optimizers
+
+2
+
+n, including the offline
+optimizers
+
+Feature data of optimizer 78
+1
+
+-
+
+Feature data of optimizer 78
+2
+
+-
+
+...
+
+...
+
+-
+
+Feature data of optimizer 78
+
+-
+
+n
+
+Table 4-4 Feature data format (V101)
+Data
+
+Length (Byte)
+
+Remarks
+
+Optimizer address
+
+2
+
+Logical communication
+address
+
+Status
+
+2
+
+0: offline
+1: online
+
+String number
+
+2
+
+-
+
+Relative position of the
+PV string
+
+2
+
+1: near DC wiring
+terminals of the solar
+inverters
+
+SN
+
+20
+
+-
+
+Software version
+
+30
+
+-
+
+Alias
+
+20
+
+-
+
+4.2 Obtaining Real-time Data of Optimizers
+Data synchronization mechanism: fifteen-minute interval
+Synchronization process: uploads the files and synchronizes data according to the
+time period; uploads the most recent data if there is no filter condition. For details,
+see 6.3.7.1 Uploading Files.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+68
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+4 Customized Interfaces
+
+Data storage: stores real-time data at five-minute intervals.
+File type: 0x44
+Table 4-5 Record format
+Data
+
+Length (Byte)
+
+Remarks
+
+File version
+
+4
+
+V101
+
+Reserved
+
+8
+
+-
+
+Optimizer data unit 1
+
+N
+
+12 + 26 x Number of
+optimizers , For details
+about the definition of
+this unit, see the data
+unit format.
+
+Optimizer data unit 2
+
+N
+
+-
+
+...
+
+-
+
+-
+
+Optimizer data unit n
+
+N
+
+n indicates the number of
+data records that meet
+the filter condition. Each
+piece of data contains all
+optimizer data for a time
+node.
+
+Table 4-6 Data unit format (V101)
+Data
+
+Length (Byte)
+
+Remarks
+
+Time
+
+4
+
+Epoch seconds, local time
+
+Reserved
+
+4
+
+-
+
+Length
+
+2
+
+-
+
+Number of optimizers
+
+2
+
+-
+
+Real-time data of
+optimizer 1
+
+26
+
+For details about the definition of
+this unit, see the real-time data
+format.
+
+Real-time data of
+optimizer 2
+
+26
+
+-
+
+...
+
+-
+
+-
+
+Real-time data of
+optimizer n
+
+26
+
+n is the number of optimizers.
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+69
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+4 Customized Interfaces
+
+Table 4-7 Real-time data format
+Data
+
+Length (Byte)
+
+Remarks
+
+Optimizer address
+
+2
+
+Logical communication address
+
+Output power
+
+2
+
+Gain: 10
+Unit: W
+
+Voltage to ground
+
+2
+
+Gain: 10
+Unit: V
+
+Alarm
+
+4
+
+Bit00: input overvoltage
+Bit01: input undervoltage
+Bit02: output overvoltage
+Bit04: overtemperature
+Bit06: output short circuit
+Bit07: EEPROM fault
+Bit08: internal hardware fault
+Bit09: abnormal voltage to ground
+Bit 10: power-off due to heartbeat
+timeout
+Bit 11: fast shutdown
+Bit 12: request escape alarm
+Bit 13: version mismatch alarm
+Bit 16: input overvoltage
+Bit 17: overtemperature
+Bit 18: output short circuit
+Bit 19: internal hardware fault
+Bit 20: version mismatch alarm
+Bit 21: backfeed alarm
+Bit 22: abnormal output voltage
+Bit 23: upgrade failure
+Bit 31: alarm display selection,
+1=Display bit 16 to bit 30 alarms, 0:
+Bits 0 to 15 are displayed.
+
+Output voltage
+
+2
+
+Gain: 10
+Unit: V
+
+Output current
+
+Issue 01 (2023-09-28)
+
+2
+
+Gain: 100
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+70
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+Data
+
+Length (Byte)
+
+4 Customized Interfaces
+
+Remarks
+Unit: A
+
+Input voltage
+
+2
+
+Gain: 10
+Unit: V
+
+Input current
+
+2
+
+Gain: 100
+Unit: A
+
+Temperature
+
+2
+
+Gain: 10
+Unit: °C
+
+Running status
+
+2
+
+0: offline
+1: standby
+3: faulty
+4: running
+12: power-off
+
+Accumulated energy
+yield
+
+Issue 01 (2023-09-28)
+
+4
+
+Gain: 1000
+Unit: kWh
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+71
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+5 Interface Instructions
+
+5
+
+Interface Instructions
+
+5.1 Alarm Information
+5.2
+
+Power Grid Scheduling
+
+5.3
+
+Grid Codes
+
+5.4
+
+Energy Storage Specifications
+
+5.1 Alarm Information
+Table 5-1 Alarm information
+No.
+
+Alar
+m
+
+Bit
+
+Alarm Name
+
+Alarm ID
+
+Level
+
+1
+
+Alarm
+1
+
+0
+
+High String Input Voltage
+
+2001
+
+Major
+
+2
+
+Alarm
+1
+
+1
+
+DC Arc Fault[1]
+
+2002
+
+Major
+
+3
+
+Alarm
+1
+
+2
+
+String Reverse Connection
+
+2011
+
+Major
+
+4
+
+Alarm
+1
+
+3
+
+String Current Backfeed
+
+2012
+
+Warning
+
+5
+
+Alarm
+1
+
+4
+
+Abnormal String Power
+
+2013
+
+Warning
+
+6
+
+Alarm
+1
+
+5
+
+AFCI Self-Check Fail.[1]
+
+2021
+
+Major
+
+7
+
+Alarm
+1
+
+6
+
+Phase Wire Short-Circuited
+to PE
+
+2031
+
+Major
+
+8
+
+Alarm
+
+7
+
+Grid Loss
+
+2032
+
+Major
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+72
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+No.
+
+Alar
+m
+
+5 Interface Instructions
+
+Bit
+
+Alarm Name
+
+Alarm ID
+
+Level
+
+1
+9
+
+Alarm
+1
+
+8
+
+Grid Undervoltage
+
+2033
+
+Major
+
+10
+
+Alarm
+1
+
+9
+
+Grid Overvoltage
+
+2034
+
+Major
+
+11
+
+Alarm
+1
+
+10
+
+Grid Volt. Imbalance
+
+2035
+
+Major
+
+12
+
+Alarm
+1
+
+11
+
+Grid Overfrequency
+
+2036
+
+Major
+
+13
+
+Alarm
+1
+
+12
+
+Grid Underfrequency
+
+2037
+
+Major
+
+14
+
+Alarm
+1
+
+13
+
+Unstable Grid Frequency
+
+2038
+
+Major
+
+15
+
+Alarm
+1
+
+14
+
+Output Overcurrent
+
+2039
+
+Major
+
+16
+
+Alarm
+1
+
+15
+
+Output DC Component
+Overhigh
+
+2040
+
+Major
+
+17
+
+Alarm
+2
+
+0
+
+Abnormal Residual Current
+
+2051
+
+Major
+
+18
+
+Alarm
+2
+
+1
+
+Abnormal Grounding
+
+2061
+
+Major
+
+19
+
+Alarm
+2
+
+2
+
+Low Insulation Resistance
+
+2062
+
+Major
+
+20
+
+Alarm
+2
+
+3
+
+Overtemperature
+
+2063
+
+Minor
+
+21
+
+Alarm
+2
+
+4
+
+Device Fault
+
+2064
+
+Major
+
+22
+
+Alarm
+2
+
+5
+
+Upgrade Failed or Version
+Mismatch
+
+2065
+
+Minor
+
+23
+
+Alarm
+2
+
+6
+
+License Expired
+
+2066
+
+Warning
+
+24
+
+Alarm
+2
+
+7
+
+Faulty Monitoring Unit
+
+61440
+
+Minor
+
+25
+
+Alarm
+
+8
+
+Faulty Power Collector[2]
+
+2067
+
+Major
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+73
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+No.
+
+Alar
+m
+
+5 Interface Instructions
+
+Bit
+
+Alarm Name
+
+Alarm ID
+
+Level
+
+2
+26
+
+Alarm
+2
+
+9
+
+Battery abnormal
+
+2068
+
+Minor
+
+27
+
+Alarm
+2
+
+10
+
+Active Islanding
+
+2070
+
+Major
+
+28
+
+Alarm
+2
+
+11
+
+Passive Islanding
+
+2071
+
+Major
+
+29
+
+Alarm
+2
+
+12
+
+Transient AC Overvoltage
+
+2072
+
+Major
+
+30
+
+Alarm
+2
+
+13
+
+Peripheral port short
+circuit[3]
+
+2075
+
+Warning
+
+31
+
+Alarm
+2
+
+14
+
+Churn output overload[4]
+
+2077
+
+Major
+
+32
+
+Alarm
+2
+
+15
+
+Abnormal PV module
+configuration
+
+2080
+
+Major
+
+33
+
+Alarm
+3
+
+0
+
+Optimizer fault[5]
+
+2081
+
+Warning
+
+34
+
+Alarm
+3
+
+1
+
+Built-in PID operation
+abnormal[6]
+
+2085
+
+Minor
+
+35
+
+Alarm
+3
+
+2
+
+High input string voltage to
+ground.
+
+2014
+
+Major
+
+36
+
+Alarm
+3
+
+3
+
+External Fan Abnormal
+
+2086
+
+Major
+
+37
+
+Alarm
+3
+
+4
+
+Battery Reverse
+Connection[7]
+
+2069
+
+Major
+
+38
+
+Alarm
+3
+
+5
+
+On-grid/Off-grid controller
+abnormal[4]
+
+2082
+
+Major
+
+39
+
+Alarm
+3
+
+6
+
+PV String Loss
+
+2015
+
+Warning
+
+40
+
+Alarm
+3
+
+7
+
+Internal Fan Abnormal
+
+2087
+
+Major
+
+41
+
+Alarm
+3
+
+8
+
+DC Protection Unit
+Abnormal[8]
+
+2088
+
+Major
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+74
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+5 Interface Instructions
+
+The preceding table lists the alarm information about Huawei solar inverters. Some
+alarms can be detected only after corresponding functional modules are configured.
+
+[1] AFCI functional unit
+[2] Power collector or power meter connected to the solar inverters
+[3] Detection of the external ports of the solar inverters that provide the 12 V power supply
+[4] This item can be detected when a built-in or external on-grid/off-grid functional unit is
+configured.
+[5] This item can be detected when optimizers are configured on the DC side.
+[6] This item can be detected when the solar inverters are configured with PID functional
+units.
+[7] This item can be detected when energy storage units (ESUs) are configured.
+[8] Some models have DC protection units.
+
+5.2 Power Grid Scheduling
+This section describes the curve configuration format and precautions for power
+grid scheduling by curve.
+
+5.2.1 cosφ-P/Pn Characteristic Curve
+Table 5-2 cosφ-P/Pn characteristic curve definition
+Description
+
+Data
+Type
+
+Gain
+
+Unit
+
+Value Range
+
+Number of points
+
+U16
+
+1
+
+N/A
+
+[2, 10]
+
+P/Pn value at point 1
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 1
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 2
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 2
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 3
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 3
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 4
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 4
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 5
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+75
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+5 Interface Instructions
+
+Description
+
+Data
+Type
+
+Gain
+
+Unit
+
+Value Range
+
+cosφ value at point 5
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 6
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 6
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 7
+
+U16
+
+10
+
+%
+
+[0,100]
+
+cosφ value at point 7
+
+I16
+
+1000
+
+N/A
+
+(–1,–0.8]U[0.8,1]
+
+P/Pn value at point 8
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 8
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 9
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 9
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+P/Pn value at point 10
+
+U16
+
+10
+
+%
+
+[0, 100]
+
+cosφ value at point 10
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+5.2.2 Q-U Characteristic Curve
+Table2 Q-U Characteristic Curve definition
+Description
+
+Data
+Type
+
+Gain
+
+Unit
+
+Value Range
+
+Number of points
+
+U16
+
+1
+
+N/A
+
+[2, 10]
+
+U/Un value at point 1
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 1
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 2
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 2
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 3
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 3
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 4
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 4
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 5
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 5
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+76
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+5 Interface Instructions
+
+Description
+
+Data
+Type
+
+Gain
+
+Unit
+
+Value Range
+
+U/Un value at point 6
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 6
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 7
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 7
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 8
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 8
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 9
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 9
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+U/Un value at point 10
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+Q/S value at point 10
+
+I16
+
+1000
+
+N/A
+
+[–0.6, 0.6]
+
+In Italian standards, this curve may be used together with the Q-U characteristic
+curve mode, Q-U dispatch trigger power (%), and Q-U power percentage to
+exit scheduling parameters.
+
+5.2.3 PF-U Characteristic Curve
+Table3 PF-U Characteristic Curve definition
+Description
+
+Data
+Type
+
+Gain
+
+Unit
+
+Value Range
+
+Number of points
+
+U16
+
+1
+
+N/A
+
+[2, 10]
+
+U/Un value at point 1
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+PF value at point 1
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+U/Un value at point 2
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+PF value at point 2
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+U/Un value at point 3
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+PF value at point 3
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+U/Un value at point 4
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+PF value at point 4
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+Issue 01 (2023-09-28)
+
+Copyright © Huawei Technologies Co.,
+Ltd.
+
+77
+SUN2000-12/15/17/20/25K-MB0 Modbus Interface
+Definitions
+
+5 Interface Instructions
+
+Description
+
+Data
+Type
+
+Gain
+
+Unit
+
+Value Range
+
+U/Un value at point 5
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+PF value at point 5
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+U/.
+.
+.
+U/Un value at point 10
+
+U16
+
+10
+
+%
+
+[80, 136]
+
+PF value at point 10
+
+I16
+
+1000
+
+N/A
+
+(–1, –0.8]U[0.8, 1]
+
+5.3 Grid Codes
+Table 5-3 List of grid codes
+No.
+
+Standard
+
+Applicable Country or
+Region
+
+0
+
+VDE-AR-N-4105
+
+Germany
+
+1
+
+NB/T 32004
+
+China
+
+2
+
+UTE C 15-712-1(A)
+
+France
+
+3
+
+UTE C 15-712-1(B)
+
+France
+
+4
+
+UTE C 15-712-1(C)
+
+France
+.
+.
+.
+275
+
+NTS-MV800
+
+Spain
+
+Set the grid code based on local laws and regulations.
+.
+.
+.
+(rest of the document)
