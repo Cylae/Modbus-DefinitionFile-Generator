@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, scrolledtext, filedialog, messagebox
+from tkinter import ttk, filedialog, messagebox
 from parser import parse_modbus_text, generate_csv_data
 
 class ModbusDefGeneratorApp(tk.Tk):
@@ -7,6 +7,8 @@ class ModbusDefGeneratorApp(tk.Tk):
         super().__init__()
         self.title("Générateur de Définition Modbus")
         self.geometry("900x700")
+
+        self.filepath = None
 
         # Main frame
         main_frame = ttk.Frame(self, padding="10")
@@ -36,12 +38,17 @@ class ModbusDefGeneratorApp(tk.Tk):
             entry.grid(row=row, column=1, sticky=tk.EW, padx=5, pady=2)
             row += 1
 
-        # --- Modbus Data Input ---
-        data_frame = ttk.LabelFrame(main_frame, text="Table Modbus (coller le texte ici)", padding="10")
-        data_frame.pack(fill=tk.BOTH, expand=True, pady=5)
+        # --- PDF File Input ---
+        file_frame = ttk.LabelFrame(main_frame, text="Fichier PDF d'entrée", padding="10")
+        file_frame.pack(fill=tk.X, expand=False, pady=10)
+        file_frame.columnconfigure(1, weight=1)
 
-        self.modbus_text = scrolledtext.ScrolledText(data_frame, wrap=tk.WORD, height=20, font=("Courier New", 10))
-        self.modbus_text.pack(fill=tk.BOTH, expand=True)
+        self.load_button = ttk.Button(file_frame, text="Charger un Fichier PDF", command=self.load_pdf)
+        self.load_button.grid(row=0, column=0, padx=5, pady=5)
+
+        self.filepath_label_var = tk.StringVar(value="Aucun fichier sélectionné.")
+        self.filepath_label = ttk.Label(file_frame, textvariable=self.filepath_label_var, font=("TkDefaultFont", 10, "italic"))
+        self.filepath_label.grid(row=0, column=1, sticky=tk.W, padx=10)
 
         # --- Action Button ---
         self.generate_button = ttk.Button(
@@ -51,16 +58,21 @@ class ModbusDefGeneratorApp(tk.Tk):
         )
         self.generate_button.pack(fill=tk.X, pady=10, ipady=5)
 
+    def load_pdf(self):
+        """Opens a file dialog to select a PDF and updates the UI."""
+        self.filepath = filedialog.askopenfilename(filetypes=[("Fichiers PDF", "*.pdf"), ("Tous les fichiers", "*.*")])
+        self.filepath_label_var.set(self.filepath if self.filepath else "Aucun fichier sélectionné.")
+
     def process_and_generate_csv(self):
         """The callback function for the generate button."""
         header_info = {key: var.get() for key, var in self.header_vars.items()}
-        modbus_data_text = self.modbus_text.get("1.0", tk.END)
 
-        if not modbus_data_text.strip():
-            messagebox.showerror("Erreur", "La zone de texte de la table Modbus est vide.")
+        if not self.filepath:
+            messagebox.showerror("Erreur", "Veuillez d'abord charger un fichier PDF.")
             return
 
-        parsed_registers = parse_modbus_text(modbus_data_text)
+        # Note: parse_modbus_text will be updated in a later step to handle a filepath
+        parsed_registers = parse_modbus_text(self.filepath)
 
         if not parsed_registers:
             messagebox.showwarning("Avertissement", "Aucun registre n'a pu être analysé à partir du texte fourni. Veuillez vérifier le format.")

@@ -1,5 +1,6 @@
 import re
 from dataclasses import dataclass
+import pdfplumber
 
 @dataclass
 class ModbusRegister:
@@ -38,123 +39,98 @@ class ModbusRegister:
         ]
         return ";".join(map(str, ordered_fields))
 
-def parse_modbus_text(text_content):
+def _parse_table_row(row_cells):
     """
-    Parses the raw text of a Modbus documentation to extract register information.
+    Parses a list of cells from a table row into a ModbusRegister object.
     """
-    print("Starting parse_modbus_text...")
-    registers = []
-    lines = text_content.splitlines()
+    # A valid row must start with a digit and have at least 9 columns, which is the structure of our target table.
+    if not row_cells or not row_cells[0] or not row_cells[0].strip().isdigit() or len(row_cells) < 9:
+        return None
 
-    start_index = -1
-    for i, line in enumerate(lines):
-        if "3 Register Definitions" in line:
-            start_index = i + 2
-            print(f"Found table start at line {start_index}")
-            break
+    cells = [cell.replace('\n', ' ').strip() if cell else "" for cell in row_cells]
 
-    if start_index == -1:
-        print("Error: Could not find '3 Register Definitions' section.")
+    try:
+        reg = ModbusRegister(index=int(cells[0]))
+        reg.name = cells[1]
+        reg.access = cells[2]
+        reg.type = cells[3]
+        reg.unit = cells[4]
+
+        gain_str = cells[5]
+        if gain_str.isdigit():
+            gain_val = int(gain_str)
+            reg.gain = 1.0 / gain_val if gain_val != 0 else 1.0
+
+        reg.address = int(cells[6])
+        reg.num_reg = int(cells[7])
+        reg.scope = cells[8]
+
+        return reg
+    except (ValueError, IndexError):
+        return None
+
+def parse_modbus_text(filepath):
+    """
+    Opens a PDF and parses it using pdfplumber's table extraction with
+    a text-based strategy, which is more robust for tables without clear lines.
+    """
+    all_rows = []
+    try:
+        with pdfplumber.open(filepath) as pdf:
+            start_page, end_page = -1, len(pdf.pages)
+            for i, page in enumerate(pdf.pages):
+                page_text = page.extract_text()
+                if "3 Register Definitions" in page_text and start_page == -1:
+                    if "4 Customized Interfaces" not in page_text:
+                        start_page = i
+                if "4 Customized Interfaces" in page_text and start_page != -1:
+                    end_page = i
+                    break
+
+            if start_page == -1:
+                print("Error: Could not find '3 Register Definitions' section.")
+                return []
+
+            table_settings = {
+                "vertical_strategy": "text",
+                "horizontal_strategy": "text",
+            }
+
+            for i in range(start_page, end_page):
+                page = pdf.pages[i]
+                tables = page.extract_tables(table_settings)
+                for table in tables:
+                    all_rows.extend(table)
+
+    except Exception as e:
+        print(f"An error occurred during PDF processing: {e}")
         return []
 
-    current_line_data = ""
-    for line in lines[start_index:]:
-        if "4 Customized Interfaces" in line:
-            print("Found end of table.")
-            break
-
-        line = line.strip()
-        if not line:
-            continue
-
-        if re.match(r"^\d+", line):
-            if current_line_data:
-                reg = _parse_register_line(current_line_data)
-                if reg:
-                    registers.append(reg)
-            current_line_data = line
+    registers = []
+    last_reg = None
+    for row in all_rows:
+        # If a row doesn't start with a number, it's likely a continuation of the previous row's scope.
+        if row and (row[0] is None or not row[0].strip().isdigit()) and last_reg:
+            continuation_text = " ".join(filter(None, [cell.strip() if cell else None for cell in row]))
+            if continuation_text:
+                last_reg.scope += " " + continuation_text
         else:
-            current_line_data += " " + line
-
-    if current_line_data:
-        reg = _parse_register_line(current_line_data)
-        if reg:
-            registers.append(reg)
+            reg = _parse_table_row(row)
+            if reg:
+                registers.append(reg)
+                last_reg = reg
+            else:
+                last_reg = None
 
     print(f"Parsing complete. Found {len(registers)} registers.")
     return registers
-
-def _parse_register_line(line):
-    """Helper function to parse a single, consolidated line of register data."""
-    print(f"Attempting to parse line: '{line}'")
-    try:
-        pattern = re.compile(
-            r"^(?P<index>\d+)\s+"
-            r"(?P<name_and_rest>.+)"
-        )
-        match = pattern.match(line)
-        if not match:
-            print("  [FAIL] Initial pattern did not match.")
-            return None
-
-        index = int(match.group('index'))
-        name_and_rest = match.group('name_and_rest')
-
-        # Find address and num_reg from the right
-        addr_match = re.search(r'(?P<address>\d{5,})\s+(?P<num_reg>\d+)\s*(?P<scope>.*)$', name_and_rest)
-        if not addr_match:
-            print("  [FAIL] Could not find address and num_reg at the end of the line.")
-            return None
-
-        address = int(addr_match.group('address'))
-        num_reg = int(addr_match.group('num_reg'))
-        scope = addr_match.group('scope').strip()
-
-        # The part between the start and the address info
-        middle_part = name_and_rest[:addr_match.start()].strip()
-
-        # Split the middle part to find access, type, unit, gain
-        parts = re.split(r'\s+', middle_part)
-
-        access = parts[-2]
-        type = parts[-1].replace("Sec ond", "Second")
-
-        name_parts = parts[:-2]
-
-        reg = ModbusRegister(index=index, address=address, num_reg=num_reg, scope=scope, access=access, type=type)
-
-        # Heuristics for Unit and Gain from the name parts
-        if len(name_parts) > 1:
-            # Check if last part of name is a gain
-            try:
-                gain_divisor = float(name_parts[-1])
-                reg.gain = 1.0 / gain_divisor
-                name_parts.pop()
-            except ValueError:
-                pass # Not a number
-
-        if len(name_parts) > 1:
-            # Check if new last part is a unit
-            if re.fullmatch(r'[a-zA-Z°%/]+', name_parts[-1]):
-                reg.unit = name_parts.pop()
-
-        reg.name = " ".join(name_parts)
-
-        print(f"  [SUCCESS] Parsed: {reg.name}")
-        return reg
-
-    except Exception as e:
-        print(f"  [CRITICAL] Unhandled exception in _parse_register_line for line '{line}': {e}")
-        return None
 
 def generate_csv_data(registers, header_info):
     """
     Generates the content of the Webdyn CSV file from parsed registers.
     """
     header = ";".join(str(v) for v in header_info.values())
-
     lines = [header]
     for reg in registers:
         lines.append(reg.to_csv_row())
-
     return "\n".join(lines)
