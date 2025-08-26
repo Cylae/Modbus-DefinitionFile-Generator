@@ -1,0 +1,5 @@
+ModbusSlave;;;;;;;;;;
+1;;0_4;;onduleur1;Active power;;1;0;;4
+2;;2_4;;onduleur1;Reactive_power;;1;0;;4
+3;;4_2;;onduleur1;Power factor ;;1;0;;4
+4;;5_4;;onduleur1;Energy_total;;1;0;;4

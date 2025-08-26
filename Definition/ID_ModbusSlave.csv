@@ -1,0 +1,153 @@
+ModbusSlave;;;;;;;;;;
+1;;0_30;;ONDULEUR;Model Name;;1.000000;0.000000;;4
+2;;15_20;;ONDULEUR;SN;;1.000000;0.000000;;4
+3;;25_20;;ONDULEUR;PN;;1.000000;0.000000;;4
+4;;35;;ONDULEUR;Model ID;;1.000000;0.000000;;4
+5;;36;;ONDULEUR;String Number;;1.000000;0.000000;;4
+6;;37;;ONDULEUR;MPPT Number;;1.000000;0.000000;;4
+7;;38_4;;ONDULEUR;Rated power (Pn);;0.001000;0.000000;kW;4
+8;;40_4;;ONDULEUR;Maximum active power (Pmax);;0.001000;0.000000;kW;4
+9;;42_4;;ONDULEUR;Maximum apparent power (Smax);;0.001000;0.000000;kVA;4
+10;;44_4;;ONDULEUR;Maximum reactive power (Qmax, fed to the power grid);;0.001000;0.000000;kVar;4
+11;;46_4;;ONDULEUR;Maximum reactive power (Qmax, absorbed from the power grid);;0.001000;0.000000;kVar;4
+12;;48;;ONDULEUR;Standalone teleindication;;1.000000;0.000000;;4
+13;;49;;ONDULEUR;Operating status;;1.000000;0.000000;;4
+14;;50;;ONDULEUR;Errors Alarm 1;;1.000000;0.000000;;4
+15;;51;;ONDULEUR;Errors Alarm 2;;1.000000;0.000000;;4
+16;;52;;ONDULEUR;Errors Alarm 3;;1.000000;0.000000;;4
+17;;53;;ONDULEUR;Volt inverter_entry 1;;0.100000;0.000000;V;4
+18;;54;;ONDULEUR;Current inverter_entry 1;;0.010000;0.000000;A;4
+19;;55;;ONDULEUR;Volt inverter_entry 2;;0.100000;0.000000;V;4
+20;;56;;ONDULEUR;Current inverter_entry 2;;0.010000;0.000000;A;4
+21;;57;;ONDULEUR;Volt inverter_entry 3;;0.100000;0.000000;V;4
+22;;58;;ONDULEUR;Current inverter_entry 3;;0.010000;0.000000;A;4
+23;;59;;ONDULEUR;Volt inverter_entry 4;;0.100000;0.000000;V;4
+24;;60;;ONDULEUR;Current inverter_entry 4;;0.010000;0.000000;A;4
+25;;61;;ONDULEUR;Volt inverter_entry 5;;0.100000;0.000000;V;4
+26;;62;;ONDULEUR;Current inverter_entry 5;;0.010000;0.000000;A;4
+27;;63;;ONDULEUR;Volt inverter_entry 6;;0.100000;0.000000;V;4
+28;;64;;ONDULEUR;Current inverter_entry 6;;0.010000;0.000000;A;4
+29;;65;;ONDULEUR;Volt inverter_entry 7;;0.100000;0.000000;V;4
+30;;66;;ONDULEUR;Current inverter_entry 7;;0.010000;0.000000;A;4
+31;;67;;ONDULEUR;Volt inverter_entry 8;;0.100000;0.000000;V;4
+32;;68;;ONDULEUR;Current inverter_entry 8;;0.010000;0.000000;A;4
+33;;69;;ONDULEUR;Volt inverter_entry 9;;0.100000;0.000000;V;4
+34;;70;;ONDULEUR;Current inverter_entry 9;;0.010000;0.000000;A;4
+35;;71;;ONDULEUR;Volt inverter_entry 10;;0.100000;0.000000;V;4
+36;;72;;ONDULEUR;Current inverter_entry 10;;0.010000;0.000000;A;4
+37;;73;;ONDULEUR;Volt inverter_entry 11;;0.100000;0.000000;V;4
+38;;74;;ONDULEUR;Current inverter_entry 11;;0.010000;0.000000;A;4
+39;;75;;ONDULEUR;Volt inverter_entry 12;;0.100000;0.000000;V;4
+40;;76;;ONDULEUR;Current inverter_entry 12;;0.010000;0.000000;A;4
+41;;77;;ONDULEUR;Volt inverter_entry 13;;0.100000;0.000000;V;4
+42;;78;;ONDULEUR;Current inverter_entry 13;;0.010000;0.000000;A;4
+43;;79;;ONDULEUR;Volt inverter_entry 14;;0.100000;0.000000;V;4
+44;;80;;ONDULEUR;Current inverter_entry 14;;0.010000;0.000000;A;4
+45;;81;;ONDULEUR;Volt inverter_entry 15;;0.100000;0.000000;V;4
+46;;82;;ONDULEUR;Current inverter_entry 15;;0.010000;0.000000;A;4
+47;;83;;ONDULEUR;Volt inverter_entry 16;;0.100000;0.000000;V;4
+48;;84;;ONDULEUR;Current inverter_entry 16;;0.010000;0.000000;A;4
+49;;85;;ONDULEUR;Volt inverter_entry 17;;0.100000;0.000000;V;4
+50;;86;;ONDULEUR;Current inverter_entry 17;;0.010000;0.000000;A;4
+51;;87;;ONDULEUR;Volt inverter_entry 18;;0.100000;0.000000;V;4
+52;;88;;ONDULEUR;Current inverter_entry 18;;0.010000;0.000000;A;4
+53;;89;;ONDULEUR;Volt inverter_entry 19;;0.100000;0.000000;V;4
+54;;90;;ONDULEUR;Current inverter_entry 19;;0.010000;0.000000;A;4
+55;;91;;ONDULEUR;Volt inverter_entry 20;;0.100000;0.000000;V;4
+56;;92;;ONDULEUR;Current inverter_entry 20;;0.010000;0.000000;A;4
+57;;93;;ONDULEUR;Volt inverter_entry 21;;0.100000;0.000000;V;4
+58;;94;;ONDULEUR;Current inverter_entry 21;;0.010000;0.000000;A;4
+59;;95;;ONDULEUR;Volt inverter_entry 22;;0.100000;0.000000;V;4
+60;;96;;ONDULEUR;Current inverter_entry 22;;0.010000;0.000000;A;4
+61;;97;;ONDULEUR;Volt inverter_entry 23;;0.100000;0.000000;V;4
+62;;98;;ONDULEUR;Current inverter_entry 23;;0.010000;0.000000;A;4
+63;;99;;ONDULEUR;Volt inverter_entry 24;;0.100000;0.000000;V;4
+64;;100;;ONDULEUR;Current inverter_entry 24;;0.010000;0.000000;A;4
+65;;101_4;;ONDULEUR;Power IN;;0.001000;0.000000;kW;4
+66;;103;;ONDULEUR;Volt L1 to 2_Uab;;0.100000;0.000000;V;4
+67;;104;;ONDULEUR;Volt L2 to 3_Ubc;;0.100000;0.000000;V;4
+68;;105;;ONDULEUR;Volt L3 to 1_Uca;;0.100000;0.000000;V;4
+69;;106;;ONDULEUR;Volt 1_Ua;;0.100000;0.000000;V;4
+70;;107;;ONDULEUR;Volt 2_Ub;;0.100000;0.000000;V;4
+71;;108;;ONDULEUR;Volt 3_Uc;;0.100000;0.000000;V;4
+72;;109_4;;ONDULEUR;Current1_Ia;;0.001000;0.000000;A;4
+73;;111_4;;ONDULEUR;Current2_Ib;;0.001000;0.000000;A;4
+74;;113_4;;ONDULEUR;Current3_Ic;;0.001000;0.000000;A;4
+75;;115_4;;ONDULEUR;Active power peak of current day;;0.001000;0.000000;kW;4
+76;;117_4;;ONDULEUR;Active power;;0.001000;0.000000;kW;4
+77;;119_4;;ONDULEUR;Reactive_power;;1.000000;0.000000;VAr;4
+78;;121;;ONDULEUR;Power factor;;0.001000;0.000000;;4
+79;;122;;ONDULEUR;Frequency;;0.010000;0.000000;Hz;4
+80;;123;;ONDULEUR;Inverter efficiency;;0.010000;0.000000;%;4
+81;;124;;ONDULEUR;Cabinet temperature;;0.100000;0.000000;C;4
+82;;125;;ONDULEUR;Insulation resistance;;0.001000;0.000000;;4
+83;;126;;ONDULEUR;Device status;;1.000000;0.000000;;4
+84;;127;;ONDULEUR;Fault code;;1.000000;0.000000;;4
+85;;128_4;;ONDULEUR;Startup time;;1.000000;0.000000;s;4
+86;;130_4;;ONDULEUR;Shutdown time;;1.000000;0.000000;s;4
+87;;132_4;;ONDULEUR;Energy_total;;0.010000;0.000000;kWh;4
+88;;134_4;;ONDULEUR;Energy yield of current day;;0.010000;0.000000;kWh;4
+89;;136_4;;ONDULEUR;Energy yield of current month;;0.010000;0.000000;kWh;4
+90;;138_4;;ONDULEUR;Energy yield of current year;;0.010000;0.000000;kWh;4
+91;;140_4;;ONDULEUR;System Time;;1.000000;0.000000;s;4
+92;;142;;ONDULEUR;Active power derating;;0.100000;0.000000;kW;4
+93;;143;;ONDULEUR;Reactive power compensation (PF);;0.001000;0.000000;;4
+94;;144;;ONDULEUR;Reactive power compensation(Q/S);;0.001000;0.000000;;4
+95;;145;;ONDULEUR;Power_limitation_pct;;0.100000;0.000000;%;4
+96;;146;;ONDULEUR;Power On;;1.000000;0.000000;;4
+97;;147;;ONDULEUR;Power Off;;1.000000;0.000000;;4
+98;;148_4;;COMPTEUR;OperationTimer;;1.000000;0.000000;s;4
+99;;150;;COMPTEUR;Address;;1.000000;0.000000;;4
+100;;151;;COMPTEUR;baudrate;;1.000000;0.000000;;4
+101;;152;;COMPTEUR;parity;;1.000000;0.000000;;4
+102;;153;;COMPTEUR;Digital Input Status;;1.000000;0.000000;;4
+103;;154_4;;COMPTEUR;phase 1 current;;1.000000;0.000000;A;4
+104;;156_4;;COMPTEUR;phase 2 current;;1.000000;0.000000;A;4
+105;;158_4;;COMPTEUR;phase 3 current;;1.000000;0.000000;A;4
+106;;160_4;;COMPTEUR;Current Avg;;1.000000;0.000000;A;4
+107;;162_4;;COMPTEUR;Voltage L1-L2;;1.000000;0.000000;V;4
+108;;164_4;;COMPTEUR;Voltage L2-L3;;1.000000;0.000000;V;4
+109;;166_4;;COMPTEUR;Voltage L3-L1;;1.000000;0.000000;V;4
+110;;168_4;;COMPTEUR;Voltage L-L Avg;;1.000000;0.000000;V;4
+111;;170_4;;COMPTEUR;Voltage L1-N;;1.000000;0.000000;V;4
+112;;172_4;;COMPTEUR;Voltage L2-N;;1.000000;0.000000;V;4
+113;;174_4;;COMPTEUR;Voltage L3-N;;1.000000;0.000000;V;4
+114;;176_4;;COMPTEUR;Voltage L-N Avg;;1.000000;0.000000;V;4
+115;;178_4;;COMPTEUR;Active Power Phase 1;;1.000000;0.000000;kW;4
+116;;180_4;;COMPTEUR;Active Power Phase 2;;1.000000;0.000000;kW;4
+117;;182_4;;COMPTEUR;Active Power Phase 3;;1.000000;0.000000;kW;4
+118;;184_4;;COMPTEUR;Total Active Power;;1.000000;0.000000;kW;4
+119;;186_4;;COMPTEUR;Total Reactive Power;;1.000000;0.000000;kVAR;4
+120;;188_4;;COMPTEUR;Total Apparent Power;;1.000000;0.000000;kVA;4
+121;;190_4;;COMPTEUR;Total Power Factor;;1.000000;0.000000;;4
+122;;192_4;;COMPTEUR;Frequency;;1.000000;0.000000;Hz;4
+123;;194;;COMPTEUR;Energy Reset Year;;1.000000;0.000000;;4
+124;;195_1;;COMPTEUR;Energy Reset month;;1.000000;0.000000;;4
+125;;196_1;;COMPTEUR;Energy Reset day;;1.000000;0.000000;;4
+126;;197_1;;COMPTEUR;Energy Reset hour;;1.000000;0.000000;;4
+127;;198_1;;COMPTEUR;Energy Reset min;;1.000000;0.000000;;4
+128;;199;;COMPTEUR;Energy Reset ms;;1.000000;0.000000;;4
+129;;200;;COMPTEUR;Input Accumulation Reset Year;;1.000000;0.000000;;4
+130;;201_1;;COMPTEUR;Input Accumulation Reset month;;1.000000;0.000000;;4
+131;;202_1;;COMPTEUR;Input Accumulation Reset day;;1.000000;0.000000;;4
+132;;203_1;;COMPTEUR;Input Accumulation Reset hour;;1.000000;0.000000;;4
+133;;204_1;;COMPTEUR;Input Accumulation Reset min;;1.000000;0.000000;;4
+134;;205;;COMPTEUR;Input Accumulation Reset ms;;1.000000;0.000000;;4
+135;;206;;COMPTEUR;MultiTariffs Energy Active Rate;;1.000000;0.000000;;4
+136;;207_4;;COMPTEUR;Total Active Energy Import;;1.000000;0.000000;Wh;4
+137;;209_4;;COMPTEUR;Total Active Energy Export;;1.000000;0.000000;Wh;4
+138;;210_4;;COMPTEUR;Total Reactive Energy Import;;1.000000;0.000000;VARh;4
+139;;211_4;;COMPTEUR;Total Reactive Energy Export;;1.000000;0.000000;VARh;4
+140;;213_4;;COMPTEUR;Partial Active Energy Import;;1.000000;0.000000;Wh;4
+141;;215_4;;COMPTEUR;Partial Reactive Energy Import;;1.000000;0.000000;VARh;4
+142;;217_4;;COMPTEUR;Active Energy Import Phase 1;;1.000000;0.000000;Wh;4
+143;;219_4;;COMPTEUR;Active Energy Import Phase 2;;1.000000;0.000000;Wh;4
+144;;221_4;;COMPTEUR;Active Energy Import Phase 3;;1.000000;0.000000;Wh;4
+145;;223_4;;COMPTEUR;Input Metering Accumulation;;1.000000;0.000000;unit;4
+146;;225_4;;COMPTEUR;Rate A Active Energy Import;;1.000000;0.000000;Wh;4
+147;;227_4;;COMPTEUR;Rate B Active Energy Import;;1.000000;0.000000;Wh;4
+148;;229_4;;COMPTEUR;Rate C Active Energy Import;;1.000000;0.000000;Wh;4
+149;;231_4;;COMPTEUR;Rate D Active Energy Import;;1.000000;0.000000;Wh;4
+150;;233_4;;COMPTEUR;Reactive Energy Import Phase A;;1.000000;0.000000;KVARH;4
+151;;235_4;;COMPTEUR;Reactive Energy Import Phase B;;1.000000;0.000000;KVARH;4
+152;;237_4;;COMPTEUR;Reactive Energy Import Phase C;;1.000000;0.000000;KVARH;4

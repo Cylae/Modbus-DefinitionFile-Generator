@@ -1,0 +1,414 @@
+modbusRTU;Inverter;HUAWEI;SUN2000-10K-LC0;0
+1;3;30000_30;STRING;;Model Name;DisplayModel;1;0;;4
+2;3;30015_20;STRING;;SN;DisplaySerialNumber;1;0;;4
+3;3;30025_20;STRING;;PN;;1;0;;4
+4;3;30035_30;STRING;;Firmware Version;;1;0;;4
+5;3;30050_30;STRING;;Software version;;1;0;;4
+6;3;30070;U16;;Model ID;;1;0;;4
+7;3;30071;U16;;Number of PV strings;;1;0;;4
+8;3;30072;U16;;Number of MPPTs;;1;0;;4
+9;3;30073;U32;;Rated power (Pn);NominalPower;0.001;0;kW;4
+10;3;30075;U32;;Maximum active power (Pmax);;0.001;0;kW;4
+11;3;30077;U32;;Maximum apparent power (Smax);;0.001;0;kVA;4
+12;3;30079;I32;;Real-time maximum reactive power (Qmax, fed to the power grid);;0.001;0;kVar;4
+13;3;30081;I32;;Real-time maximum reactive power (Qmax, absorbed from the power grid);;0.001;0;kVar;4
+14;3;30083;U32;;Maximum active power;;0.001;0;kW;4
+15;3;30085;U32;;Maximum apparent capability (Smax_real);;0.001;0;kVA;4
+16;3;30105_4;STRING;;Product sales area;;1;0;;4
+17;3;30107;U16;;Product software ID;;1;0;;4
+18;3;30108;U16;;Product Software Version Number;;1;0;;4
+19;3;30109;U16;;Power Grid Standard Code Protocol Version;;1;0;;4
+20;3;30110;U16;;Unique ID of the software;;1;0;;4
+21;3;30111;U16;;Number of upgrade packages;;1;0;;4
+22;3;30112;U32;;Information about subpackage 1;;1;0;;4
+23;3;30114;U32;;Subpackage 2 information;;1;0;;4
+24;3;30116;U32;;Information about subpackage 3;;1;0;;4
+25;3;30118;U32;;Subpackage 4 information;;1;0;;4
+26;3;30120;U32;;Subpackage 5 information;;1;0;;4
+27;3;30122;U32;;Information about subpackage 6;;1;0;;4
+28;3;30124;U32;;Subpackage 7 information;;1;0;;4
+29;3;30126;U32;;Subpackage 8 information;;1;0;;4
+30;3;30128;U32;;Subpackage 9 information;;1;0;;4
+31;3;30130;U32;;Information about subpackage 10;;1;0;;4
+32;3;30191_20;STRING;;[Third-party labeling] SN;;1;0;;4
+33;3;30201;U16;;[Third-party label] Manufacturer model;;1;0;;4
+34;3;30207;U32;;Subdevice Support ID;;1;0;;4
+35;3;30209;U32;;Subdevice presence flag;;1;0;;4
+36;3;31000_30;STRING;;Hardware version;;1;0;;4
+37;3;31015_20;STRING;;Monitoring Board SN;;1;0;;4
+38;3;31025_30;STRING;;Monitoring software version;;1;0;;4
+39;3;31040_30;STRING;;Main DSP version;;1;0;;4
+40;3;31070_30;STRING;;CPLD version number;;1;0;;4
+41;3;31085_30;STRING;;AFCI version number;;1;0;;4
+42;3;31200_20;STRING;;Registration code;;1;0;;4
+43;3;32000;U16;;[Remote communication] Single-node remote communication;;1;0;;4
+44;3;32002;U16;;[Remote signal] Running status (monitoring);;1;0;;4
+45;3;32003;U32;;[Remote signal] Running status (power);;1;0;;4
+46;3;32008;U16;;[Remote signal] Alarm 1;;1;0;;4
+47;3;32009;U16;;[Remote signal] Alarm 2;;1;0;;4
+48;3;32010;U16;;[Remote signal] Alarm 3;;1;0;;4
+49;3;32015;U16;;Device SN feature code;;1;0;;4
+50;3;32016;I16;;PV1 voltage;;0.1;0;V;4
+51;3;32017;I16;;PV1 current;;0.01;0;A;4
+52;3;32018;I16;;PV2 Voltage;;0.1;0;V;4
+53;3;32019;I16;;PV2 current;;0.01;0;A;4
+54;3;32020;I16;;PV3 Voltage;;0.1;0;V;4
+55;3;32021;I16;;PV3 current;;0.01;0;A;4
+56;3;32022;I16;;PV4 Voltage;;0.1;0;V;4
+57;3;32023;I16;;PV4 current;;0.01;0;A;4
+58;3;32024;I16;;PV5 voltage;;0.1;0;V;4
+59;3;32025;I16;;PV5 current;;0.01;0;A;4
+60;3;32026;I16;;PV6 voltage;;0.1;0;V;4
+61;3;32027;I16;;PV6 current;;0.01;0;A;4
+62;3;32064;I32;;DC power;;0.001;0;kW;4
+63;3;32066;U16;;Power grid line A and B voltage;;0.1;0;V;4
+64;3;32067;U16;;Power grid B/C line voltage;;0.1;0;V;4
+65;3;32068;U16;;Power grid CA line voltage;;0.1;0;V;4
+66;3;32069;U16;;Power grid phase A voltage;;0.1;0;V;4
+67;3;32070;U16;;Power grid phase B voltage;;0.1;0;V;4
+68;3;32071;U16;;Power grid phase C voltage;;0.1;0;V;4
+69;3;32072;I32;;Power grid phase A current;;0.001;0;A;4
+70;3;32074;I32;;Power grid phase B current;;0.001;0;A;4
+71;3;32076;I32;;Power grid phase C current;;0.001;0;A;4
+72;3;32078;I32;;Peak active power of the current day;;0.001;0;kW;4
+73;3;32080;I32;;Active power;RealPower;0.001;0;kW;4
+74;3;32082;I32;;Reactive power;;0.001;0;kVar;4
+75;3;32084;I16;;Power factor;;0.001;0;;4
+76;3;32085;U16;;Grid frequency;;0.01;0;Hz;4
+77;3;32086;U16;;Inverter efficiency;;0.01;0;%;4
+78;3;32087;I16;;Internal temperature;;0.1;0;C;4
+79;3;32088;U16;;Insulation impedance;;0.001;0;;4
+80;3;32089;U16;;Device Status;;1;0;;4
+81;3;32090;U16;;Fault;;1;0;;4
+82;3;32091;U32;;Start-up time;;1;0;s;4
+83;3;32093;U32;;Shutdown time;;1;0;s;4
+84;3;32106;U32;;Accumulated power generation;EnergyTotal;0.01;0;kWh;4
+85;3;32108;U32;;Total DC Input Power;;0.01;0;kWh;4
+86;3;32110;U32;;Statistical time of the current energy yield;;1;0;s;4
+87;3;32112;U32;;Current Hour Electricity;;0.01;0;kWh;4
+88;3;32114;U32;;Current-day power generation;EnergyDay;0.01;0;kWh;4
+89;3;32116;U32;;Electricity generated in the current month;;0.01;0;kWh;4
+90;3;32118;U32;;Electricity generated in the current year;;0.01;0;kWh;4
+91;3;32151;U16;;Number of critical alarms;;1;0;;4
+92;3;32152;U16;;Number of major alarms;;1;0;;4
+93;3;32153;U16;;Number of Minor Alarms;;1;0;;4
+94;3;32154;U16;;Number of Warning Alarms;;1;0;;4
+95;3;32155;U16;;Alarm clearance SN;;1;0;;4
+96;3;32156;U32;;Last Hour Power Statistics Time;;1;0;s;4
+97;3;32158;U32;;Electricity generated in the previous hour;;0.01;0;kWh;4
+98;3;32160;U32;;Electricity statistics time of the previous day;;1;0;s;4
+99;3;32162;U32;;Electricity generated in the previous day;;0.01;0;kWh;4
+100;3;32164;U32;;Statistical time of the previous month;;1;0;s;4
+101;3;32166;U32;;Electricity generated in the previous month;;0.01;0;kWh;4
+102;3;32168;U32;;Electricity statistics time of the previous year;;1;0;s;4
+103;3;32170;U32;;Electricity generated in the previous year;;0.01;0;kWh;4
+104;3;32172;U32;;Serial number of the latest active alarm;;1;0;;4
+105;3;32174;U32;;Latest Historical Alarm Serial Number;;1;0;;4
+106;3;32176;I16;;Total bus voltage;;0.1;0;V;4
+107;3;32177;I16;;Maximum PV voltage;;0.1;0;V;4
+108;3;32178;I16;;Minimum PV voltage;;0.1;0;V;4
+109;3;32179;I16;;Average PV negative-to-ground voltage;;0.1;0;V;4
+110;3;32180;I16;;Maximum PV positive-to-ground voltage;;0.1;0;V;4
+111;3;32181;I16;;Minimum PV negative-to-ground voltage;;0.1;0;V;4
+112;3;32182;U16;;Inverter-to-PE withstand voltage;;1;0;V;4
+113;3;32183;U16;;ISO feature information;;1;0;;4
+114;3;32190;U16;;Built-in PID running status;;1;0;;4
+115;3;32191;I16;;PV negative-to-ground voltage;;0.1;0;V;4
+116;3;32192;U16;;Direction of the built-in PID compensation;;1;0;;4
+117;3;32212;U32;;Total DC energy yield of MPPT1;;0.01;0;kWh;4
+118;3;32214;U32;;Total DC energy yield of MPPT2;;0.01;0;kWh;4
+119;3;32216;U32;;MPPT3 DC Total Energy Yield;;0.01;0;kWh;4
+120;3;32218;U32;;MPPT4 DC Accumulated Energy Yield;;0.01;0;kWh;4
+121;3;32252;U16;;Monitoring alarm 1;;1;0;;4
+122;3;32253;U16;;Monitoring alarm 2;;1;0;;4
+123;3;32254;U16;;Monitor alarm 3;;1;0;;4
+124;3;32255;U16;;Power alarm 1;;1;0;;4
+125;3;32256;U16;;Power alarm 2;;1;0;;4
+126;3;32257;U16;;Power alarm 3;;1;0;;4
+127;3;32258;U16;;Power alarm 4;;1;0;;4
+128;3;32259;U16;;Power alarm 5;;1;0;;4
+129;3;32260;U16;;Power alarm 6;;1;0;;4
+130;3;32261;U16;;Power alarm 7;;1;0;;4
+131;3;32262;U16;;Power alarm 8;;1;0;;4
+132;3;32263;U16;;Power alarm 9;;1;0;;4
+133;3;32264;U16;;Power alarm 10;;1;0;;4
+134;3;32265;U16;;Power alarm 11;;1;0;;4
+135;3;32266;U16;;Power alarm 12;;1;0;;4
+136;3;32267;U16;;Power alarm 13;;1;0;;4
+137;3;32268;U16;;Internal PID alarm;;1;0;;4
+138;3;32269;U16;;Power alarm 15;;1;0;;4
+139;3;32271;U16;;Monitor alarm 4;;1;0;;4
+140;3;32272;U16;;Monitor alarm 5;;1;0;;4
+141;3;32274;U16;;Monitor alarm 6;;1;0;;4
+142;3;34000;U32;;Stent System Status;;1;0;;4
+143;3;35000;U32;;Running time of capacitor bank;;0.1;0;h;4
+144;3;35002;U32;;Internal fan 1 running time;;0.1;0;h;4
+145;3;35010;U16;;Internal alarm;;1;0;V;4
+146;3;35021;I16;;Internal Temperature 1;;0.1;0;C;4
+147;3;35022;I16;;Internal Temperature 2;;0.1;0;C;4
+148;3;35023;I16;;Internal Temperature 3;;0.1;0;C;4
+149;3;35024;I16;;Internal Temperature 4;;0.1;0;C;4
+150;3;35025;I16;;Internal Temperature 5;;0.1;0;C;4
+151;3;35026;I16;;Internal Temperature 6;;0.1;0;C;4
+152;3;35027;I16;;Internal temperature 7;;0.1;0;C;4
+153;3;35028;I16;;Internal temperature 8;;0.1;0;C;4
+154;3;35029;I16;;Internal temperature 9;;0.1;0;C;4
+155;3;35030;I16;;Internal temperature 10;;0.1;0;C;4
+156;3;35031;I16;;Internal temperature 11;;0.1;0;C;4
+157;3;35032;I16;;Internal temperature 12;;0.1;0;C;4
+158;3;35038;I16;;Phase A DC component DCI;;0.001;0;A;4
+159;3;35039;I16;;Phase B DC component DCI;;0.001;0;A;4
+160;3;35040;I16;;Phase C DC component DCI;;0.001;0;A;4
+161;3;35041;I16;;Leakage current RCD;;1;0;mA;4
+162;3;35042;I16;;Positive bus voltage;;0.1;0;V;4
+163;3;35043;I16;;Negative bus voltage;;0.1;0;V;4
+164;3;35044;I16;;BUS negative voltage to ground;;0.1;0;V;4
+165;3;35094;U16;;I-V scan status;;1;0;;4
+166;3;35095;U16;;I-V scanning capability;;1;0;;4
+167;3;35115;U16;;Deferred activation;;1;0;;4
+168;3;35300;U32;;Active power adjustment status;;1;0;;4
+169;3;35304;U32;;Reactive power adjustment status;;1;0;;4
+170;3;37518;U16;;Inverter comprehensive status;;1;0;;4
+171;3;37519;U16;;Inverter integrated status support flag;;1;0;;4
+172;3;40000;U32;;System time (local time);;1;0;s;4
+173;3;40037;U16;;Q-U characteristic curve mode;;1;0;;4
+174;3;40038;I16;;Q-U Scheduling Trigger Power Percentage;;0.01;0;%;4
+175;3;40120;U16;;Active power is derated by a fixed value;;0.1;0;kW;4
+176;3;40122;I16;;Power factor_2;;0.001;0;;4
+177;3;40123;I16;;Reactive power compensation (Q/S) [low precision];;0.001;0;;4
+178;3;40124;U16;;Reactive power adjustment time;;1;0;s;4
+179;3;40125;I16;;Active power percentage derating (low precision);;0.01;0;%;4
+180;3;40126;U32;;Active power is derated by a fixed value_2;;1;0;W;4
+181;3;40128;I16;;Night reactive power compensation (Q/S);;0.001;0;;4
+182;3;40129;I32;;Fixed value of reactive power at night;;0.001;0;kVar;4
+183;3;40133;U32;;CosPhi-P/Pn characteristic curve;;1;0;;4
+184;3;40154;U32;;Q-U characteristic curve;;1;0;;4
+185;3;40175;U32;;PF-U;;1;0;;4
+186;3;40196;U16;;[Characteristic curve] Reactive power adjustment time;;1;0;s;4
+187;3;40198;I16;;Q-U Scheduling Exit Power Percentage;;1;0;%;4
+188;3;40199;I16;;Active power percentage control [low precision];;0.01;0;%;4
+189;3;40200;U16;;Start the system;cmdOn;1;0;;4
+190;3;40201;U16;;Shut down;cmdOff;1;0;;4
+191;3;40202;U16;;Quick power on and power off;;1;0;;4
+192;3;40205;U16;;reset;;1;0;;4
+193;3;40354;U32;;Q-P characteristic curve;;1;0;;4
+194;3;40375;U16;;Q-U characteristic curve minimum PF limit;;0.001;0;;4
+195;3;40376;U16;;Q-U characteristic curve validity delay time;;1;0;s;4
+196;3;42000;U16;;Power grid standard code;;1;0;;4
+197;3;42001;U16;;Output mode;;1;0;;4
+198;3;42002;U16;;Voltage level;;1;0;V;4
+199;3;42003;U16;;Frequency Class;;1;0;Hz;4
+200;3;42014;U16;;Remote power scheduling;;1;0;;4
+201;3;42015;U32;;Reactive power gradient;;0.001;0;%/s;4
+202;3;42017;U32;;Active power change gradient;;0.001;0;%/s;4
+203;3;42019;U32;;Scheduled instruction hold time;;1;0;s;4
+204;3;42021;U32;;Maximum apparent power;;0.001;0;kVA;4
+205;3;42023;U32;;Maximum active power_2;;0.001;0;kW;4
+206;3;42025;U32;;Apparent power reference;;0.001;0;kVar;4
+207;3;42027;U32;;Active power reference;;0.001;0;kW;4
+208;3;42029;U16;;Plant active power gradient;;1;0;%/min;4
+209;3;42030;U32;;Plant active average filtering time;;1;0;ms;4
+210;3;42032;U16;;Filtering time for PF-U voltage detection;;10;0;s;4
+211;3;42033;U16;;Dry contact scheduling;;1;0;;4
+212;3;42034;U16;;Audible and visual alarm;;1;0;;4
+213;3;42040;U16;;Frequency Active Power Derating Recovery Delay Time;;1;0;s;4
+214;3;42041;U16;;Frequency Active Power Derating Effective Delay Time;;1;0;ms;4
+215;3;42042;U16;;Frequency active power derating hysteresis;;1;0;;4
+216;3;42043;U16;;Frequency modulation control response dead band;;0.001;0;Hz;4
+217;3;42046;U16;;PQ mode;;1;0;;4
+218;3;42047;U16;;PV Panel Type;;1;0;;4
+219;3;42048;U16;;PID compensation direction;;1;0;;4
+220;3;42049;U16;;String connection mode;;1;0;;4
+221;3;42050;U16;;Isolation Settings;;1;0;;4
+222;3;42051;U16;;Frequency modulation control power change gradient;;1;0;%/min;4
+223;3;42052;U16;;Frequency modulation control power change limiting amplitude;;0.1;0;%;4
+224;3;42053;U16;;FM control delay response time;;1;0;ms;4
+225;3;42054;U16;;MPPT multimodal scanning;;1;0;;4
+226;3;42055;U16;;MPPT scanning interval;;1;0;min;4
+227;3;42056;U32;;Predicted MPPT power;;0.001;0;kW;4
+228;3;42061;U16;;Power grid fault recovery automatic startup;;1;0;;4
+229;3;42062;U16;;Power limit 0% shutdown;;1;0;;4
+230;3;42063;U16;;Automatic power off when communication is disconnected;;1;0;;4
+231;3;42064;U16;;Automatic power on after communication;;1;0;;4
+232;3;42065;U16;;Power Quality Optimization Mode;;1;0;;4
+233;3;42066;U16;;RCD Enhancement;;1;0;;4
+234;3;42067;U16;;Night reactive power;;1;0;;4
+235;3;42069;U16;;Night PID protection;;1;0;;4
+236;3;42070;U16;;Night reactive power parameters take effect;;1;0;;4
+237;3;42072;U16;;Communication Disconnection Detection Time;;1;0;s;4
+238;3;42073;U16;;AFCI;;1;0;;4
+239;3;42074;U16;;AFCI detection adaptation mode;;1;0;;4
+240;3;42075;U16;;Communication link failure protection;;1;0;;4
+241;3;42076;U16;;Failure protection active power mode;;1;0;;4
+242;3;42077;U32;;Active Power Limit for Failure Protection [kW] [Low Precision];;0.1;0;kW;4
+243;3;42079;U16;;Failure protection reactive power mode;;1;0;;4
+244;3;42080;U16;;Frequency rate protection;;1;0;;4
+245;3;42081;U16;;Frequency change rate protection point;;0.1;0;Hz/s;4
+246;3;42082;U16;;Frequency change rate protection time;;10;0;s;4
+247;3;42083;I16;;Reactive power limit for failure protection [Q/S] [low precision];;0.001;0;;4
+248;3;42084;U16;;Power-on voltage upper limit for grid connection;;0.1;0;V;4
+249;3;42085;U16;;Power-on voltage lower limit for grid connection;;0.1;0;V;4
+250;3;42086;U16;;Power-on frequency upper limit for grid connection;;0.01;0;Hz;4
+251;3;42087;U16;;Power-on frequency lower limit for grid connection;;0.01;0;Hz;4
+252;3;42088;U16;;Power grid reconnection voltage upper limit;;0.1;0;V;4
+253;3;42089;U16;;Power Grid Reconnection Voltage Lower Threshold;;0.1;0;V;4
+254;3;42090;U16;;Power grid reconnection frequency upper limit;;0.01;0;Hz;4
+255;3;42091;U16;;Power grid reconnection frequency lower limit;;0.01;0;Hz;4
+256;3;42092;U16;;Automatic Power Grid Reconnection Time;;1;0;s;4
+257;3;42097;U16;;Insulation impedance protection point;;0.001;0;;4
+258;3;42098;U16;;Voltage unbalance protection threshold;;0.1;0;%;4
+259;3;42099;U16;;Phase protection point;;0.1;0;;4
+260;3;42100;U16;;Power on soft start time due to power grid faults;;1;0;s;4
+261;3;42101;U16;;CosPhi-P/Pn trigger voltage;;1;0;%;4
+262;3;42102;U16;;CosPhi-P/Pn exit voltage;;1;0;%;4
+263;3;42103;U16;;Startup soft start time;;1;0;s;4
+264;3;42104;U16;;Power grid fault recovery;;1;0;s;4
+265;3;42105;U32;;Time for determining short-term power grid interruption;;1;0;ms;4
+266;3;42107;U32;;Shutdown gradient;;0.001;0;%/s;4
+267;3;42109;U16;;Line loss compensation;;0.1;0;%;4
+268;3;42110;U16;;Grid fault zero current mode;;1;0;;4
+269;3;42111;U16;;Grid voltage jump trigger threshold;;0.1;0;%;4
+270;3;42112;U16;;HVRT;;1;0;;4
+271;3;42113;U16;;HVRT Trigger Threshold;;0.1;0;V;4
+272;3;42114;U16;;HVRT positive sequence reactive power compensation factor;;10;0;;4
+273;3;42116;U16;;Short-term power grid interruption and quick startup;;1;0;;4
+274;3;42118;U16;;LVRT active current maintenance coefficient;;100;0;;4
+275;3;42119;U16;;LVRT;;1;0;;4
+276;3;42120;U16;;LVRT Trigger Threshold;;0.1;0;V;4
+277;3;42121;U16;;Power grid voltage protection shield during VRT;;1;0;;4
+278;3;42122;U16;;LVRT positive sequence reactive power compensation factor;;10;0;;4
+279;3;42123;U16;;VRT exit hysteresis threshold;;0.1;0;V;4
+280;3;42124;U16;;VRT active current limiting percentage;;1;0;%;4
+281;3;42125;U16;;VRT active power recovery gradient;;1;0;%/s;4
+282;3;42126;U16;;HVRT negative sequence reactive compensation;;10;0;;4
+283;3;42127;U16;;LVRT negative sequence reactive power compensation factor;;10;0;;4
+284;3;42128;U16;;Phase angle deviation protection;;1;0;;4
+285;3;42129;U16;;Active Islanding Protection;;1;0;;4
+286;3;42130;U16;;Passive Islanding Protection;;1;0;;4
+287;3;42131;U16;;OVGR Associated Shutdown;;1;0;;4
+288;3;42132;U16;;Dry contact function;;1;0;;4
+289;3;42133;U16;;LVRT reactive current limiting percentage;;1;0;%;4
+290;3;42134;U16;;LVRT zero current mode threshold;;0.1;0;V;4
+291;3;42135;U16;;LVRT mode;;1;0;;4
+292;3;42136;U16;;RCD current limit;;10;0;mA;4
+293;3;42138;U16;;Voltage rise suppression;;1;0;;4
+294;3;42139;U16;;Voltage rise suppression reactive power adjustment point;;0.1;0;%;4
+295;3;42140;U16;;Voltage rise suppression active derating threshold;;0.1;0;%;4
+296;3;42141;U16;;Frequency modulation control;;1;0;;4
+297;3;42142;U16;;Frequency modulation control differential modulation rate;;1;0;%;4
+298;3;42143;U16;;Overfrequency derating;;1;0;;4
+299;3;42144;U16;;Overfrequency derating cutoff frequency;;0.01;0;Hz;4
+300;3;42145;U16;;Overfrequency derating cut-off power;;1;0;%;4
+301;3;42146;U16;;Triggering frequency of overfrequency derating;;0.01;0;Hz;4
+302;3;42147;U16;;Overfrequency derating exit frequency;;0.01;0;Hz;4
+303;3;42148;U16;;Overfrequency derating power recovery gradient;;1;0;%/min;4
+304;3;42151;U16;;Underfrequency Power Increase;;1;0;;4
+305;3;42152;U16;;Underfrequency Power Increase Recovery Gradient;;1;0;%/min;4
+306;3;42155;U32;;LVRT characteristic curve;;1;0;;4
+307;3;42176;U16;;Cutoff frequency of underfrequency power increase;;0.01;0;Hz;4
+308;3;42177;U16;;Cut-off power for underfrequency power increase;;1;0;%;4
+309;3;42178;U16;;Underfrequency Power Increase Triggering Frequency;;0.01;0;Hz;4
+310;3;42179;U16;;Underfrequency Power Increase Exit Frequency;;0.01;0;Hz;4
+311;3;42180;U16;;Built-in PID mode;;1;0;;4
+312;3;42181;I16;;PID output voltage;;0.1;0;V;4
+313;3;42182;U16;;PID;;1;0;;4
+314;3;42183;U16;;Night off-grid repair;;1;0;;4
+315;3;42192;U32;;Active power change gradient_2;;0.001;0;%/s;4
+316;3;42200;U32;;Q-U curve;;1;0;;4
+317;3;42221;U32;;P-U curve;;1;0;;4
+318;3;42242;U16;;P-U curve adjustment time;;1;0;s;4
+319;3;42287;U16;;Undervoltage protection threshold for 10 minutes;;0.1;0;V;4
+320;3;42288;U32;;Ten-minute undervoltage protection time;;1;0;ms;4
+321;3;42290;U16;;Ten-minute overvoltage protection threshold;;0.1;0;V;4
+322;3;42291;U32;;Ten-minute overvoltage protection time;;1;0;ms;4
+323;3;42293;U16;;Level-1 overvoltage protection threshold;;0.1;0;V;4
+324;3;42294;U32;;Level-1 overvoltage protection time;;1;0;ms;4
+325;3;42296;U16;;Level-2 overvoltage protection threshold;;0.1;0;V;4
+326;3;42297;U32;;Level 2 Overvoltage Protection Time;;1;0;ms;4
+327;3;42299;U16;;Level-3 overvoltage protection threshold;;0.1;0;V;4
+328;3;42300;U32;;Level-3 overvoltage protection time;;1;0;ms;4
+329;3;42302;U16;;Level-4 overvoltage protection threshold;;0.1;0;V;4
+330;3;42303;U32;;Level-4 overvoltage protection time;;1;0;ms;4
+331;3;42305;U16;;Level-5 overvoltage protection threshold;;0.1;0;V;4
+332;3;42306;U32;;Level-5 overvoltage protection time;;1;0;ms;4
+333;3;42308;U16;;Level-6 overvoltage protection threshold;;0.1;0;V;4
+334;3;42309;U32;;Level-6 overvoltage protection time;;1;0;ms;4
+335;3;42311;U16;;Level-1 undervoltage protection threshold;;0.1;0;V;4
+336;3;42312;U32;;Level-1 Undervoltage Protection Time;;1;0;ms;4
+337;3;42314;U16;;Level-2 undervoltage protection threshold;;0.1;0;V;4
+338;3;42315;U32;;Level 2 Undervoltage Protection Time;;1;0;ms;4
+339;3;42317;U16;;Level-3 undervoltage protection threshold;;0.1;0;V;4
+340;3;42318;U32;;Level-3 Undervoltage Protection Time;;1;0;ms;4
+341;3;42320;U16;;Level-4 undervoltage protection threshold;;0.1;0;V;4
+342;3;42321;U32;;Level-4 Undervoltage Protection Time;;1;0;ms;4
+343;3;42323;U16;;Level-5 undervoltage protection threshold;;0.1;0;V;4
+344;3;42324;U32;;Level-5 Undervoltage Protection Time;;1;0;ms;4
+345;3;42326;U16;;Level-6 undervoltage protection threshold;;0.1;0;V;4
+346;3;42327;U32;;Level-6 Undervoltage Protection Time;;1;0;ms;4
+347;3;42329;U16;;Level-1 overfrequency protection threshold;;0.01;0;Hz;4
+348;3;42330;U32;;Level-1 Overfrequency Protection Time;;1;0;ms;4
+349;3;42332;U16;;Level-2 overfrequency protection threshold;;0.01;0;Hz;4
+350;3;42333;U32;;Level-2 overfrequency protection time;;1;0;ms;4
+351;3;42335;U16;;Level-3 overfrequency protection threshold;;0.01;0;Hz;4
+352;3;42336;U32;;Level-3 overfrequency protection time;;1;0;ms;4
+353;3;42338;U16;;Level-4 overfrequency protection threshold;;0.01;0;Hz;4
+354;3;42339;U32;;Level-4 overfrequency protection time;;1;0;ms;4
+355;3;42341;U16;;Level-5 overfrequency protection threshold;;0.01;0;Hz;4
+356;3;42342;U32;;Level-5 overfrequency protection time;;1;0;ms;4
+357;3;42344;U16;;Level-6 overfrequency protection threshold;;0.01;0;Hz;4
+358;3;42345;U32;;Level-6 overfrequency protection time;;1;0;ms;4
+359;3;42347;U16;;Level-1 underfrequency protection threshold;;0.01;0;Hz;4
+360;3;42348;U32;;Level-1 Underfrequency Protection Time;;1;0;ms;4
+361;3;42350;U16;;Level-2 underfrequency protection threshold;;0.01;0;Hz;4
+362;3;42351;U32;;Level-2 underfrequency protection time;;1;0;ms;4
+363;3;42353;U16;;Level-3 underfrequency protection threshold;;0.01;0;Hz;4
+364;3;42354;U32;;Level-3 underfrequency protection time;;1;0;ms;4
+365;3;42356;U16;;Level-4 underfrequency protection threshold;;0.01;0;Hz;4
+366;3;42357;U32;;Level-4 Underfrequency Protection Time;;1;0;ms;4
+367;3;42359;U16;;Level-5 underfrequency protection threshold;;0.01;0;Hz;4
+368;3;42360;U32;;Level-5 Underfrequency Protection Time;;1;0;ms;4
+369;3;42362;U16;;Level-6 underfrequency protection threshold;;0.01;0;Hz;4
+370;3;42363;U32;;Level-6 Underfrequency Protection Time;;1;0;ms;4
+371;3;42590;U16;;Delayed upgrade;;1;0;;4
+372;3;42594;U16;;Intelligent string monitoring;;1;0;;4
+373;3;42595;U16;;String detection reference asymmetry coefficient;;100;0;;4
+374;3;42596;U16;;String detection start power percentage;;0.01;0;%;4
+375;3;42597;I16;;Communication Interruption Time;;1;0;min;4
+376;3;42730;U16;;PMI;;1;0;;4
+377;3;42779;U16;;IV Curve Scanning;;1;0;;4
+378;3;43000;U16;;[System Time] Year;;1;0;;4
+379;3;43001;U16;;[System Time] Month;;1;0;;4
+380;3;43002;U16;;[System time] day;;1;0;;4
+381;3;43003;U16;;[System time] hour;;1;0;;4
+382;3;43004;U16;;[System Time] Min.;;1;0;;4
+383;3;43005;U16;;[System Time] Second;;1;0;;4
+384;3;43006;I16;;Time zone;;1;0;min;4
+385;3;43007;U16;;Clock source;;1;0;;4
+386;3;43008;U32;;City code;;1;0;;4
+387;3;43014;I32;;Inverter Installation Position Longitude;;0.0001;0;;4
+388;3;43016;I32;;Inverter Installation Position Latitude;;0.0001;0;;4
+389;3;43018;U16;;[RS485-1] Protocol Type;;1;0;;4
+390;3;43019;U16;;[RS485-1] Communication address;;1;0;;4
+391;3;43020;U16;;[RS485-1] Baud Rate;;1;0;;4
+392;3;43021;U16;;[RS485-1] Verification mode;;1;0;;4
+393;3;43022;U16;;[RS485-1] Port mode;;1;0;;4
+394;3;43023;U16;;[RS485-1] Modbus Protocol Model Version;;1;0;;4
+395;3;43033;U16;;[RS485-2] Protocol Type;;1;0;;4
+396;3;43034;U16;;[RS485-2] Communication address;;1;0;;4
+397;3;43035;U16;;[RS485-2] Baud Rate;;1;0;;4
+398;3;43036;U16;;[RS485-2] Verification Mode;;1;0;;4
+399;3;43037;U16;;[RS485-2] Port mode;;1;0;;4
+400;3;43349_20;STRING;;Device name;;1;0;;4
+401;3;43359;U16;;[App] Initial power-on flag;;1;0;;4
+402;3;45000;U16;;Restore factory settings;;1;0;;4
+403;3;45001;U32;;Clearing active alarms;;1;0;;4
+404;3;45003;U32;;Alarm setting;;1;0;;4
+405;3;45005;U16;;Alarm clearance;;1;0;;4
+406;3;45006;U16;;Alarm masking;;1;0;;4
+407;3;45007;U16;;AFCI self-check start;;1;0;;4
+408;3;45008;U32;;Accumulated energy yield correction;;0.01;0;kWh;4
+409;3;45010;U16;;Clear historical battery level;;1;0;;4
+410;3;45011;U16;;Clear the running time information;;1;0;;4
+411;3;45012;U16;;Spot Check;;1;0;;4
+412;3;45015;U16;;ESN validation command;;1;0;;4
+413;3;45016;U32;;Restore the default password;;1;0;;4

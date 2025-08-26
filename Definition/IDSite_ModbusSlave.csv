@@ -1,0 +1,96 @@
+ModbusSlave;;;
+1;;0_2;;INV1;String Number ;;1.000000;0.000000;;4
+2;;1_2;;INV1;State 1;;1.000000;0.000000;;4
+3;;2_2;;INV1;State 2;;1.000000;0.000000;;4
+4;;3_4;;INV1;State 3 ;;1.000000;0.000000;;4
+5;;5_2;;INV1;Alarm 1;;1.000000;0.000000;;4
+6;;6_2;;INV1;Alarm 2;;1.000000;0.000000;;4
+7;;7_2;;INV1;Alarm 3;;1.000000;0.000000;;4
+8;;8_2;;INV1;Insulation resistance;;1.000000;0.000000;;4
+9;;9_2;;INV1;Device status;;1.000000;0.000000;;4
+10;;10_2;;INV1;Fault code ;;1.000000;0.000000;;4
+11;;11_4;;INV1;Active power;;1.000000;0.000000;;4
+12;;13_4;;INV1;Reactive_power;;1.000000;0.000000;;4
+13;;15_4;;INV1;Energy yield of current day;;1.000000;0.000000;;4
+14;;17_4;;INV1;Energy yield of the month;;1.000000;0.000000;;4
+15;;19_4;;INV1;Energy yield of the year;;1.000000;0.000000;;4
+16;;21_4;;INV1;Energy_total;;1.000000;0.000000;;4
+17;;23_2;;INV1;Power factor ;;1.000000;0.000000;;4
+18;;24_2;;INV1;Inverter efficiency;;1.000000;0.000000;;4
+19;;25_2;;INV1;Volt 1_Ua;;1.000000;0.000000;;4
+20;;26_2;;INV1;Volt 2_Ub;;1.000000;0.000000;;4
+21;;27_2;;INV1;Volt 3_Uc;;1.000000;0.000000;;4
+22;;28_2;;INV1;Volt inverter_entry 1;;1.000000;0.000000;;4
+23;;29_2;;INV1;Current inverter_entry 1;;1.000000;0.000000;;4
+24;;30_2;;INV1;Volt inverter_entry 2;;1.000000;0.000000;;4
+25;;31_2;;INV1;Current inverter_entry 2;;1.000000;0.000000;;4
+26;;32_2;;INV1;Volt inverter_entry 3;;1.000000;0.000000;;4
+27;;33_2;;INV1;Current inverter_entry 3;;1.000000;0.000000;;4
+28;;34_2;;INV1;Volt inverter_entry 4;;1.000000;0.000000;;4
+29;;35_2;;INV1;Current inverter_entry 4;;1.000000;0.000000;;4
+30;;36_2;;INV1;Volt inverter_entry 5;;1.000000;0.000000;;4
+31;;37_2;;INV1;Current inverter_entry 5;;1.000000;0.000000;;4
+32;;38_2;;INV1;Volt inverter_entry 6;;1.000000;0.000000;;4
+33;;39_2;;INV1;Current inverter_entry 6;;1.000000;0.000000;;4
+34;;40_2;;INV1;Volt inverter_entry 7;;1.000000;0.000000;;4
+35;;41_2;;INV1;Current inverter_entry 7;;1.000000;0.000000;;4
+36;;42_2;;INV1;Volt inverter_entry 8;;1.000000;0.000000;;4
+37;;43_2;;INV1;Current inverter_entry 8;;1.000000;0.000000;;4
+38;;44_2;;INV1;Volt inverter_entry 9;;1.000000;0.000000;;4
+39;;45_2;;INV1;Current inverter_entry 9;;1.000000;0.000000;;4
+40;;46_2;;INV1;Volt inverter_entry 10;;1.000000;0.000000;;4
+41;;47_2;;INV1;Current inverter_entry 10;;1.000000;0.000000;;4
+42;;48_2;;INV2;String Number ;;1.000000;0.000000;;4
+43;;49_2;;INV2;State 1;;1.000000;0.000000;;4
+44;;50_2;;INV2;State 2;;1.000000;0.000000;;4
+45;;51_4;;INV2;State 3 ;;1.000000;0.000000;;4
+46;;53_2;;INV2;Alarm 1;;1.000000;0.000000;;4
+47;;54_2;;INV2;Alarm 2;;1.000000;0.000000;;4
+48;;55_2;;INV2;Alarm 3;;1.000000;0.000000;;4
+49;;56_2;;INV2;Insulation resistance;;1.000000;0.000000;;4
+50;;57_2;;INV2;Device status;;1.000000;0.000000;;4
+51;;58_2;;INV2;Fault code ;;1.000000;0.000000;;4
+52;;59_4;;INV2;Active power;;1.000000;0.000000;;4
+53;;61_4;;INV2;Reactive_power;;1.000000;0.000000;;4
+54;;63_4;;INV2;Energy yield of current day;;1.000000;0.000000;;4
+55;;65_4;;INV2;Energy yield of the month;;1.000000;0.000000;;4
+56;;67_4;;INV2;Energy yield of the year;;1.000000;0.000000;;4
+57;;69_4;;INV2;Energy_total;;1.000000;0.000000;;4
+58;;71_2;;INV2;Power factor ;;1.000000;0.000000;;4
+59;;72_2;;INV2;Inverter efficiency;;1.000000;0.000000;;4
+60;;73_2;;INV2;Volt 1_Ua;;1.000000;0.000000;;4
+61;;74_2;;INV2;Volt 2_Ub;;1.000000;0.000000;;4
+62;;75_2;;INV2;Volt 3_Uc;;1.000000;0.000000;;4
+63;;76_2;;INV2;Volt inverter_entry 1;;1.000000;0.000000;;4
+64;;77_2;;INV2;Current inverter_entry 1;;1.000000;0.000000;;4
+65;;78_2;;INV2;Volt inverter_entry 2;;1.000000;0.000000;;4
+66;;79_2;;INV2;Current inverter_entry 2;;1.000000;0.000000;;4
+67;;80_2;;INV2;Volt inverter_entry 3;;1.000000;0.000000;;4
+68;;81_2;;INV2;Current inverter_entry 3;;1.000000;0.000000;;4
+69;;82_2;;INV2;Volt inverter_entry 4;;1.000000;0.000000;;4
+70;;83_2;;INV2;Current inverter_entry 4;;1.000000;0.000000;;4
+71;;84_2;;INV2;Volt inverter_entry 5;;1.000000;0.000000;;4
+72;;85_2;;INV2;Current inverter_entry 5;;1.000000;0.000000;;4
+73;;86_2;;INV2;Volt inverter_entry 6;;1.000000;0.000000;;4
+74;;87_2;;INV2;Current inverter_entry 6;;1.000000;0.000000;;4
+75;;88_2;;INV2;Volt inverter_entry 7;;1.000000;0.000000;;4
+76;;89_2;;INV2;Current inverter_entry 7;;1.000000;0.000000;;4
+77;;90_2;;INV2;Volt inverter_entry 8;;1.000000;0.000000;;4
+78;;91_2;;INV2;Current inverter_entry 8;;1.000000;0.000000;;4
+79;;92_2;;INV2;Volt inverter_entry 9;;1.000000;0.000000;;4
+80;;93_2;;INV2;Current inverter_entry 9;;1.000000;0.000000;;4
+81;;94_2;;INV2;Volt inverter_entry 10;;1.000000;0.000000;;4
+82;;95_2;;INV2;Current inverter_entry 10;;1.000000;0.000000;;4
+83;;96_2;;weather_station;Irradiance;;1.000000;0.000000;;4
+84;;97_2;;weather_station;Temperature Compensated Irradiance;;1.000000;0.000000;;4
+85;;98_2;;weather_station;Internal temperature;;1.000000;0.000000;;4
+86;;99_2;;weather_station;Module temperature;;1.000000;0.000000;;4
+87;;100_2;;weather_station;Ambient temperature;;1.000000;0.000000;;4
+88;;101_2;;weather_station;Ambient temperature (SHT);;1.000000;0.000000;;4
+89;;102_2;;weather_station;Relative humidity (SHT);;1.000000;0.000000;;4
+90;;103_2;;weather_station;Wind Direction;;1.000000;0.000000;;4
+91;;104_2;;weather_station;Wind Speed;;1.000000;0.000000;;4
+92;;110_2;;ActivePowerRegulation;meterValueKW;;1.000000;0.000000;;4
+93;;111_1;;ActivePowerRegulation;Alarm;;1.000000;0.000000;;4
+94;;112_4;;ActivePowerRegulation;TotInvPower;;1.000000;0.000000;;4
+95;;114_4;;ActivePowerRegulation;Watchdog;;1.000000;0.000000;;4
