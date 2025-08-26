@@ -1,0 +1,389 @@
+ModbusRTU;Meter;EMU ELECTRONIC;EMU PROFESSIONAL;1;;;;;;
+1;3;5000;I32;;Serial No.;;1;;;4
+2;3;5002;I32;;Factory No.;;1;;;4
+3;3;5026;I64;;Current System-­time ;;1;;;4
+4;3;5900;I32;;Time of Sectamp of Entry;;1;0;Sec;4
+5;3;5902;I64;;Active Energy Import L123 T1;;1;0;Wh;4
+6;3;5906;I64;;Active Energy Import L123 T2;;1;0;Wh;4
+7;3;5910;I64;;Active Energy Export L123 T1;;1;0;Wh;4
+8;3;5914;I64;;Active Energy Export L123 T2;;1;0;Wh;4
+9;3;5918;I64;;Reactive Energy Import L123 T1;;1;0;varh;4
+10;3;5922;I64;;Reactive Energy Import L123 T2;;1;0;varh;4
+11;3;5926;I64;;Reactive Energy Export L123 T1;;1;0;varh;4
+12;3;5930;I64;;Reactive Energy Export L123 T2;;1;0;varh;4
+13;3;5934;F32;;Active Power L123;ActivePowSumkW;0.001;0;kW;4
+14;3;5936;F32;;Active Power L1;ActivePow1kW;0.001;0;kW;4
+15;3;5938;F32;;Active Power L2;ActivePow2kW;0.001;0;kW;4
+16;3;5940;F32;;Active Power L3;ActivePow3kW;0.001;0;kW;4
+17;3;5942;F32;;Current L123;;0.001;0;A;4
+18;3;5944;F32;;Current L1;;0.001;0;A;4
+19;3;5946;F32;;Current L2;;0.001;0;A;4
+20;3;5948;F32;;Current L3;;0.001;0;A;4
+21;3;5950;F32;;Current L4;;0.001;0;A;4
+22;3;5952;F32;;Voltage L1-N;;0.1;0;V;4
+23;3;5954;F32;;Voltage L2­-N;;0.1;0;V;4
+24;3;5956;F32;;Voltage L3-­N;;0.1;0;V;4
+25;3;5958;F32;;Power Factor L1;;0.1;0;;4
+26;3;5960;F32;;Power Factor L2;;0.1;0;;4
+27;3;5962;F32;;Power Factor L3;;0.1;0;;4
+28;3;5964;F32;;Frequency;;1;0;Hz;4
+29;3;6000;I64;;Active Energy Import L123 Total;;1;0;Wh;4
+30;3;6004;I64;;Active Energy Import L123 T1_1;;1;0;Wh;4
+31;3;6008;I64;;Active Energy Import L123 T2_1;;1;0;Wh;4
+32;3;6012;I64;;Active Energy Import L123 T3;;1;0;Wh;4
+33;3;6016;I64;;Active Energy Import L123 T4;;1;0;Wh;4
+34;3;6020;I64;;Active Energy Export L123 Total;;1;0;Wh;4
+35;3;6024;I64;;Active Energy Export L123 T1_1;;1;0;Wh;4
+36;3;6028;I64;;Active Energy Export L123 T2_1;;1;0;Wh;4
+37;3;6032;I64;;Active Energy Export L123 T3;;1;0;Wh;4
+38;3;6036;I64;;Active Energy Export L123 T4;;1;0;Wh;4
+39;3;6100;I64;;Active Energy Import L1 Total;;1;0;Wh;4
+40;3;6104;I64;;Active Energy Import L1 T1;;1;0;Wh;4
+41;3;6108;I64;;Active Energy Import L1 T2;;1;0;Wh;4
+42;3;6112;I64;;Active Energy Import L1 T3;;1;0;Wh;4
+43;3;6116;I64;;Active Energy Import L1 T4;;1;0;Wh;4
+44;3;6120;I64;;Active Energy Export L1 Total;;1;0;Wh;4
+45;3;6124;I64;;Active Energy Export L1 T1;;1;0;Wh;4
+46;3;6128;I64;;Active Energy Export L1 T2;;1;0;Wh;4
+47;3;6132;I64;;Active Energy Export L1 T3;;1;0;Wh;4
+48;3;6136;I64;;Active Energy Export L1 T4;;1;0;Wh;4
+49;3;6140;I64;;Active Energy Import L2 Total;;1;0;Wh;4
+50;3;6144;I64;;Active Energy Import L2 T1;;1;0;Wh;4
+51;3;6148;I64;;Active Energy Import L2 T2;;1;0;Wh;4
+52;3;6152;I64;;Active Energy Import L2 T3;;1;0;Wh;4
+53;3;6156;I64;;Active Energy Import L2 T4;;1;0;Wh;4
+54;3;6180;I64;;Active Energy Import L3 Total;;1;0;Wh;4
+55;3;6184;I64;;Active Energy Import L3 T1;;1;0;Wh;4
+56;3;6188;I64;;Active Energy Import L3 T2;;1;0;Wh;4
+57;3;6192;I64;;Active Energy Import L3 T3;;1;0;Wh;4
+58;3;6196;I64;;Active Energy Import L3 T4;;1;0;Wh;4
+59;3;6200;I64;;Active Energy Export L3 Total;;1;0;Wh;4
+60;3;6204;I64;;Active Energy Export L3 T1;;1;0;Wh;4
+61;3;6208;I64;;Active Energy Export L3 T2;;1;0;Wh;4
+62;3;6212;I64;;Active Energy Export L3 T3;;1;0;Wh;4
+63;3;6216;I64;;Active Energy Export L3 T4;;1;0;Wh;4
+64;3;6300;I64;;Reactive Energy Import L123 Total;;1;0;varh;4
+65;3;6304;I64;;Reactive Energy Import L123 T1_1;;1;0;varh;4
+66;3;6308;I64;;Reactive Energy Import L123 T2_1;;1;0;varh;4
+67;3;6312;I64;;Reactive Energy Import L123 T3;;1;0;varh;4
+68;3;6316;I64;;Reactive Energy Import L123 T4;;1;0;varh;4
+69;3;6320;I64;;Reactive Energy Export L123 Total;;1;0;varh;4
+70;3;6324;I64;;Reactive Energy Export L123 T1_1;;1;0;varh;4
+71;3;6328;I64;;Reactive Energy Export L123 T2_1;;1;0;varh;4
+72;3;6332;I64;;Reactive Energy Export L123 T3;;1;0;varh;4
+73;3;6336;I64;;Reactive Energy Export L123 T4;;1;0;varh;4
+74;3;6400;I64;;Reactive Energy Import L1 Total;;1;0;varh;4
+75;3;6404;I64;;Reactive Energy Import L1 T1;;1;0;varh;4
+76;3;6408;I64;;Reactive Energy Import L1 T2;;1;0;varh;4
+77;3;6412;I64;;Reactive Energy Import L1 T3;;1;0;varh;4
+78;3;6416;I64;;Reactive Energy Import L1 T4;;1;0;varh;4
+79;3;6420;I64;;Reactive Energy Export L1 Total;;1;0;varh;4
+80;3;6424;I64;;Reactive Energy Export L1 T1;;1;0;varh;4
+81;3;6428;I64;;Reactive Energy Export L1 T2;;1;0;varh;4
+82;3;6432;I64;;Reactive Energy Export L1 T3;;1;0;varh;4
+83;3;6436;I64;;Reactive Energy Export L1 T4;;1;0;varh;4
+84;3;6440;I64;;Reactive Energy Import L2 Total;;1;0;varh;4
+85;3;6444;I64;;Reactive Energy Import L2 T1;;1;0;varh;4
+86;3;6448;I64;;Reactive Energy Import L2 T2;;1;0;varh;4
+87;3;6452;I64;;Reactive Energy Import L2 T3;;1;0;varh;4
+88;3;6456;I64;;Reactive Energy Import L2 T4;;1;0;varh;4
+89;3;6460;I64;;Reactive Energy Export L2 Total;;1;0;varh;4
+90;3;6464;I64;;Reactive Energy Export L2 T1;;1;0;varh;4
+91;3;6468;I64;;Reactive Energy Export L2 T2;;1;0;varh;4
+92;3;6472;I64;;Reactive Energy Export L2 T3;;1;0;varh;4
+93;3;6476;I64;;Reactive Energy Export L2 T4;;1;0;varh;4
+94;3;6480;I64;;Reactive Energy Import L3 Total;;1;0;varh;4
+95;3;6484;I64;;Reactive Energy Import L3 T1;;1;0;varh;4
+96;3;6488;I64;;Reactive Energy Import L3 T2;;1;0;varh;4
+97;3;6492;I64;;Reactive Energy Import L3 T3;;1;0;varh;4
+98;3;6496;I64;;Reactive Energy Import L3 T4;;1;0;varh;4
+99;3;6500;I64;;Reactive Energy Export L3 Total;;1;0;varh;4
+100;3;6504;I64;;Reactive Energy Export L3 T1;;1;0;varh;4
+101;3;6508;I64;;Reactive Energy Export L3 T2;;1;0;varh;4
+102;3;6512;I64;;Reactive Energy Export L3 T3;;1;0;varh;4
+103;3;6516;I64;;Reactive Energy Export L3 T4;;1;0;varh;4
+104;3;7000;I64;;Active Energy Import L123 Total_1;;1;0;varh;4
+105;3;7004;I64;;Active Energy Import L123 T1_2;;1;0;kWh;4
+106;3;7008;I64;;Active Energy Import L123 T2_2;;1;0;kWh;4
+107;3;7012;I64;;Active Energy Import L123 T3_1;;1;0;kWh;4
+108;3;7016;I64;;Active Energy Import L123 T4_1;;1;0;kWh;4
+109;3;7020;I64;;Active Energy Export L123 Total_1;;1;0;kWh;4
+110;3;7024;I64;;Active Energy Export L123 T1_2;;1;0;kWh;4
+111;3;7028;I64;;Active Energy Export L123 T2_2;;1;0;kWh;4
+112;3;7032;I64;;Active Energy Export L123 T3_1;;1;0;kWh;4
+113;3;7036;I64;;Active Energy Export L123 T4_1;;1;0;kWh;4
+114;3;7100;I64;;Active Energy Import L1 Total_1;;1;0;kWh;4
+115;3;7104;I64;;Active Energy Import L1 T1_1;;1;0;kWh;4
+116;3;7108;I64;;Active Energy Import L1 T2_1;;1;0;kWh;4
+117;3;7112;I64;;Active Energy Import L1 T3_1;;1;0;kWh;4
+118;3;7116;I64;;Active Energy Import L1 T4_1;;1;0;kWh;4
+119;3;7120;I64;;Active Energy Export L1 Total_1;;1;0;kWh;4
+120;3;7124;I64;;Active Energy Export L1 T1_1;;1;0;kWh;4
+121;3;7128;I64;;Active Energy Export L1 T2_1;;1;0;kWh;4
+122;3;7132;I64;;Active Energy Export L1 T3_1;;1;0;kWh;4
+123;3;7136;I64;;Active Energy Export L1 T4_1;;1;0;kWh;4
+124;3;7140;I64;;Active Energy Import L2 Total_1;;1;0;kWh;4
+125;3;7144;I64;;Active Energy Import L2 T1_1;;1;0;kWh;4
+126;3;7148;I64;;Active Energy Import L2 T2_1;;1;0;kWh;4
+127;3;7152;I64;;Active Energy Import L2 T3_1;;1;0;kWh;4
+128;3;7156;I64;;Active Energy Import L2 T4_1;;1;0;kWh;4
+129;3;7160;I64;;Active Energy Export L2 Total;;1;0;kWh;4
+130;3;7164;I64;;Active Energy Export L2 T1;;1;0;kWh;4
+131;3;7168;I64;;Active Energy Export L2 T2;;1;0;kWh;4
+132;3;7172;I64;;Active Energy Export L2 T3;;1;0;kWh;4
+133;3;7176;I64;;Active Energy Export L2 T4;;1;0;kWh;4
+134;3;7180;I64;;Active Energy Import L3 Total_1;;1;0;kWh;4
+135;3;7184;I64;;Active Energy Import L3 T1_1;;1;0;kWh;4
+136;3;7188;I64;;Active Energy Import L3 T2_1;;1;0;kWh;4
+137;3;7192;I64;;Active Energy Import L3 T3_1;;1;0;kWh;4
+138;3;7196;I64;;Active Energy Import L3 T4_1;;1;0;kWh;4
+139;3;7200;I64;;Active Energy Export L3 Total_1;;1;0;kWh;4
+140;3;7204;I64;;Active Energy Export L3 T1_1;;1;0;kWh;4
+141;3;7208;I64;;Active Energy Export L3 T2_1;;1;0;kWh;4
+142;3;7212;I64;;Active Energy Export L3 T3_1;;1;0;kWh;4
+143;3;7216;I64;;Active Energy Export L3 T4_1;;1;0;kWh;4
+144;3;7300;I64;;Reactive Energy Import L123 Total_1;;1;0;kvarh;4
+145;3;7304;I64;;Reactive Energy Import L123 T1_2;;1;0;kvarh;4
+146;3;7308;I64;;Reactive Energy Import L123 T2_2;;1;0;kvarh;4
+147;3;7312;I64;;Reactive Energy Import L123 T3_1;;1;0;kvarh;4
+148;3;7316;I64;;Reactive Energy Import L123 T4_1;;1;0;kvarh;4
+149;3;7320;I64;;Reactive Energy Export L123 Total_1;;1;0;kvarh;4
+150;3;7324;I64;;Reactive Energy Export L123 T1_2;;1;0;kvarh;4
+151;3;7328;I64;;Reactive Energy Export L123 T2_2;;1;0;kvarh;4
+152;3;7332;I64;;Reactive Energy Export L123 T3_1;;1;0;kvarh;4
+153;3;7336;I64;;Reactive Energy Export L123 T4_1;;1;0;kvarh;4
+154;3;7340;I64;;Reactive Energy Import L1 Total_1;;1;0;kvarh;4
+155;3;7344;I64;;Reactive Energy Import L1 T1_1;;1;0;kvarh;4
+156;3;7348;I64;;Reactive Energy Import L1 T2_1;;1;0;kvarh;4
+157;3;7352;I64;;Reactive Energy Import L1 T3_1;;1;0;kvarh;4
+158;3;7356;I64;;Reactive Energy Import L1 T4_1;;1;0;kvarh;4
+159;3;7360;I64;;Reactive Energy Export L1 Total_1;;1;0;kvarh;4
+160;3;7364;I64;;Reactive Energy Export L1 T1_1;;1;0;kvarh;4
+161;3;7368;I64;;Reactive Energy Export L1 T2_1;;1;0;kvarh;4
+162;3;7372;I64;;Reactive Energy Export L1 T3_1;;1;0;kvarh;4
+163;3;7376;I64;;Reactive Energy Export L1 T4_1;;1;0;kvarh;4
+164;3;7380;I64;;Reactive Energy Import L2 Total_1;;1;0;kvarh;4
+165;3;7384;I64;;Reactive Energy Import L2 T1_1;;1;0;kvarh;4
+166;3;7388;I64;;Reactive Energy Import L2 T2_1;;1;0;kvarh;4
+167;3;7392;I64;;Reactive Energy Import L2 T3_1;;1;0;kvarh;4
+168;3;7396;I64;;Reactive Energy Import L2 T4_1;;1;0;kvarh;4
+169;3;7400;I64;;Reactive Energy Export L2 Total_1;;1;0;kvarh;4
+170;3;7404;I64;;Reactive Energy Export L2 T1_1;;1;0;kvarh;4
+171;3;7408;I64;;Reactive Energy Export L2 T2_1;;1;0;kvarh;4
+172;3;7412;I64;;Reactive Energy Export L2 T3_1;;1;0;kvarh;4
+173;3;7416;I64;;Reactive Energy Export L2 T4_1;;1;0;kvarh;4
+174;3;7420;I64;;Reactive Energy Import L3 Total_1;;1;0;kvarh;4
+175;3;7424;I64;;Reactive Energy Import L3 T1_1;;1;0;kvarh;4
+176;3;7428;I64;;Reactive Energy Import L3 T2_1;;1;0;kvarh;4
+177;3;7432;I64;;Reactive Energy Import L3 T3_1;;1;0;kvarh;4
+178;3;7436;I64;;Reactive Energy Import L3 T4_1;;1;0;kvarh;4
+179;3;7440;I64;;Reactive Energy Export L3 Total_1;;1;0;kvarh;4
+180;3;7444;I64;;Reactive Energy Export L3 T1_1;;1;0;kvarh;4
+181;3;7448;I64;;Reactive Energy Export L3 T2_1;;1;0;kvarh;4
+182;3;7452;I64;;Reactive Energy Export L3 T3_1;;1;0;kvarh;4
+183;3;7456;I64;;Reactive Energy Export L3 T4_1;;1;0;kvarh;4
+184;3;8000;I32;;Active Energy Import L123 Total_2;;1;0;kvarh;4
+185;3;8002;I32;;Active Energy Import L123 T1_3;;1;0;kvarh;4
+186;3;8004;I32;;Active Energy Import L123 T2_3;;1;0;kvarh;4
+187;3;8006;I32;;Active Energy Import L123 T3_2;;1;0;kvarh;4
+188;3;8008;I32;;Active Energy Import L123 T4_2;;1;0;kvarh;4
+189;3;8010;I32;;Active Energy Export L123 Total_2;;1;0;kvarh;4
+190;3;8012;I32;;Active Energy Export L123 T1_3;;1;0;kvarh;4
+191;3;8014;I32;;Active Energy Export L123 T2_3;;1;0;kvarh;4
+192;3;8016;I32;;Active Energy Export L123 T3_2;;1;0;kvarh;4
+193;3;8018;I32;;Active Energy Export L123 T4_2;;1;0;kvarh;4
+194;3;8100;I32;;Active Energy Import L1 Total_2;;1;0;kvarh;4
+195;3;8102;I32;;Active Energy Import L1 T1_2;;1;0;kvarh;4
+196;3;8104;I32;;Active Energy Import L1 T2_2;;1;0;kvarh;4
+197;3;8106;I32;;Active Energy Import L1 T3_2;;1;0;kvarh;4
+198;3;8108;I32;;Active Energy Import L1 T4_2;;1;0;kvarh;4
+199;3;8110;I32;;Active Energy Export L1 Total_2;;1;0;kvarh;4
+200;3;8112;I32;;Active Energy Export L1 T1_2;;1;0;kvarh;4
+201;3;8114;I32;;Active Energy Export L1 T2_2;;1;0;kvarh;4
+202;3;8116;I32;;Active Energy Export L1 T3_2;;1;0;kvarh;4
+203;3;8118;I32;;Active Energy Export L1 T4_2;;1;0;kvarh;4
+204;3;8120;I32;;Active Energy Import L2 Total_2;;1;0;kvarh;4
+205;3;8122;I32;;Active Energy Import L2 T1_2;;1;0;kvarh;4
+206;3;8124;I32;;Active Energy Import L2 T2_2;;1;0;kvarh;4
+207;3;8126;I32;;Active Energy Import L2 T3_2;;1;0;kvarh;4
+208;3;8128;I32;;Active Energy Import L2 T4_2;;1;0;kvarh;4
+209;3;8130;I32;;Active Energy Export L2 Total_1;;1;0;kvarh;4
+210;3;8132;I32;;Active Energy Export L2 T1_1;;1;0;kvarh;4
+211;3;8134;I32;;Active Energy Export L2 T2_1;;1;0;kvarh;4
+212;3;8136;I32;;Active Energy Export L2 T3_1;;1;0;kvarh;4
+213;3;8138;I32;;Active Energy Export L2 T4_1;;1;0;kvarh;4
+214;3;8140;I32;;Active Energy Import L3 Total_2;;1;0;kvarh;4
+215;3;8142;I32;;Active Energy Import L3 T1_2;;1;0;kvarh;4
+216;3;8144;I32;;Active Energy Import L3 T2_2;;1;0;kvarh;4
+217;3;8146;I32;;Active Energy Import L3 T3_2;;1;0;kvarh;4
+218;3;8148;I32;;Active Energy Import L3 T4_2;;1;0;kvarh;4
+219;3;8150;I32;;Active Energy Export L3 Total_2;;1;0;kvarh;4
+220;3;8152;I32;;Active Energy Export L3 T1_2;;1;0;kvarh;4
+221;3;8154;I32;;Active Energy Export L3 T2_2;;1;0;kvarh;4
+222;3;8156;I32;;Active Energy Export L3 T3_2;;1;0;kvarh;4
+223;3;8158;I32;;Active Energy Export L3 T4_2;;1;0;kvarh;4
+224;3;8200;I32;;Reactive Energy Import L123 Total_2;;1;0;kvarh;4
+225;3;8202;I32;;Reactive Energy Import L123 T1_3;;1;0;kvarh;4
+226;3;8204;I32;;Reactive Energy Import L123 T2_3;;1;0;kvarh;4
+227;3;8206;I32;;Reactive Energy Import L123 T3_2;;1;0;kvarh;4
+228;3;8208;I32;;Reactive Energy Import L123 T4_2;;1;0;kvarh;4
+229;3;8210;I32;;Reactive Energy Export L123 Total_2;;1;0;kvarh;4
+230;3;8212;I32;;Reactive Energy Export L123 T1_3;;1;0;kvarh;4
+231;3;8214;I32;;Reactive Energy Export L123 T2_3;;1;0;kvarh;4
+232;3;8216;I32;;Reactive Energy Export L123 T3_2;;1;0;kvarh;4
+233;3;8218;I32;;Reactive Energy Export L123 T4_2;;1;0;kvarh;4
+234;3;8300;I32;;Reactive Energy Import L1 Total_2;;1;0;kvarh;4
+235;3;8302;I32;;Reactive Energy Import L1 T1_2;;1;0;kvarh;4
+236;3;8304;I32;;Reactive Energy Import L1 T2_2;;1;0;kvarh;4
+237;3;8306;I32;;Reactive Energy Import L1 T3_2;;1;0;kvarh;4
+238;3;8308;I32;;Reactive Energy Import L1 T4_2;;1;0;kvarh;4
+239;3;8310;I32;;Reactive Energy Export L1 Total_2;;1;0;kvarh;4
+240;3;8312;I32;;Reactive Energy Export L1 T1_2;;1;0;kvarh;4
+241;3;8314;I32;;Reactive Energy Export L1 T2_2;;1;0;kvarh;4
+242;3;8316;I32;;Reactive Energy Export L1 T3_2;;1;0;kvarh;4
+243;3;8318;I32;;Reactive Energy Export L1 T4_2;;1;0;kvarh;4
+244;3;8320;I32;;Reactive Energy Import L2 Total_2;;1;0;kvarh;4
+245;3;8322;I32;;Reactive Energy Import L2 T1_2;;1;0;kvarh;4
+246;3;8324;I32;;Reactive Energy Import L2 T2_2;;1;0;kvarh;4
+247;3;8326;I32;;Reactive Energy Import L2 T3_2;;1;0;kvarh;4
+248;3;8328;I32;;Reactive Energy Import L2 T4_2;;1;0;kvarh;4
+249;3;8330;I32;;Reactive Energy Export L2 Total_2;;1;0;kvarh;4
+250;3;8332;I32;;Reactive Energy Export L2 T1_2;;1;0;kvarh;4
+251;3;8334;I32;;Reactive Energy Export L2 T2_2;;1;0;kvarh;4
+252;3;8336;I32;;Reactive Energy Export L2 T3_2;;1;0;kvarh;4
+253;3;8338;I32;;Reactive Energy Export L2 T4_2;;1;0;kvarh;4
+254;3;8340;I32;;Reactive Energy Import L3 Total_2;;1;0;kvarh;4
+255;3;8342;I32;;Reactive Energy Import L3 T1_2;;1;0;kvarh;4
+256;3;8344;I32;;Reactive Energy Import L3 T2_2;;1;0;kvarh;4
+257;3;8346;I32;;Reactive Energy Import L3 T3_2;;1;0;kvarh;4
+258;3;8348;I32;;Reactive Energy Import L3 T4_2;;1;0;kvarh;4
+259;3;8350;I32;;Reactive Energy Export L3 Total_2;;1;0;kvarh;4
+260;3;8352;I32;;Reactive Energy Export L3 T1_2;;1;0;kvarh;4
+261;3;8354;I32;;Reactive Energy Export L3 T2_2;;1;0;kvarh;4
+262;3;8356;I32;;Reactive Energy Export L3 T3_2;;1;0;kvarh;4
+263;3;8358;I32;;Reactive Energy Export L3 T4_2;;1;0;kvarh;4
+264;3;9000;F32;;Active Power L123_1;;1;0;W;4
+265;3;9002;F32;;Active Power L1_1;;1;0;W;4
+266;3;9004;F32;;Active Power L2_1;;1;0;W;4
+267;3;9006;F32;;Active Power L3_1;;1;0;W;4
+268;3;9010;F32;;Reactive Power L123;;1;0;var;4
+269;3;9012;F32;;Reactive Power L1;;1;0;var;4
+270;3;9014;F32;;Reactive Power L2;;1;0;var;4
+271;3;9016;F32;;Reactive Power L3;;1;0;var;4
+272;3;9018;F32;;Apparent Power L123;;1;0;VA;4
+273;3;9020;F32;;Apparent Power L1;;1;0;VA;4
+274;3;9022;F32;;Apparent Power L2;;1;0;VA;4
+275;3;9024;F32;;Apparent Power L3;;1;0;VA;4
+276;3;9100;F32;;Current L123_1;;1;0;A;4
+277;3;9102;F32;;Current L1_1;;1;0;A;4
+278;3;9104;F32;;Current L2_1;;1;0;A;4
+279;3;9106;F32;;Current L3_1;;1;0;A;4
+280;3;9200;F32;;Voltage L1-­N_1;;0.1;0;V;4
+281;3;9202;F32;;Voltage L2­-N_1;;0.1;0;V;4
+282;3;9204;F32;;Voltage L3-­N_1;;0.1;0;V;4
+283;3;9206;F32;;Voltage L1­-L2;;0.1;0;V;4
+284;3;9208;F32;;Voltage L2­-L3;;0.1;0;V;4
+285;3;9210;F32;;Voltage L3­-L1;;0.1;0;V;4
+286;3;9300;F32;;Power Factor L1_1;;1;0;V;4
+287;3;9302;F32;;Power Factor L2_1;;1;0;V;4
+288;3;9304;F32;;Power Factor L3_1;;1;0;V;4
+289;3;9310;F32;;Frequency_1;;1;0;Hz;4
+290;3;10000;F32;;Min. Voltage L1-­N;;0.1;0;V;4
+291;3;10002;F32;;Min. Voltage L2­-N;;0.1;0;V;4
+292;3;10004;F32;;Min. Voltage L3-­N;;0.1;0;V;4
+293;3;10008;F32;;Min. Voltage L1-­N Timestamp;;1;0;Sec;4
+294;3;10012;F32;;Min. Voltage L2­-N Timestamp;;1;0;Sec;4
+295;3;10016;F32;;Min. Voltage L3­-N Timestamp;;1;0;Sec;4
+296;3;10020;F32;;Max. Voltage L1-­N;;0.1;0;V;4
+297;3;10024;F32;;Max. Voltage L2­-N;;0.1;0;V;4
+298;3;10028;F32;;Max. Voltage L3-­N;;0.1;0;V;4
+299;3;10032;F32;;Max. Voltage L1-­N Timestamp;;1;0;Sec;4
+300;3;10036;F32;;Max. Voltage L2­-N Timestamp;;1;0;Sec;4
+301;3;10040;F32;;Max. Voltage L3-­N Timestamp;;1;0;Sec;4
+302;3;10100;F32;;Min. Current L1;;0.001;0;A;4
+303;3;10102;F32;;Min. Current L2;;0.001;0;A;4
+304;3;10104;F32;;Min. Current L3;;0.001;0;A;4
+305;3;10106;F32;;Min. Current L123;;1;0;A;4
+306;3;10108;F32;;Min. Current L1 Timestamp;;1;0;Sec;4
+307;3;10112;F32;;Min. Current L2 Timestamp;;1;0;Sec;4
+308;3;10116;F32;;Min. Current L3 Timestamp;;1;0;Sec;4
+309;3;10120;F32;;Min. Current L123 Timestamp;;1;0;Sec;4
+310;3;10124;F32;;Max. Current L1;;0.001;0;var;4
+311;3;10128;F32;;Max. Current L2;;0.001;0;var;4
+312;3;10132;F32;;Max. Current L3;;0.001;0;var;4
+313;3;10136;F32;;Max. Current L123;;1;0;var;4
+314;3;10140;F32;;Max. Current L1 Timestamp;;1;0;Sec;4
+315;3;10144;F32;;Max. Current L2 Timestamp;;1;0;Sec;4
+316;3;10200;F32;;Max. Current L3 Timestamp;;1;0;Sec;4
+317;3;10202;F32;;Max. Current L123 Timestamp;;1;0;Sec;4
+318;3;10204;F32;;Max. Active Energy L1;;1;0;VA;4
+319;3;10206;F32;;Max. Active Energy L2;;1;0;VA;4
+320;3;10208;F32;;Max. Active Energy L3;;1;0;VA;4
+321;3;10212;F32;;Max. Active Energy L123;;1;0;VA;4
+322;3;10216;F32;;Max. Active Energy L1 Timestamp;;1;0;Sec;4
+323;3;10220;F32;;Max. Active Energy L2 Timestamp;;1;0;Sec;4
+324;3;10300;F32;;Max. Active Energy L3 Timestamp;;1;0;Sec;4
+325;3;10302;F32;;Max. Active Energy L123 Timestamp;;1;0;Sec;4
+326;3;10304;F32;;Max. Reactive Energy L1;;1;0;var;4
+327;3;10306;F32;;Max. Reactive Energy L2;;1;0;var;4
+328;3;10308;F32;;Max. Reactive Energy L3;;1;0;var;4
+329;3;10312;F32;;Max. Reactive Energy L123;;1;0;var;4
+330;3;10316;F32;;Max. Reactive Energy L1 Timestamp;;1;0;Sec;4
+331;3;10320;F32;;Max. Reactive Energy L2 Timestamp;;1;0;Sec;4
+332;3;10324;F32;;Max. Reactive Energy L3 Timestamp;;1;0;Sec;4
+333;3;10328;F32;;Max. Reactive Energy L123 Timestamp;;1;0;Sec;4
+334;3;10400;F32;;Max. Apparent Energy L1;;1;0;var;4
+335;3;10402;F32;;Max. Apparent Energy L2;;1;0;var;4
+336;3;10404;F32;;Max. Apparent Energy L3;;1;0;var;4
+337;3;10406;F32;;Max. Apparent Energy L123;;1;0;var;4
+338;3;10408;F32;;Max. Apparent Energy L1 Timestamp;;1;0;Sec;4
+339;3;10412;F32;;Max. Apparent Energy L2 Timestamp;;1;0;Sec;4
+340;3;10416;F32;;Max. Apparent Energy L3 Timestamp;;1;0;Sec;4
+341;3;10420;F32;;Max. Apparent Energy L123 Timestamp;;1;0;Sec;4
+342;3;10500;F32;;Min. Active Energy L1;;1;0;W;4
+343;3;10502;F32;;Min. Active Energy L2;;1;0;W;4
+344;3;10504;F32;;Min. Active Energy L3;;1;0;W;4
+345;3;10506;F32;;Min. Active Energy L123;;1;0;W;4
+346;3;10508;F32;;Min. Active Energy L1 Timestamp;;1;0;Sec;4
+347;3;10512;F32;;Min. Active Energy L2 Timestamp;;1;0;Sec;4
+348;3;10516;F32;;Min. Active Energy L3 Timestamp;;1;0;Sec;4
+349;3;10520;F32;;Min. Active Energy L123 Timestamp;;1;0;Sec;4
+350;3;10600;F32;;Min. Reactive Energy L1;;1;0;var;4
+351;3;10602;F32;;Min. Reactive Energy L2;;1;0;var;4
+352;3;10604;F32;;Min. Reactive Energy L3;;1;0;var;4
+353;3;10606;F32;;Min. Reactive Energy L123;;1;0;var;4
+354;3;10608;F32;;Min. Reactive Energy L1 Timestamp;;1;0;Sec;4
+355;3;10612;F32;;Min. Reactive Energy L2 Timestamp;;1;0;Sec;4
+356;3;10616;F32;;Min. Reactive Energy L3 Timestamp;;1;0;Sec;4
+357;3;10620;F32;;Min. Reactive Energy L123 Timestamp;;1;0;Sec;4
+358;3;10700;F32;;Min. Apparent Energy L1;;1;0;VA;4
+359;3;10702;F32;;Min. Apparent Energy L2;;1;0;VA;4
+360;3;10704;F32;;Min. Apparent Energy L3;;1;0;VA;4
+361;3;10706;F32;;Min. Apparent Energy L123;;1;0;VA;4
+362;3;10708;F32;;Min. Apparent Energy L1 Timestamp;;1;0;Sec;4
+363;3;10712;F32;;Min. Apparent Energy L2 Timestamp;;1;0;Sec;4
+364;3;10716;F32;;Min. Apparent Energy L3 Timestamp;;1;0;Sec;4
+365;3;10720;F32;;Min. Apparent Energy L123 Timestamp;;1;0;Sec;4
+366;3;10900;F32;;Min. Power Factor L1;;1;0;;4
+367;3;10902;F32;;Min. Power Factor L2;;1;0;;4
+368;3;10904;F32;;Min. Power Factor L3;;1;0;;4
+369;3;10906;F32;;Min. Power Factor L1 Timestamp;;1;0;Sec;4
+370;3;10910;F32;;Min. Power Factor L2 Timestamp;;1;0;Sec;4
+371;3;10914;F32;;Min. Power Factor L3 Timestamp;;1;0;Sec;4
+372;3;10918;F32;;Max. Power Factor L1;;1;0;;4
+373;3;10920;F32;;Max. Power Factor L2;;1;0;;4
+374;3;10922;F32;;Max. Power Factor L3;;1;0;;4
+375;3;10924;F32;;Max. Power Factor L1 Timestamp;;1;0;Sec;4
+376;3;10932;F32;;Max. Power Factor L2 Timestamp;;1;0;Sec;4
+377;3;10950;F32;;Max. Power Factor L3 Timestamp;;1;0;Sec;4
+378;3;10950;F32;;Min. Frequency;;0.1;0;;4
+379;3;10952;F32;;Min. Frequency Timestamp;;1;0;Sec;4
+380;3;10956;F32;;Max. Frequency;;0.1;0;;4
+381;3;10958;F32;;Max. Frequency Timestamp;;1;0;Sec;4
+382;3;11000;F32;;Powerfail count on meter;;1;0;;4
+383;3;11001;I16;;Current Tariff;;1;0;;4
+384;3;11002;I16;;Current transformer ratio primary;;1;0;;4
+385;3;11003;I16;;Current transformer ratio Sececondary;;1;0;;4
+386;3;11004;I16;;Voltage transformer ratio primary;;1;0;;4
+387;3;11005;I16;;Voltage transformer ratio Seceondary;;1;0;;4
+389;3;11006;I16;;Reset of Min/Max Registers;;1;0;;4

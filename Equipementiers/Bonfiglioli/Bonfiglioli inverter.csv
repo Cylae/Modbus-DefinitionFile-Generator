@@ -1,0 +1,96 @@
+Modbus_RequestsTables={;;;;;;;;;;;
+# Description des champs;;;;;;;;;;;
+# reqIndex;reqName;reqReadFctCode;reqWriteFctCode;reqStartRegister;reqNbRegisters;reqEnableReading;reqEnableWritting;reqOption1;reqOption2;;
+1;requete 1;3;0;3841;6;1;1;0;0;;
+2;requete 2;3;0;3847;3;1;1;0;0;;
+3;requete 3;3;0;3850;18;1;1;0;0;;
+4;requete 4;3;0;3868;21;1;1;0;0;;
+5;requete 5;3;0;3889;40;1;1;0;0;;
+6;Requete 6;3;0;;;1;1;0;0;;
+;;;;;;;;;;;
+;;;;;;;;;;;
+;;;;;;;;;;;
+Modbus_VariablesTables={;;;;;;;;;;;
+# Description des champs;;;;;;;;;;;
+# varIndex;varReqIndex;varName;varType;varSigned;varPosition;varOption1;varOption2;varCoeffA;varCoeffB;varUnit;varAction
+1;1;DC Current;5;1;1;0;0;10;0;V;4
+2;1;Active Energy, Positive;5;1;2;0;0;10;0;V;4
+3;1;Apparent Power Phase a ;3;1;3;0;0;10;0;V;4
+4;1;Apparent Power Phase b;5;1;4;0;0;10;0;V;4
+5;1;Apparent Power Phase c;5;1;5;0;0;10;0;V;4
+6;1;Active Power Phase a;5;1;6;0;0;10;0;V;4
+7;2;Current Phase b;5;1;1;0;0;1000;0;A;4
+8;2;Current Phase c;5;1;2;0;0;1000;0;A;4
+9;2;Power Supply Voltage Phase a;5;1;3;0;0;1000;0;A;4
+10;3;Power Supply Voltage Phase b;5;1;1;0;0;10;0;W;4
+11;3;Power Supply Voltage Phase c;5;1;2;0;0;10;0;W;4
+12;3;Reactive power Phase a;5;1;3;0;0;10;0;W;4
+13;3;Reactive power Phase b;5;1;4;0;0;10;0;VA;4
+14;3;Reactive power Phase c;5;1;5;0;0;10;0;VA;4
+15;3;Reactive Power;5;1;6;0;0;10;0;W;4
+16;3;Reference value reactive power;5;1;7;0;0;10;0;var;4
+17;3;DC-Link Voltage;5;1;8;0;0;10;0;var;4
+18;3;R.m.s. Current;5;1;9;0;0;10;0;var;4
+19;3;Modulation;5;1;10;0;0;10;0;V;4
+20;3;Reference Percentage Value;5;1;11;0;0;10;0;V;4
+21;3;Active Energy High Word;5;1;12;0;0;10;0;W;4
+22;3;Active Energy Low  Word;5;1;13;0;0;10;0;VA;4
+23;3;Digital Inputs hardware;5;1;14;0;0;10;0;var;4
+24;3;Active Data Set;3;1;15;0;0;10;0;F;4
+25;3;Analog Input MFI1A;3;1;16;0;0;10;0;F;4
+26;3;Analog Input EM-S1INA;3;1;17;0;0;10;0;F;4
+27;3;Digital Outputs;3;1;18;0;0;10;0;F;4
+28;4;Analog Output MFO1A;3;1;1;0;0;1;0;hase;4
+29;4;Analog Output EM-S1OUTA;5;1;2;0;0;10;0;Hz;4
+30;4;STO Status;5;1;3;0;0;10;0;KWh;4
+31;4;*Reserved*;5;1;4;0;0;10;0;Kvarh;4
+32;4;Working Hours Counter High;5;1;5;0;0;10;0;W;4
+33;4;Working Hours Counter Low Word;5;1;6;0;0;10;0;Kw;4
+34;4;Operation Hours Counter High  Word;5;1;7;0;0;10;0;Kwh;4
+35;4;Operation Hours Counter Low  Word;5;1;8;0;0;10;0;Kvarh;4
+36;4;*Reserved*;5;1;9;0;0;10;0;Kwh;4
+37;4;*Reserved*;5;1;10;0;0;10;0;Kwh;4
+38;4;*Reserved*;5;1;11;0;0;10;0;Kwh;4
+39;4;*Reserved*;5;1;12;0;0;10;0;Kwh;4
+40;4;*Reserved*;5;1;13;0;0;10;0;Kwh;4
+41;4;*Reserved*;5;1;14;0;0;10;0;Kwh;4
+42;4;*Reserved*;5;1;15;0;0;10;0;Kwh;4
+43;4;*Reserved*;5;1;16;0;0;10;0;Kwh;4
+44;4;Power Factor Phase a;5;1;17;0;0;10;0;Kvarh;4
+45;4;Power Factor Phase b;5;1;18;0;0;0;0;Kwh;0
+46;4;Power Factor Phase c;5;1;19;0;0;0;0;Kvarh;0
+47;4;Power Factor Total;5;1;20;0;0;0;0;VAh;0
+48;4;Active current;5;1;21;0;0;0;0;VAh;0
+49;5;Reactive current;5;1;1;0;0;100;0;our;4
+50;4;;5;1;2;0;0;0;0;Hour;0
+51;4;;5;1;3;0;0;0;0;N;0
+52;4;;5;1;4;0;0;10;0;Kwh;4
+53;4;;5;1;5;0;0;10;0;Kwh;4
+54;4;;5;1;6;0;0;10;0;Kwh;4
+55;4;;5;1;7;0;0;0;0;Kwh;0
+56;4;;5;1;8;0;0;0;0;Kwh;0
+57;4;;5;1;9;0;0;0;0;Kwh;0
+58;4;;5;1;10;0;0;0;0;Kwh;0
+59;4;;5;1;11;0;0;0;0;N;0
+60;4;;5;1;12;0;0;0;0;N;0
+61;4;;5;1;13;0;0;0;0;N;0
+62;4;;5;1;14;0;0;0;0;N;0
+63;4;;5;1;15;0;0;0;0;N;0
+64;4;;5;1;16;0;0;0;0;N;0
+65;4;;5;1;17;0;0;0;0;N;0
+66;4;;5;1;18;0;0;0;0;N;4
+67;4;;5;1;19;0;0;0;0;N;0
+68;4;;5;1;20;0;0;0;0;N;0
+69;5;;5;1;1;0;0;100;0;Thd;4
+70;5;;5;1;2;0;0;100;0;Thd;4
+71;5;;5;1;3;0;0;100;0;Thd;4
+72;5;;5;1;4;0;0;100;0;Thd;4
+73;5;;5;1;5;0;0;100;0;Thd;4
+74;5;;5;1;6;0;0;100;0;Thd;4
+75;5;;5;1;7;0;0;100;0;Thd;4
+76;5;;5;1;8;0;0;0;0;Thd;0
+77;5;;5;1;9;0;0;0;0;Thd;0
+78;5;;5;1;10;0;0;0;0;Thd;0
+79;5;;5;1;11;0;0;0;0;Thd;0
+80;3;;5;1;12;0;0;0;0;An;0
+};;;;;;;;;;;
