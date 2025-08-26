@@ -1,6 +1,25 @@
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 import pdfplumber
+
+# --- Keyword & Dataclass Definitions ---
+
+# Defines the canonical names for columns and the keywords to find them in a PDF.
+# This allows for flexible matching across different languages and document formats.
+HEADER_KEYWORDS = {
+    "index": ["no", "index"],
+    "name": ["name", "signal"],
+    "access": ["access", "r/w"],
+    "type": ["type", "typ"],
+    "unit": ["unit", "un."],
+    "gain": ["gain"],
+    "address": ["address", "addre"],
+    "num_reg": ["num", "number"],
+    "scope": ["scope", "description"],
+}
+
+# Defines keywords that indicate the end of the Modbus registers section.
+STOP_KEYWORDS = ["alarm", "event", "customized interface", "error code"]
 
 @dataclass
 class ModbusRegister:
@@ -13,122 +32,161 @@ class ModbusRegister:
     gain: float = 1.0
     address: int = 0
     num_reg: int = 0
-    scope: str = "" # Not used in final CSV but parsed for context
+    scope: str = ""
 
     def to_csv_row(self):
         """Converts the dataclass instance to a semicolon-separated CSV row."""
         info1 = 3  # Holding Register
-
         info2 = str(self.address)
         if self.type == 'STR':
             byte_size = self.num_reg * 2
             info2 = f"{self.address}_{byte_size}"
-
         info3 = self.type
-        info4 = "" # Scale Factor not used
-
+        info4 = ""  # Scale Factor not used
         tag_name = self.name.replace('[', '').replace(']', '').replace('.', '')
         tag = "".join(word.capitalize() for word in re.findall(r'\b\w+\b', tag_name.lower()))
-
         coef_a = self.gain
         coef_a_str = f"{coef_a:.10f}".rstrip('0').rstrip('.') if coef_a != 1.0 else "1"
-
         ordered_fields = [
             self.index, info1, info2, info3, info4,
             self.name, tag, coef_a_str, 0, self.unit, 4
         ]
         return ";".join(map(str, ordered_fields))
 
-def _parse_table_row(row_cells):
+# --- Parsing Logic ---
+
+def _is_header_row(row, combined_header):
     """
-    Parses a list of cells from a table row into a ModbusRegister object.
+    Checks if a given row is a plausible header row by matching keywords.
+    Returns a column map if it's a header, otherwise None.
     """
-    # A valid row must start with a digit and have at least 9 columns, which is the structure of our target table.
-    if not row_cells or not row_cells[0] or not row_cells[0].strip().isdigit() or len(row_cells) < 9:
+    if not row:
+        return None
+    column_map = {}
+    for canonical_name, keywords in HEADER_KEYWORDS.items():
+        for col_idx, cell_text in enumerate([str(c).lower() for c in row]):
+            if any(keyword in cell_text for keyword in keywords):
+                if canonical_name not in column_map:
+                    column_map[canonical_name] = col_idx
+
+    # A header is considered plausible if it contains at least 4 of the defined columns.
+    if len(column_map) >= 4:
+        # Heuristic: If 'gain' is missing but 'type' is present, they might be in a merged cell.
+        if 'gain' not in column_map and 'type' in column_map and 'gain' in combined_header:
+            column_map['gain'] = column_map['type']
+        return column_map
+    return None
+
+def _is_stop_header(row):
+    """
+    Checks if a row is a header for a new section (e.g., "4.1 Alarms"),
+    which indicates that we should stop parsing.
+    """
+    # A section title typically has very few columns. Data rows have more.
+    if not row or len(row) >= 5:
+        return False
+
+    cleaned_row_text = " ".join([str(cell).lower().replace('\n', ' ') for cell in row if cell]).strip()
+    # Check if the row starts with a number (like "4.1") and contains a stop keyword.
+    if re.match(r'^\d+(\.\d+)*\s+', cleaned_row_text):
+        if any(stop_word in cleaned_row_text for stop_word in STOP_KEYWORDS):
+            return True
+    return False
+
+def _parse_row_with_map(row_cells, column_map):
+    """
+    Parses a single row of a table into a ModbusRegister object using the provided column map.
+    Returns the object or None if it's not a valid data row.
+    """
+    index_col = column_map.get("index")
+    # A valid data row must have an integer in the 'index' column.
+    if index_col is None or index_col >= len(row_cells) or not str(row_cells[index_col]).strip().isdigit():
         return None
 
-    cells = [cell.replace('\n', ' ').strip() if cell else "" for cell in row_cells]
+    reg_data = {}
+    for canonical_name, col_idx in column_map.items():
+        if col_idx < len(row_cells):
+            cell_value = row_cells[col_idx]
+            reg_data[canonical_name] = cell_value.replace('\n', ' ').strip() if cell_value else ""
+
+    valid_fields = {f.name for f in fields(ModbusRegister)}
+    filtered_reg_data = {k: v for k, v in reg_data.items() if k in valid_fields}
 
     try:
-        reg = ModbusRegister(index=int(cells[0]))
-        reg.name = cells[1]
-        reg.access = cells[2]
-        reg.type = cells[3]
-        reg.unit = cells[4]
-
-        gain_str = cells[5]
-        if gain_str.isdigit():
-            gain_val = int(gain_str)
+        reg = ModbusRegister(**filtered_reg_data)
+        # Robustly handle type conversions for numeric fields.
+        try:
+            gain_str = reg_data.get('gain', '1.0')
+            gain_val = float(gain_str)
             reg.gain = 1.0 / gain_val if gain_val != 0 else 1.0
+        except (ValueError, TypeError):
+            reg.gain = 1.0  # Default to 1.0 if gain is not a valid number (e.g., text).
 
-        reg.address = int(cells[6])
-        reg.num_reg = int(cells[7])
-        reg.scope = cells[8]
-
+        reg.index = int(float(reg_data.get('index', 0)))
+        reg.address = int(float(reg_data.get('address', 0)))
+        reg.num_reg = int(float(reg_data.get('num_reg', 0)))
         return reg
-    except (ValueError, IndexError):
-        return None
+    except (ValueError, TypeError):
+        return None # Return None if essential numeric conversions fail.
 
 def parse_modbus_text(filepath):
     """
-    Opens a PDF and parses it using pdfplumber's table extraction with
-    a text-based strategy, which is more robust for tables without clear lines.
+    Main parsing function. Opens a PDF and extracts Modbus registers.
+    It works by iterating through all tables and maintaining a state.
     """
-    all_rows = []
+    registers = []
+    last_reg = None
+    column_map = None
+    parsing_started = False
+
     try:
         with pdfplumber.open(filepath) as pdf:
-            start_page, end_page = -1, len(pdf.pages)
-            for i, page in enumerate(pdf.pages):
-                page_text = page.extract_text()
-                if "3 Register Definitions" in page_text and start_page == -1:
-                    if "4 Customized Interfaces" not in page_text:
-                        start_page = i
-                if "4 Customized Interfaces" in page_text and start_page != -1:
-                    end_page = i
-                    break
-
-            if start_page == -1:
-                print("Error: Could not find '3 Register Definitions' section.")
-                return []
-
-            table_settings = {
-                "vertical_strategy": "text",
-                "horizontal_strategy": "text",
-            }
-
-            for i in range(start_page, end_page):
-                page = pdf.pages[i]
+            table_settings = {"vertical_strategy": "text", "horizontal_strategy": "text"}
+            for page in pdf.pages:
                 tables = page.extract_tables(table_settings)
                 for table in tables:
-                    all_rows.extend(table)
+                    if not table: continue
 
+                    if parsing_started and _is_stop_header(table[0]):
+                        return registers
+
+                    for i, row in enumerate(table):
+                        if not parsing_started:
+                            combined_header = " ".join([str(cell).lower().replace('\n', ' ') for cell in row])
+                            header_map = _is_header_row(row, combined_header)
+                            if header_map:
+                                column_map = header_map
+                                parsing_started = True
+                                # Process the rest of the rows in the table where the header was found.
+                                for data_row in table[i+1:]:
+                                    reg = _parse_row_with_map(data_row, column_map)
+                                    if reg:
+                                        registers.append(reg)
+                                        last_reg = reg
+                                    elif last_reg: # Handle continuation rows
+                                        continuation_text = " ".join(filter(None, [str(cell).strip() for cell in data_row]))
+                                        if continuation_text:
+                                            last_reg.scope = (last_reg.scope + " " + continuation_text).strip()
+                                break # Header found and table processed, move to the next table.
+
+                        elif parsing_started:
+                            # If parsing has started, treat all subsequent rows as data or continuations.
+                            reg = _parse_row_with_map(row, column_map)
+                            if reg:
+                                registers.append(reg)
+                                last_reg = reg
+                            elif last_reg:
+                                continuation_text = " ".join(filter(None, [str(cell).strip() for cell in row]))
+                                if continuation_text:
+                                    last_reg.scope = (last_reg.scope + " " + continuation_text).strip()
     except Exception as e:
         print(f"An error occurred during PDF processing: {e}")
         return []
 
-    registers = []
-    last_reg = None
-    for row in all_rows:
-        # If a row doesn't start with a number, it's likely a continuation of the previous row's scope.
-        if row and (row[0] is None or not row[0].strip().isdigit()) and last_reg:
-            continuation_text = " ".join(filter(None, [cell.strip() if cell else None for cell in row]))
-            if continuation_text:
-                last_reg.scope += " " + continuation_text
-        else:
-            reg = _parse_table_row(row)
-            if reg:
-                registers.append(reg)
-                last_reg = reg
-            else:
-                last_reg = None
-
-    print(f"Parsing complete. Found {len(registers)} registers.")
     return registers
 
 def generate_csv_data(registers, header_info):
-    """
-    Generates the content of the Webdyn CSV file from parsed registers.
-    """
+    """Generates the final CSV content from a list of registers."""
     header = ";".join(str(v) for v in header_info.values())
     lines = [header]
     for reg in registers:
