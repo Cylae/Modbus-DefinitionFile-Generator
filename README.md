@@ -24,11 +24,12 @@ To use this application, you must have Python 3 installed on your Windows system
 
 The application's interface is simple and designed to be intuitive.
 
-1.  **Fill in the header**: The fields in the "Header Information" section are pre-filled with example values (based on the Huawei inverter). Modify them as needed to match your equipment.
-2.  **Paste the Modbus table**: Copy the entire table of register definitions from the PDF document or your equipment's source (usually the "Register Definitions" chapter). Paste this raw text into the large "Modbus Table" text area.
-3.  **Generate the file**: Click the "Generate and Save CSV File" button.
-4.  **Save the file**: A "Save As" dialog box will open. Choose the location where you want to save your `.csv` definition file and click "Save". The filename is automatically suggested based on the equipment model.
-5.  A success message will be displayed to confirm that the file has been saved successfully.
+1.  **Fill in the header**: The fields in the "Header Information" section are pre-filled with example values. Modify them as needed to match your equipment.
+2.  **Load the PDF**: Click the "Load PDF File" button to open a file dialog.
+3.  **Select the source file**: Navigate to and select the manufacturer's PDF document containing the Modbus register definitions. The selected file path will be displayed.
+4.  **Generate the file**: Click the "Generate and Save CSV File" button. The application will parse the PDF to find the Modbus table and extract the registers.
+5.  **Save the file**: A "Save As" dialog box will open. Choose the location where you want to save your `.csv` definition file and click "Save". The filename is automatically suggested based on the equipment model.
+6.  A success message will be displayed to confirm that the file has been saved successfully.
 
 ## Compiling into a Windows Executable (`.exe`)
 
