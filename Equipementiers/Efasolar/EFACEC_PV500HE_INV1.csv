@@ -1,0 +1,69 @@
+ModbusRTU;Inverter;EFACEC;PV250HE_PV375HE_PV500HE;;;;;;;
+1;;40001;F32;;Global Active Power;;1;0;kW;4
+2;;40003;F32;;Global Reactive Power;;1;0;kVA;4
+3;;40005;U16;;Communication Error Status;;1;0;;4
+;;;;;;;;;;
+4;;40006;U16;;Summer_init_day;;1;0;;4
+5;;40007;U16;;Summer_init_month;;1;0;;4
+6;;40008;U16;;S_peak_init_hour;;1;0;h;4
+7;;40009;U16;;S_peak_init_min;;1;0;min;4
+8;;40010;U16;;S_peak_end_hour;;1;0;h;4
+9;;40011;U16;;S_peak_end_min;;1;0;min;4
+10;;40012;I16;;S_peak_cosphi;;1;0;;4
+11;;40013;U16;;S_valley_init_hour;;1;0;h;4
+12;;40014;U16;;S_valley_init_min;;1;0;min;4
+13;;40015;U16;;S_valley_end_hour;;1;0;h;4
+14;;40016;U16;;S_valley_end_min;;1;0;min;4
+15;;40017;I16;;S_valley_cosphi;;1;0;;4
+16;;40018;U16;;S_flat_init_hour;;1;0;h;4
+17;;40019;U16;;S_flat_init_min;;1;0;min;4
+18;;40020;U16;;S_flat_end_hour;;1;0;h;4
+19;;40021;U16;;S_flat_end_min;;1;0;min;4
+20;;40022;I16;;S_flat_cosphi;;1;0;;4
+21;;40023;U16;;Winter_init_day;;1;0;;4
+22;;40024;U16;;Winter_init_month;;1;0;;4
+23;;40025;U16;;W_peak_init_hour;;1;0;h;4
+24;;40026;U16;;W_peak_init_min;;1;0;min;4
+25;;40027;U16;;W_peak_end_hour;;1;0;h;4
+26;;40028;U16;;W_peak_end_min;;1;0;min;4
+27;;40029;I16;;W_peak_cosphi;;1;0;;4
+28;;40030;U16;;W_valley_init_hour;;1;0;h;4
+29;;40031;U16;;W_valley_init_min;;1;0;min;4
+30;;40032;U16;;W_valley_end_hour;;1;0;h;4
+31;;40033;U16;;W_valley_end_min;;1;0;min;4
+32;;40034;I16;;W_valley_cosphi;;1;0;;4
+33;;40035;U16;;W_flat_init_hour;;1;0;h;4
+34;;40036;U16;;W_flat_init_min;;1;0;min;4
+35;;40037;U16;;W_flat_end_hour;;1;0;h;4
+36;;40038;U16;;W_flat_end_min;;1;0;min;4
+37;;40039;I16;;W_flat_cosphi;;1;0;;4
+;;;;;;;;;;
+38;;40041;F32;;Input voltage;;1;0;V;4
+39;;40043;F32;;Input current;;1;0;A;4
+40;;40045;F32;;Input Power;;1;0;kW;4
+41;;40047;F32;;Output Voltage (Vrs);;1;0;V;4
+42;;40049;F32;;Output Voltage (Vst);;1;0;V;4
+43;;40051;F32;;Output Voltage (Vtr);;1;0;V;4
+44;;40053;F32;;Output Current (Ir);;1;0;A;4
+45;;40055;F32;;Output Current (Is);;1;0;A;4
+46;;40057;F32;;Output Current (It);;1;0;A;4
+47;;40059;F32;;Ouput Power;;1;0;kW;4
+48;;40061;F32;;Power Factor;;1;0;;4
+49;;40063;F32;;Temperature;;1;0;C;4
+50;;40065;F32;;Frequency;;1;0;Hz;4
+51;;40067;U16;;Alrm_Vgrid;;1;0;;4
+52;;40068;U16;;Alrm_Freq;;1;0;;4
+53;;40069;U16;;Alrm_Fus;;1;0;;4
+54;;40070;U16;;Alrm_Fearth;;1;0;;4
+55;;40071;U16;;Alrm_Prot_Int;;1;0;;4
+56;;40072;U16;;Alrm_OverTemp;;1;0;;4
+57;;40073;U16;;PreAlrm_OverTemp;;1;0;;4
+58;;40074;U16;;Alrm_Fans;;1;0;;4
+59;;40075;F32;;CounterP;;1;0;kWh;4
+60;;40077;F32;;CounterQ;;1;0;kVAh;4
+61;;40079;I16;;CosPhi;;1;0;;4
+62;;40080;U16;;Failure;;1;0;;4
+63;;40081;U32;;FlagErr1;;1;0;;4
+64;;40083;U32;;FlagErr2;;1;0;;4
+65;;40085;U16;;Command;;1;0;;4
+66;;40086;U16;;MasterSlave;;1;0;;4

@@ -1,0 +1,30 @@
+ModbusRTU;Inverter;EFACEC;PV250HE_PV375HE_PV500HE;;;;;;;
+;;40179;F32;;Input voltage;;1;0;V;4
+;;40181;F32;;Input current;;1;0;A;4
+;;40183;F32;;Input Power;;1;0;kW;4
+;;40185;F32;;Output Voltage (Vrs);;1;0;V;4
+;;40187;F32;;Output Voltage (Vst);;1;0;V;4
+;;40189;F32;;Output Voltage (Vtr);;1;0;V;4
+;;40191;F32;;Output Current (Ir);;1;0;A;4
+;;40193;F32;;Output Current (Is);;1;0;A;4
+;;40195;F32;;Output Current (It);;1;0;A;4
+;;40197;F32;;Ouput Power;;1;0;kW;4
+;;40199;F32;;Power Factor;;1;0;;4
+;;40201;F32;;Temperature;;1;0;C;4
+;;40203;F32;;Frequency;;1;0;Hz;4
+;;40205;U16;;Alrm_Vgrid;;1;0;;4
+;;40206;U16;;Alrm_Freq;;1;0;;4
+;;40207;U16;;Alrm_Fus;;1;0;;4
+;;40208;U16;;Alrm_Fearth;;1;0;;4
+;;40209;U16;;Alrm_Prot_Int;;1;0;;4
+;;40210;U16;;Alrm_OverTemp;;1;0;;4
+;;40211;U16;;PreAlrm_OverTemp;;1;0;;4
+;;40212;U16;;Alrm_Fans;;1;0;;4
+;;40213;F32;;CounterP;;1;0;kWh;4
+;;40215;F32;;CounterQ;;1;0;kVAh;4
+;;40217;I16;;CosPhi;;1;0;;4
+;;40218;U16;;Failure;;1;0;;4
+;;40219;U32;;FlagErr1;;1;0;;4
+;;40221;U32;;FlagErr2;;1;0;;4
+;;40223;U16;;Command;;1;0;;4
+;;40224;U16;;MasterSlave;;1;0;;4

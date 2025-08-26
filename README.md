@@ -1,49 +1,49 @@
-# Générateur de Définition Modbus pour Webdyn
+# Modbus Definition Generator for Webdyn
 
-Cet outil est une application de bureau qui permet de générer des fichiers de définition Modbus (`.csv`) pour les équipements WebdynSunPM à partir de la documentation technique d'un équipement.
+This tool is a desktop application used to generate Modbus definition files (`.csv`) for WebdynSunPM equipment from an equipment's technical documentation.
 
-Il a été conçu pour automatiser le processus de création de ces fichiers, réduisant ainsi les erreurs manuelles et accélérant le déploiement.
+It was designed to automate the creation process of these files, thereby reducing manual errors and speeding up deployment.
 
-## Technologies Utilisées
+## Technologies Used
 
-*   **Python 3**: Le langage de programmation principal utilisé pour l'ensemble de l'application.
-*   **Tkinter**: La bibliothèque standard de Python pour la création d'interfaces graphiques (GUI). L'utilisation de Tkinter garantit qu'aucune installation de bibliothèque externe n'est nécessaire pour exécuter le script si Python est déjà installé.
+*   **Python 3**: The main programming language used for the entire application.
+*   **Tkinter**: Python's standard library for creating graphical user interfaces (GUI). Using Tkinter ensures that no external library installation is required to run the script if Python is already installed.
 
-## Déploiement et Lancement (depuis le code source)
+## Deployment and Launch (from source code)
 
-Pour utiliser cette application, vous devez avoir Python 3 installé sur votre système Windows.
+To use this application, you must have Python 3 installed on your Windows system.
 
-1.  **Sauvegardez les fichiers** : Assurez-vous que les fichiers `gui_app.py` et `parser.py` se trouvent dans le même répertoire.
-2.  **Lancez l'application** : Ouvrez une invite de commande (`cmd`) ou un PowerShell dans ce répertoire et exécutez la commande suivante :
+1.  **Save the files**: Ensure that the `gui_app.py` and `parser.py` files are in the same directory.
+2.  **Launch the application**: Open a command prompt (`cmd`) or PowerShell in this directory and run the following command:
     ```bash
     python gui_app.py
     ```
-3.  L'interface graphique de l'application devrait alors s'ouvrir.
+3.  The application's graphical interface should then open.
 
-## Utilisation de l'application
+## Using the Application
 
-L'interface de l'application est simple et conçue pour être intuitive.
+The application's interface is simple and designed to be intuitive.
 
-1.  **Remplir l'en-tête** : Les champs dans la section "Informations d'en-tête" sont pré-remplis avec des valeurs d'exemple (basées sur l'onduleur Huawei). Modifiez-les si nécessaire pour correspondre à votre équipement.
-2.  **Coller la table Modbus** : Copiez l'intégralité du tableau de définitions de registres depuis le document PDF ou la source de votre équipement (généralement le chapitre "Register Definitions"). Collez ce texte brut dans la grande zone de texte "Table Modbus".
-3.  **Générer le fichier** : Cliquez sur le bouton "Générer et Enregistrer le Fichier CSV".
-4.  **Enregistrer le fichier** : Une boîte de dialogue "Enregistrer sous" s'ouvrira. Choisissez l'emplacement où vous souhaitez sauvegarder votre fichier de définition `.csv` et cliquez sur "Enregistrer". Le nom du fichier est automatiquement suggéré en fonction du modèle d'équipement.
-5.  Un message de succès s'affichera pour confirmer que le fichier a bien été enregistré.
+1.  **Fill in the header**: The fields in the "Header Information" section are pre-filled with example values (based on the Huawei inverter). Modify them as needed to match your equipment.
+2.  **Paste the Modbus table**: Copy the entire table of register definitions from the PDF document or your equipment's source (usually the "Register Definitions" chapter). Paste this raw text into the large "Modbus Table" text area.
+3.  **Generate the file**: Click the "Generate and Save CSV File" button.
+4.  **Save the file**: A "Save As" dialog box will open. Choose the location where you want to save your `.csv` definition file and click "Save". The filename is automatically suggested based on the equipment model.
+5.  A success message will be displayed to confirm that the file has been saved successfully.
 
-## Compilation en un Exécutable Windows (`.exe`)
+## Compiling into a Windows Executable (`.exe`)
 
-Si vous souhaitez distribuer cette application en tant que fichier `.exe` unique qui n'exige pas que les utilisateurs finaux aient Python installé, vous pouvez la compiler en utilisant l'outil `PyInstaller`.
+If you want to distribute this application as a single `.exe` file that does not require end-users to have Python installed, you can compile it using the `PyInstaller` tool.
 
-1.  **Installez PyInstaller** : Si vous ne l'avez pas déjà, ouvrez une invite de commande et installez-le en utilisant `pip`, le gestionnaire de paquets de Python.
+1.  **Install PyInstaller**: If you don't already have it, open a command prompt and install it using `pip`, Python's package manager.
     ```bash
     pip install pyinstaller
     ```
-2.  **Compilez le script** : Toujours depuis votre terminal, naviguez jusqu'au répertoire contenant `gui_app.py` et `parser.py`. Exécutez la commande suivante :
+2.  **Compile the script**: Still in your terminal, navigate to the directory containing `gui_app.py` and `parser.py`. Run the following command:
     ```bash
     pyinstaller --onefile --windowed --name "ModbusDefGenerator" gui_app.py
     ```
-    *   `--onefile` : Regroupe l'application et toutes ses dépendances en un seul fichier exécutable.
-    *   `--windowed` : Empêche l'ouverture d'une console noire en arrière-plan lors de l'exécution de l'application, ce qui est idéal pour une application GUI.
-    *   `--name "ModbusDefGenerator"` : Définit le nom du fichier `.exe` qui sera créé.
+    *   `--onefile`: Bundles the application and all its dependencies into a single executable file.
+    *   `--windowed`: Prevents a black console from opening in the background when running the application, which is ideal for a GUI application.
+    *   `--name "ModbusDefGenerator"`: Sets the name of the `.exe` file that will be created.
 
-3.  **Trouvez l'exécutable** : Une fois la compilation terminée (cela peut prendre une minute), vous trouverez un nouveau dossier nommé `dist` dans votre répertoire. À l'intérieur de ce dossier se trouve votre application `ModbusDefGenerator.exe`, prête à être utilisée et distribuée sur n'importe quel ordinateur Windows.
+3.  **Find the executable**: Once the compilation is complete (it may take a minute), you will find a new folder named `dist` in your directory. Inside this folder is your `ModbusDefGenerator.exe` application, ready to be used and distributed on any Windows computer.
