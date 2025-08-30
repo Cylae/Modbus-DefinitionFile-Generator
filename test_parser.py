@@ -1,6 +1,70 @@
 import unittest
 import os
-from parser import parse_modbus_text, generate_csv_data
+from parser import parse_modbus_text, generate_csv_data, _is_header_row
+
+
+class TestParserUnit(unittest.TestCase):
+    """Unit tests for individual functions in the parser."""
+
+    def test_is_header_row(self):
+        """Tests the _is_header_row function with various valid and invalid inputs."""
+        # A perfect, expected header
+        valid_header = ["No.", "Signal Name", "Address", "Number of Registers", "R/W Access", "Data Type", "Unit"]
+        expected_map = {
+            'index': 0,
+            'name': 1,
+            'address': 2,
+            'num_reg': 3,
+            'access': 4,
+            'type': 5,
+            'unit': 6
+        }
+        self.assertEqual(_is_header_row(valid_header, " ".join(valid_header).lower()), expected_map)
+
+        # A header with fewer columns, but still valid
+        partial_header = ["Address", "Name", "Type", "Unit"]
+        expected_map_partial = {
+            'address': 0,
+            'name': 1,
+            'type': 2,
+            'unit': 3
+        }
+        self.assertEqual(_is_header_row(partial_header, " ".join(partial_header).lower()), expected_map_partial)
+
+        # A header with keywords in different languages/abbreviations
+        mixed_header = ["Index", "Nom du Signal", "Addresse", "Typ", "Un."]
+        expected_map_mixed = {
+            'index': 0,
+            'name': 1,
+            'address': 2,
+            'type': 3,
+            'unit': 4
+        }
+        self.assertEqual(_is_header_row(mixed_header, " ".join(mixed_header).lower()), expected_map_mixed)
+
+        # A row that is clearly not a header (data row)
+        data_row = ["1", "Inverter Status", "40001", "1", "RO", "UINT16", ""]
+        self.assertIsNone(_is_header_row(data_row, " ".join(data_row).lower()))
+
+        # A row with too few matching keywords to be a header
+        not_a_header = ["Column 1", "Column 2", "Column 3", "Status"]
+        self.assertIsNone(_is_header_row(not_a_header, " ".join(not_a_header).lower()))
+
+        # An empty row
+        empty_row = []
+        self.assertIsNone(_is_header_row(empty_row, ""))
+
+        # Test the 'gain' heuristic
+        header_with_gain_in_type = ["Address", "Name", "Type/Gain", "Unit"]
+        expected_map_gain = {
+            'address': 0,
+            'name': 1,
+            'type': 2,
+            'gain': 2, # Should map 'gain' to the same column as 'type'
+            'unit': 3
+        }
+        self.assertEqual(_is_header_row(header_with_gain_in_type, " ".join(header_with_gain_in_type).lower()), expected_map_gain)
+
 
 class TestParserEndToEnd(unittest.TestCase):
     """
