@@ -1,5 +1,6 @@
 import unittest
 import os
+import json
 from pdfminer.pdfparser import PDFSyntaxError
 from unittest.mock import patch, MagicMock
 from parser import (
@@ -120,21 +121,47 @@ class TestParserUnit(unittest.TestCase):
 
 
 class TestParserEndToEnd(unittest.TestCase):
-    """End-to-end tests for the Modbus definition parser."""
+    """
+    Data-driven end-to-end tests. It scans the `test_data` directory
+    for PDF files and compares their parsing results against corresponding
+    '.json' golden files.
+    """
+    def test_parsing_from_test_data(self):
+        test_data_dir = "test_data"
+        test_files = [f for f in os.listdir(test_data_dir) if f.endswith('.pdf')]
 
-    def test_huawei_sun2000_pdf_parsing(self):
-        """Tests the full pipeline on the Huawei SUN2000 PDF."""
-        filepath = "Definition/09. SUN2000-12~25K-MB0 Modbus Interface Definitions (2).pdf"
-        self.assertTrue(os.path.exists(filepath), f"Test file not found: {filepath}")
-        header_info = {"protocol": "modbusRTU", "category": "Inverter", "manufacturer": "HUAWEI", "model": "SUN2000-25K-MB0", "write_code": "0"}
+        self.assertGreater(len(test_files), 0, "No test files found in test_data directory.")
 
-        registers = parse_modbus_text(filepath)
-        self.assertIsNotNone(registers)
-        self.assertGreater(len(registers), 300)
+        for pdf_file in test_files:
+            base_name = os.path.splitext(pdf_file)[0]
+            pdf_path = os.path.join(test_data_dir, pdf_file)
+            json_path = os.path.join(test_data_dir, f"{base_name}.json")
 
-        csv_output = generate_csv_data(registers, header_info)
-        self.assertIn("modbusRTU;Inverter;HUAWEI;SUN2000-25K-MB0;0", csv_output)
-        self.assertIn("Model;Model", csv_output)
+            with self.subTest(pdf_file=pdf_file):
+                self.assertTrue(os.path.exists(json_path), f"Golden file not found for {pdf_file}")
+
+                # Parse the actual PDF
+                parsed_registers = parse_modbus_text(pdf_path)
+                self.assertIsNotNone(parsed_registers)
+                self.assertIsInstance(parsed_registers, list)
+
+                # Load the expected results from the golden file
+                with open(json_path, 'r') as f:
+                    expected_data = json.load(f)
+
+                # Create a dictionary of parsed registers by name for easy lookup
+                parsed_map = {reg.name: reg for reg in parsed_registers}
+
+                # Compare the parsed data against the expected data
+                for expected_reg in expected_data:
+                    reg_name = expected_reg["name"]
+                    self.assertIn(reg_name, parsed_map, f"Register '{reg_name}' not found in parsed output for {pdf_file}")
+
+                    actual_reg = parsed_map[reg_name]
+                    for key, expected_value in expected_reg.items():
+                        actual_value = getattr(actual_reg, key)
+                        self.assertEqual(actual_value, expected_value,
+                                         f"Mismatch for register '{reg_name}', key '{key}' in {pdf_file}")
 
 if __name__ == '__main__':
     unittest.main()

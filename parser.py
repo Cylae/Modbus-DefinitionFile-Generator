@@ -9,13 +9,13 @@ from pdfminer.pdfparser import PDFSyntaxError
 # This allows for flexible matching across different languages and document formats.
 HEADER_KEYWORDS = {
     "index": ["no", "index", "#"],
-    "name": ["name", "signal", "description", "parameter", "libellé"],
-    "access": ["access", "r/w", "read/write", "accès"],
+    "name": ["name", "signal", "description", "parameter", "libellé", "label"],
+    "access": ["access", "r/w", "read/write", "accès", "mode"],
     "type": ["type", "typ", "data type", "format"],
     "unit": ["unit", "un.", "units", "unité"],
-    "gain": ["gain", "scale", "factor", "scaling", "multiplier"],
-    "address": ["address", "addre", "register", "reg."],
-    "num_reg": ["num", "number"],
+    "gain": ["gain", "scale", "factor", "scaling", "multiplier", "sf"],
+    "address": ["address", "addre", "register", "reg.", "offset"],
+    "num_reg": ["num", "number", "size", "length"],
     "scope": ["scope", "comments", "remarques"],
 }
 
