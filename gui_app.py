@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-from parser import parse_modbus_text, generate_csv_data
+from parser import parse_modbus_text, generate_csv_data, ParserError
 import sys
 
 class ModbusDefGeneratorApp(tk.Tk):
@@ -56,27 +56,35 @@ class ModbusDefGeneratorApp(tk.Tk):
         if not self.filepath:
             messagebox.showerror("Erreur", "Veuillez d'abord charger un fichier PDF.")
             return
-        parsed_registers = parse_modbus_text(self.filepath)
-        if not parsed_registers:
-            messagebox.showwarning("Avertissement", "Aucun registre n'a pu être analysé à partir du texte fourni.")
-            return
-        csv_content = generate_csv_data(parsed_registers, header_info)
-        model_name = header_info.get('model', 'definition')
-        filename = f"webdyn_def_{model_name}.csv"
-        filepath = filedialog.asksaveasfilename(
-            defaultextension=".csv",
-            filetypes=[("Fichiers CSV", "*.csv"), ("Tous les fichiers", "*.*")],
-            initialfile=filename,
-            title="Enregistrer le fichier de définition Modbus"
-        )
-        if not filepath:
-            return
+
         try:
-            with open(filepath, 'w', newline='', encoding='utf-8') as f:
+            parsed_registers = parse_modbus_text(self.filepath)
+            if not parsed_registers:
+                messagebox.showwarning("Avertissement", "Aucun registre Modbus n'a été trouvé dans les tables du document.")
+                return
+
+            csv_content = generate_csv_data(parsed_registers, header_info)
+            model_name = header_info.get('model', 'definition')
+            filename = f"webdyn_def_{model_name}.csv"
+
+            save_filepath = filedialog.asksaveasfilename(
+                defaultextension=".csv",
+                filetypes=[("Fichiers CSV", "*.csv"), ("Tous les fichiers", "*.*")],
+                initialfile=filename,
+                title="Enregistrer le fichier de définition Modbus"
+            )
+            if not save_filepath:
+                return
+
+            with open(save_filepath, 'w', newline='', encoding='utf-8') as f:
                 f.write(csv_content)
-            messagebox.showinfo("Succès", f"Fichier enregistré avec succès à l'emplacement :\n{filepath}")
+
+            messagebox.showinfo("Succès", f"Fichier enregistré avec succès à l'emplacement :\n{save_filepath}")
+
+        except ParserError as e:
+            messagebox.showerror("Erreur de Parsing", str(e))
         except Exception as e:
-            messagebox.showerror("Erreur d'écriture", f"Une erreur est survenue lors de l'écriture du fichier :\n{e}")
+            messagebox.showerror("Erreur Inattendue", f"Une erreur inattendue est survenue :\n{e}")
 
 if __name__ == "__main__":
     app = ModbusDefGeneratorApp()

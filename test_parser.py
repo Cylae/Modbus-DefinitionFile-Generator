@@ -1,8 +1,9 @@
 import unittest
 import os
+from pdfminer.pdfparser import PDFSyntaxError
 from unittest.mock import patch, MagicMock
 from parser import (
-    parse_modbus_text, generate_csv_data,
+    parse_modbus_text, generate_csv_data, ParserError,
     _is_header_row, _parse_row_with_map, ModbusRegister, _is_stop_header
 )
 
@@ -88,6 +89,28 @@ class TestParserUnit(unittest.TestCase):
         expected_scope = "Provides detailed status of the device, including operational mode."
         self.assertEqual(registers[0].scope, expected_scope)
         self.assertEqual(registers[1].scope, "Another register")
+
+    def test_error_handling(self):
+        """Tests that the parser raises appropriate errors."""
+        # Test for a file where no valid header is ever found
+        with patch('parser.pdfplumber.open') as mock_pdfplumber_open:
+            mock_pdf = MagicMock()
+            mock_page = MagicMock()
+            mock_table = [["Col A", "Col B", "Col C"], ["1", "2", "3"]] # A table with no valid header
+            mock_page.extract_tables.return_value = [mock_table]
+            mock_pdf.pages = [mock_page]
+            mock_pdfplumber_open.return_value.__enter__.return_value = mock_pdf
+
+            with self.assertRaisesRegex(ParserError, "Aucun en-tête de tableau Modbus valide"):
+                parse_modbus_text("dummy/file.pdf")
+
+        # Test for a corrupted PDF file
+        with patch('parser.pdfplumber.open') as mock_pdfplumber_open:
+            # Simulate the error that pdfminer would raise
+            mock_pdfplumber_open.side_effect = PDFSyntaxError("Corrupted file")
+
+            with self.assertRaisesRegex(ParserError, "Erreur de syntaxe PDF"):
+                parse_modbus_text("dummy/corrupted.pdf")
 
 
 class TestParserEndToEnd(unittest.TestCase):
