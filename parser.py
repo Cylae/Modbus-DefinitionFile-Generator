@@ -7,15 +7,15 @@ import pdfplumber
 # Defines the canonical names for columns and the keywords to find them in a PDF.
 # This allows for flexible matching across different languages and document formats.
 HEADER_KEYWORDS = {
-    "index": ["no", "index"],
-    "name": ["name", "signal"],
-    "access": ["access", "r/w"],
-    "type": ["type", "typ"],
-    "unit": ["unit", "un."],
-    "gain": ["gain"],
-    "address": ["address", "addre"],
+    "index": ["no", "index", "#"],
+    "name": ["name", "signal", "description", "parameter", "libellé"],
+    "access": ["access", "r/w", "read/write", "accès"],
+    "type": ["type", "typ", "data type", "format"],
+    "unit": ["unit", "un.", "units", "unité"],
+    "gain": ["gain", "scale", "factor", "scaling", "multiplier"],
+    "address": ["address", "addre", "register", "reg."],
     "num_reg": ["num", "number"],
-    "scope": ["scope", "description"],
+    "scope": ["scope", "comments", "remarques"],
 }
 
 # Defines keywords that indicate the end of the Modbus registers section.
@@ -87,8 +87,8 @@ def _is_stop_header(row):
         return False
 
     cleaned_row_text = " ".join([str(cell).lower().replace('\n', ' ') for cell in row if cell]).strip()
-    # Check if the row starts with a number (like "4.1") and contains a stop keyword.
-    if re.match(r'^\d+(\.\d+)*\s+', cleaned_row_text):
+    # Check if the row starts with a number (like "4.1" or "5.") and contains a stop keyword.
+    if re.match(r'^\d+(\.\d*)*\s*', cleaned_row_text):
         if any(stop_word in cleaned_row_text for stop_word in STOP_KEYWORDS):
             return True
     return False
@@ -164,7 +164,7 @@ def parse_modbus_text(filepath):
                                         registers.append(reg)
                                         last_reg = reg
                                     elif last_reg: # Handle continuation rows
-                                        continuation_text = " ".join(filter(None, [str(cell).strip() for cell in data_row]))
+                                        continuation_text = " ".join(str(cell).strip() for cell in data_row if cell is not None)
                                         if continuation_text:
                                             last_reg.scope = (last_reg.scope + " " + continuation_text).strip()
                                 break # Header found and table processed, move to the next table.
@@ -176,7 +176,7 @@ def parse_modbus_text(filepath):
                                 registers.append(reg)
                                 last_reg = reg
                             elif last_reg:
-                                continuation_text = " ".join(filter(None, [str(cell).strip() for cell in row]))
+                                continuation_text = " ".join(str(cell).strip() for cell in row if cell is not None)
                                 if continuation_text:
                                     last_reg.scope = (last_reg.scope + " " + continuation_text).strip()
     except Exception as e:

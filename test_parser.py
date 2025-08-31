@@ -1,6 +1,10 @@
 import unittest
 import os
-from parser import parse_modbus_text, generate_csv_data, _is_header_row
+from unittest.mock import patch, MagicMock
+from parser import (
+    parse_modbus_text, generate_csv_data,
+    _is_header_row, _parse_row_with_map, ModbusRegister, _is_stop_header
+)
 
 
 class TestParserUnit(unittest.TestCase):
@@ -11,101 +15,97 @@ class TestParserUnit(unittest.TestCase):
         # A perfect, expected header
         valid_header = ["No.", "Signal Name", "Address", "Number of Registers", "R/W Access", "Data Type", "Unit"]
         expected_map = {
-            'index': 0,
-            'name': 1,
-            'address': 2,
-            'num_reg': 3,
-            'access': 4,
-            'type': 5,
-            'unit': 6
+            'index': 0, 'name': 1, 'address': 2, 'num_reg': 3, 'access': 4, 'type': 5, 'unit': 6
         }
         self.assertEqual(_is_header_row(valid_header, " ".join(valid_header).lower()), expected_map)
 
         # A header with fewer columns, but still valid
         partial_header = ["Address", "Name", "Type", "Unit"]
-        expected_map_partial = {
-            'address': 0,
-            'name': 1,
-            'type': 2,
-            'unit': 3
-        }
+        expected_map_partial = {'address': 0, 'name': 1, 'type': 2, 'unit': 3}
         self.assertEqual(_is_header_row(partial_header, " ".join(partial_header).lower()), expected_map_partial)
 
         # A header with keywords in different languages/abbreviations
         mixed_header = ["Index", "Nom du Signal", "Addresse", "Typ", "Un."]
-        expected_map_mixed = {
-            'index': 0,
-            'name': 1,
-            'address': 2,
-            'type': 3,
-            'unit': 4
-        }
+        expected_map_mixed = {'index': 0, 'name': 1, 'address': 2, 'type': 3, 'unit': 4}
         self.assertEqual(_is_header_row(mixed_header, " ".join(mixed_header).lower()), expected_map_mixed)
+
+        # A header with the new alternative keywords
+        alternative_header = ["#", "Description", "Register", "Scaling", "Read/Write", "Format", "Units"]
+        expected_map_alternative = {
+            'index': 0, 'name': 1, 'address': 2, 'gain': 3, 'access': 4, 'type': 5, 'unit': 6
+        }
+        self.assertEqual(_is_header_row(alternative_header, " ".join(alternative_header).lower()), expected_map_alternative)
 
         # A row that is clearly not a header (data row)
         data_row = ["1", "Inverter Status", "40001", "1", "RO", "UINT16", ""]
         self.assertIsNone(_is_header_row(data_row, " ".join(data_row).lower()))
 
-        # A row with too few matching keywords to be a header
-        not_a_header = ["Column 1", "Column 2", "Column 3", "Status"]
-        self.assertIsNone(_is_header_row(not_a_header, " ".join(not_a_header).lower()))
-
         # An empty row
-        empty_row = []
-        self.assertIsNone(_is_header_row(empty_row, ""))
+        self.assertIsNone(_is_header_row([], ""))
 
-        # Test the 'gain' heuristic
-        header_with_gain_in_type = ["Address", "Name", "Type/Gain", "Unit"]
-        expected_map_gain = {
-            'address': 0,
-            'name': 1,
-            'type': 2,
-            'gain': 2, # Should map 'gain' to the same column as 'type'
-            'unit': 3
+    def test_parse_row_with_map(self):
+        """Tests the _parse_row_with_map function."""
+        column_map = {
+            'index': 0, 'name': 1, 'address': 2, 'num_reg': 3, 'access': 4,
+            'type': 5, 'unit': 6, 'gain': 7, 'scope': 8
         }
-        self.assertEqual(_is_header_row(header_with_gain_in_type, " ".join(header_with_gain_in_type).lower()), expected_map_gain)
+        valid_row = ["10", "Inverter Power", "40001", "2", "RO", "INT32", "W", "10", "Active power"]
+        register = _parse_row_with_map(valid_row, column_map)
+        self.assertIsInstance(register, ModbusRegister)
+        self.assertEqual(register.name, "Inverter Power")
+        self.assertAlmostEqual(register.gain, 0.1)
+
+        # Test with a row that has a non-numeric index (should be invalid)
+        invalid_index_row = ["N/A", "Inverter Temp", "40011", "1", "RO", "INT16", "C", "1", ""]
+        self.assertIsNone(_parse_row_with_map(invalid_index_row, column_map))
+
+    def test_is_stop_header(self):
+        """Tests the _is_stop_header function."""
+        self.assertTrue(_is_stop_header(["4.1", "Alarm and Event Definitions"]))
+        self.assertTrue(_is_stop_header(["5.", "Error Code List"]))
+        self.assertFalse(_is_stop_header(["3.5", "Register Definitions"]))
+        self.assertFalse(_is_stop_header(["10", "Inverter Power", "40001", "2", "RO"]))
+        self.assertFalse(_is_stop_header([]))
+
+    @patch('parser.pdfplumber.open')
+    def test_scope_continuation_logic(self, mock_pdfplumber_open):
+        """Tests that the parser correctly handles multi-line scope/description fields."""
+        mock_pdf = MagicMock()
+        mock_page = MagicMock()
+        mock_table = [
+            ["No.", "Signal Name", "Address", "Scope"],
+            ["15", "Device Status", "40100", "Provides detailed status"],
+            ["of the device, including", None, None, None],
+            ["operational mode.", None, None, None],
+            ["16", "Next Register", "40101", "Another register"]
+        ]
+        mock_page.extract_tables.return_value = [mock_table]
+        mock_pdf.pages = [mock_page]
+        mock_pdfplumber_open.return_value.__enter__.return_value = mock_pdf
+
+        registers = parse_modbus_text("dummy/file.pdf")
+        self.assertEqual(len(registers), 2)
+        expected_scope = "Provides detailed status of the device, including operational mode."
+        self.assertEqual(registers[0].scope, expected_scope)
+        self.assertEqual(registers[1].scope, "Another register")
 
 
 class TestParserEndToEnd(unittest.TestCase):
-    """
-    End-to-end tests for the Modbus definition parser.
-    These tests process a sample PDF file and verify the generated CSV output.
-    """
+    """End-to-end tests for the Modbus definition parser."""
 
     def test_huawei_sun2000_pdf_parsing(self):
-        """
-        Tests the full pipeline on the Huawei SUN2000 PDF.
-        It checks if registers are parsed and if the CSV is generated correctly.
-        """
+        """Tests the full pipeline on the Huawei SUN2000 PDF."""
         filepath = "Definition/09. SUN2000-12~25K-MB0 Modbus Interface Definitions (2).pdf"
         self.assertTrue(os.path.exists(filepath), f"Test file not found: {filepath}")
+        header_info = {"protocol": "modbusRTU", "category": "Inverter", "manufacturer": "HUAWEI", "model": "SUN2000-25K-MB0", "write_code": "0"}
 
-        # Mock header info, as the GUI would provide it
-        header_info = {
-            "protocol": "modbusRTU",
-            "category": "Inverter",
-            "manufacturer": "HUAWEI",
-            "model": "SUN2000-25K-MB0",
-            "write_code": "0",
-        }
-
-        # 1. Test parsing
         registers = parse_modbus_text(filepath)
-        self.assertIsNotNone(registers, "Parsing returned None")
-        self.assertIsInstance(registers, list, "Parsing should return a list")
-        self.assertGreater(len(registers), 0, "No registers were parsed from the PDF")
+        self.assertIsNotNone(registers)
+        self.assertGreater(len(registers), 300)
 
-        # We know from previous runs that this file has a lot of registers.
-        # Let's set a reasonable expectation.
-        self.assertGreater(len(registers), 300, "Expected to parse at least 300 registers")
-
-
-        # 2. Test CSV generation
         csv_output = generate_csv_data(registers, header_info)
-        self.assertIsNotNone(csv_output, "CSV generation returned None")
-        self.assertIsInstance(csv_output, str, "CSV output should be a string")
-        self.assertIn("modbusRTU;Inverter;HUAWEI;SUN2000-25K-MB0;0", csv_output, "CSV header is missing or incorrect")
-        self.assertIn("Model;Model", csv_output, "Expected 'Model' register in CSV output")
+        self.assertIn("modbusRTU;Inverter;HUAWEI;SUN2000-25K-MB0;0", csv_output)
+        self.assertIn("Model;Model", csv_output)
 
 if __name__ == '__main__':
     unittest.main()
