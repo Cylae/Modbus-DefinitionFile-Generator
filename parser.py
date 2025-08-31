@@ -1,25 +1,32 @@
 import re
 from dataclasses import dataclass, fields
 import pdfplumber
+from pdfminer.pdfparser import PDFSyntaxError
 
 # --- Keyword & Dataclass Definitions ---
 
 # Defines the canonical names for columns and the keywords to find them in a PDF.
 # This allows for flexible matching across different languages and document formats.
 HEADER_KEYWORDS = {
-    "index": ["no", "index"],
-    "name": ["name", "signal"],
-    "access": ["access", "r/w"],
-    "type": ["type", "typ"],
-    "unit": ["unit", "un."],
-    "gain": ["gain"],
-    "address": ["address", "addre"],
-    "num_reg": ["num", "number"],
-    "scope": ["scope", "description"],
+    "index": ["no", "index", "#"],
+    "name": ["name", "signal", "description", "parameter", "libellé", "label"],
+    "access": ["access", "r/w", "read/write", "accès", "mode"],
+    "type": ["type", "typ", "data type", "format"],
+    "unit": ["unit", "un.", "units", "unité"],
+    "gain": ["gain", "scale", "factor", "scaling", "multiplier", "sf"],
+    "address": ["address", "addre", "register", "reg.", "offset"],
+    "num_reg": ["num", "number", "size", "length"],
+    "scope": ["scope", "comments", "remarques"],
 }
 
 # Defines keywords that indicate the end of the Modbus registers section.
 STOP_KEYWORDS = ["alarm", "event", "customized interface", "error code"]
+
+
+class ParserError(Exception):
+    """Custom exception for parsing errors."""
+    pass
+
 
 @dataclass
 class ModbusRegister:
@@ -87,8 +94,8 @@ def _is_stop_header(row):
         return False
 
     cleaned_row_text = " ".join([str(cell).lower().replace('\n', ' ') for cell in row if cell]).strip()
-    # Check if the row starts with a number (like "4.1") and contains a stop keyword.
-    if re.match(r'^\d+(\.\d+)*\s+', cleaned_row_text):
+    # Check if the row starts with a number (like "4.1" or "5.") and contains a stop keyword.
+    if re.match(r'^\d+(\.\d*)*\s*', cleaned_row_text):
         if any(stop_word in cleaned_row_text for stop_word in STOP_KEYWORDS):
             return True
     return False
@@ -125,6 +132,13 @@ def _parse_row_with_map(row_cells, column_map):
         reg.index = int(float(reg_data.get('index', 0)))
         reg.address = int(float(reg_data.get('address', 0)))
         reg.num_reg = int(float(reg_data.get('num_reg', 0)))
+
+        # Automatically set num_reg to 2 for 32-bit data types if not specified
+        # This makes the parser more robust against incomplete documentation.
+        thirty_two_bit_types = {'int32', 'uint32', 'float32'}
+        if reg.type.lower().strip() in thirty_two_bit_types and reg.num_reg < 2:
+            reg.num_reg = 2
+
         return reg
     except (ValueError, TypeError):
         return None # Return None if essential numeric conversions fail.
@@ -148,40 +162,46 @@ def parse_modbus_text(filepath):
                     if not table: continue
 
                     if parsing_started and _is_stop_header(table[0]):
+                        # Stop parsing if a stop header is found in a new table
+                        if not registers: continue # Avoid stopping if we haven't found anything yet
                         return registers
 
                     for i, row in enumerate(table):
                         if not parsing_started:
-                            combined_header = " ".join([str(cell).lower().replace('\n', ' ') for cell in row])
+                            combined_header = " ".join([str(c).lower().replace('\n', ' ') for c in row])
                             header_map = _is_header_row(row, combined_header)
                             if header_map:
+                                if "address" not in header_map or "name" not in header_map:
+                                    continue # Not a valid Modbus table header
                                 column_map = header_map
                                 parsing_started = True
-                                # Process the rest of the rows in the table where the header was found.
                                 for data_row in table[i+1:]:
                                     reg = _parse_row_with_map(data_row, column_map)
                                     if reg:
                                         registers.append(reg)
                                         last_reg = reg
-                                    elif last_reg: # Handle continuation rows
-                                        continuation_text = " ".join(filter(None, [str(cell).strip() for cell in data_row]))
+                                    elif last_reg:
+                                        continuation_text = " ".join(str(c).strip() for c in data_row if c is not None)
                                         if continuation_text:
                                             last_reg.scope = (last_reg.scope + " " + continuation_text).strip()
-                                break # Header found and table processed, move to the next table.
-
+                                break
                         elif parsing_started:
-                            # If parsing has started, treat all subsequent rows as data or continuations.
                             reg = _parse_row_with_map(row, column_map)
                             if reg:
                                 registers.append(reg)
                                 last_reg = reg
                             elif last_reg:
-                                continuation_text = " ".join(filter(None, [str(cell).strip() for cell in row]))
+                                continuation_text = " ".join(str(c).strip() for c in row if c is not None)
                                 if continuation_text:
                                     last_reg.scope = (last_reg.scope + " " + continuation_text).strip()
+    except PDFSyntaxError as e:
+        raise ParserError(f"Erreur de syntaxe PDF: Le fichier est peut-être corrompu.\n({e})")
     except Exception as e:
-        print(f"An error occurred during PDF processing: {e}")
-        return []
+        # Catch other potential errors during processing
+        raise ParserError(f"Une erreur inattendue est survenue lors du traitement du PDF.\n({e})")
+
+    if not parsing_started:
+        raise ParserError("Aucun en-tête de tableau Modbus valide n'a été trouvé dans le document.")
 
     return registers
 

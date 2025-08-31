@@ -1,0 +1,46 @@
+[
+    {
+        "index": 1,
+        "name": "SunSpec_ID",
+        "access": "RO",
+        "type": "uint32",
+        "unit": "",
+        "gain": 1.0,
+        "address": 40001,
+        "num_reg": 2,
+        "scope": "SunSpec Common Model Block ID"
+    },
+    {
+        "index": 2,
+        "name": "SunSpec_L",
+        "access": "RO",
+        "type": "uint16",
+        "unit": "",
+        "gain": 1.0,
+        "address": 40003,
+        "num_reg": 1,
+        "scope": "SunSpec Common Model Block Length"
+    },
+    {
+        "index": 3,
+        "name": "Manufacturer",
+        "access": "RO",
+        "type": "string",
+        "unit": "",
+        "gain": 1.0,
+        "address": 40004,
+        "num_reg": 16,
+        "scope": "Manufacturer Name"
+    },
+    {
+        "index": 4,
+        "name": "Model",
+        "access": "RO",
+        "type": "string",
+        "unit": "",
+        "gain": 1.0,
+        "address": 40020,
+        "num_reg": 16,
+        "scope": "Inverter Model"
+    }
+]

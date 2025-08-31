@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-from parser import parse_modbus_text, generate_csv_data
+from parser import parse_modbus_text, generate_csv_data, ParserError
 import sys
 
 class ModbusDefGeneratorApp(tk.Tk):
@@ -40,6 +40,45 @@ class ModbusDefGeneratorApp(tk.Tk):
         self.filepath_label_var = tk.StringVar(value="Aucun fichier sélectionné.")
         self.filepath_label = ttk.Label(file_frame, textvariable=self.filepath_label_var, font=("TkDefaultFont", 10, "italic"))
         self.filepath_label.grid(row=0, column=1, sticky=tk.W, padx=10)
+
+        # --- Preview Pane ---
+        preview_frame = ttk.LabelFrame(main_frame, text="Aperçu des Données", padding="10")
+        preview_frame.pack(fill="both", expand=True, pady=5)
+
+        self.tree = ttk.Treeview(preview_frame, show="headings")
+
+        # Define columns
+        self.tree["columns"] = ("index", "name", "address", "type", "unit", "gain", "scope")
+
+        # Format columns
+        self.tree.column("index", anchor=tk.CENTER, width=50)
+        self.tree.column("name", anchor=tk.W, width=200)
+        self.tree.column("address", anchor=tk.CENTER, width=80)
+        self.tree.column("type", anchor=tk.CENTER, width=80)
+        self.tree.column("unit", anchor=tk.CENTER, width=60)
+        self.tree.column("gain", anchor=tk.CENTER, width=60)
+        self.tree.column("scope", anchor=tk.W, width=300)
+
+        # Create headings
+        self.tree.heading("index", text="Index", anchor=tk.CENTER)
+        self.tree.heading("name", text="Nom", anchor=tk.W)
+        self.tree.heading("address", text="Adresse", anchor=tk.CENTER)
+        self.tree.heading("type", text="Type", anchor=tk.CENTER)
+        self.tree.heading("unit", text="Unité", anchor=tk.CENTER)
+        self.tree.heading("gain", text="Gain", anchor=tk.CENTER)
+        self.tree.heading("scope", text="Description", anchor=tk.W)
+
+        # Add a scrollbar
+        vsb = ttk.Scrollbar(preview_frame, orient="vertical", command=self.tree.yview)
+        vsb.pack(side='right', fill='y')
+        self.tree.configure(yscrollcommand=vsb.set)
+
+        hsb = ttk.Scrollbar(preview_frame, orient="horizontal", command=self.tree.xview)
+        hsb.pack(side='bottom', fill='x')
+        self.tree.configure(xscrollcommand=hsb.set)
+
+        self.tree.pack(fill="both", expand=True)
+
         self.generate_button = ttk.Button(
             main_frame,
             text="Générer et Enregistrer le Fichier CSV",
@@ -56,27 +95,51 @@ class ModbusDefGeneratorApp(tk.Tk):
         if not self.filepath:
             messagebox.showerror("Erreur", "Veuillez d'abord charger un fichier PDF.")
             return
-        parsed_registers = parse_modbus_text(self.filepath)
-        if not parsed_registers:
-            messagebox.showwarning("Avertissement", "Aucun registre n'a pu être analysé à partir du texte fourni.")
-            return
-        csv_content = generate_csv_data(parsed_registers, header_info)
-        model_name = header_info.get('model', 'definition')
-        filename = f"webdyn_def_{model_name}.csv"
-        filepath = filedialog.asksaveasfilename(
-            defaultextension=".csv",
-            filetypes=[("Fichiers CSV", "*.csv"), ("Tous les fichiers", "*.*")],
-            initialfile=filename,
-            title="Enregistrer le fichier de définition Modbus"
-        )
-        if not filepath:
-            return
+
+        # Clear previous results and set busy cursor
+        for i in self.tree.get_children():
+            self.tree.delete(i)
+        self.config(cursor="watch")
+        self.update_idletasks()
+
         try:
-            with open(filepath, 'w', newline='', encoding='utf-8') as f:
+            parsed_registers = parse_modbus_text(self.filepath)
+
+            if not parsed_registers:
+                messagebox.showwarning("Avertissement", "Aucun registre Modbus n'a été trouvé dans les tables du document.")
+                return
+
+            # Populate the preview tree
+            for reg in parsed_registers:
+                values = (reg.index, reg.name, reg.address, reg.type, reg.unit, f"{reg.gain:.2f}", reg.scope)
+                self.tree.insert("", tk.END, values=values)
+
+            # Ask user to save the file
+            csv_content = generate_csv_data(parsed_registers, header_info)
+            model_name = header_info.get('model', 'definition')
+            filename = f"webdyn_def_{model_name}.csv"
+
+            save_filepath = filedialog.asksaveasfilename(
+                defaultextension=".csv",
+                filetypes=[("Fichiers CSV", "*.csv"), ("Tous les fichiers", "*.*")],
+                initialfile=filename,
+                title="Enregistrer le fichier de définition Modbus"
+            )
+            if not save_filepath:
+                return
+
+            with open(save_filepath, 'w', newline='', encoding='utf-8') as f:
                 f.write(csv_content)
-            messagebox.showinfo("Succès", f"Fichier enregistré avec succès à l'emplacement :\n{filepath}")
+
+            messagebox.showinfo("Succès", f"Fichier enregistré avec succès à l'emplacement :\n{save_filepath}")
+
+        except ParserError as e:
+            messagebox.showerror("Erreur de Parsing", str(e))
         except Exception as e:
-            messagebox.showerror("Erreur d'écriture", f"Une erreur est survenue lors de l'écriture du fichier :\n{e}")
+            messagebox.showerror("Erreur Inattendue", f"Une erreur inattendue est survenue :\n{e}")
+        finally:
+            # Always reset cursor
+            self.config(cursor="")
 
 if __name__ == "__main__":
     app = ModbusDefGeneratorApp()
