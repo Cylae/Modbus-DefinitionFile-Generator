@@ -1,0 +1,35 @@
+[
+    {
+        "index": 1,
+        "name": "Current total active energy",
+        "access": "RO",
+        "type": "U32",
+        "unit": "kWh",
+        "gain": 100.0,
+        "address": 0,
+        "num_reg": 2,
+        "scope": ""
+    },
+    {
+        "index": 27,
+        "name": "Time: second, minute",
+        "access": "RO",
+        "type": "U16",
+        "unit": "",
+        "gain": 1.0,
+        "address": 60,
+        "num_reg": 1,
+        "scope": ""
+    },
+    {
+        "index": 106,
+        "name": "Voltage of A phase",
+        "access": "RO",
+        "type": "U16",
+        "unit": "V",
+        "gain": 10.0,
+        "address": 97,
+        "num_reg": 1,
+        "scope": ""
+    }
+]
