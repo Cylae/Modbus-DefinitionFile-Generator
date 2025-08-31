@@ -132,6 +132,13 @@ def _parse_row_with_map(row_cells, column_map):
         reg.index = int(float(reg_data.get('index', 0)))
         reg.address = int(float(reg_data.get('address', 0)))
         reg.num_reg = int(float(reg_data.get('num_reg', 0)))
+
+        # Automatically set num_reg to 2 for 32-bit data types if not specified
+        # This makes the parser more robust against incomplete documentation.
+        thirty_two_bit_types = {'int32', 'uint32', 'float32'}
+        if reg.type.lower().strip() in thirty_two_bit_types and reg.num_reg < 2:
+            reg.num_reg = 2
+
         return reg
     except (ValueError, TypeError):
         return None # Return None if essential numeric conversions fail.

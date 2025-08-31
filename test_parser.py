@@ -60,6 +60,12 @@ class TestParserUnit(unittest.TestCase):
         invalid_index_row = ["N/A", "Inverter Temp", "40011", "1", "RO", "INT16", "C", "1", ""]
         self.assertIsNone(_parse_row_with_map(invalid_index_row, column_map))
 
+        # Test automatic num_reg adjustment for 32-bit types
+        row_32bit = ["14", "Total Energy", "40100", "1", "RO", "UINT32", "kWh", "1", ""]
+        register_32bit = _parse_row_with_map(row_32bit, column_map)
+        self.assertIsNotNone(register_32bit)
+        self.assertEqual(register_32bit.num_reg, 2, "num_reg should be corrected to 2 for UINT32")
+
     def test_is_stop_header(self):
         """Tests the _is_stop_header function."""
         self.assertTrue(_is_stop_header(["4.1", "Alarm and Event Definitions"]))
