@@ -40,6 +40,45 @@ class ModbusDefGeneratorApp(tk.Tk):
         self.filepath_label_var = tk.StringVar(value="Aucun fichier sélectionné.")
         self.filepath_label = ttk.Label(file_frame, textvariable=self.filepath_label_var, font=("TkDefaultFont", 10, "italic"))
         self.filepath_label.grid(row=0, column=1, sticky=tk.W, padx=10)
+
+        # --- Preview Pane ---
+        preview_frame = ttk.LabelFrame(main_frame, text="Aperçu des Données", padding="10")
+        preview_frame.pack(fill="both", expand=True, pady=5)
+
+        self.tree = ttk.Treeview(preview_frame, show="headings")
+
+        # Define columns
+        self.tree["columns"] = ("index", "name", "address", "type", "unit", "gain", "scope")
+
+        # Format columns
+        self.tree.column("index", anchor=tk.CENTER, width=50)
+        self.tree.column("name", anchor=tk.W, width=200)
+        self.tree.column("address", anchor=tk.CENTER, width=80)
+        self.tree.column("type", anchor=tk.CENTER, width=80)
+        self.tree.column("unit", anchor=tk.CENTER, width=60)
+        self.tree.column("gain", anchor=tk.CENTER, width=60)
+        self.tree.column("scope", anchor=tk.W, width=300)
+
+        # Create headings
+        self.tree.heading("index", text="Index", anchor=tk.CENTER)
+        self.tree.heading("name", text="Nom", anchor=tk.W)
+        self.tree.heading("address", text="Adresse", anchor=tk.CENTER)
+        self.tree.heading("type", text="Type", anchor=tk.CENTER)
+        self.tree.heading("unit", text="Unité", anchor=tk.CENTER)
+        self.tree.heading("gain", text="Gain", anchor=tk.CENTER)
+        self.tree.heading("scope", text="Description", anchor=tk.W)
+
+        # Add a scrollbar
+        vsb = ttk.Scrollbar(preview_frame, orient="vertical", command=self.tree.yview)
+        vsb.pack(side='right', fill='y')
+        self.tree.configure(yscrollcommand=vsb.set)
+
+        hsb = ttk.Scrollbar(preview_frame, orient="horizontal", command=self.tree.xview)
+        hsb.pack(side='bottom', fill='x')
+        self.tree.configure(xscrollcommand=hsb.set)
+
+        self.tree.pack(fill="both", expand=True)
+
         self.generate_button = ttk.Button(
             main_frame,
             text="Générer et Enregistrer le Fichier CSV",
@@ -57,12 +96,23 @@ class ModbusDefGeneratorApp(tk.Tk):
             messagebox.showerror("Erreur", "Veuillez d'abord charger un fichier PDF.")
             return
 
+        # Clear previous results from the treeview
+        for i in self.tree.get_children():
+            self.tree.delete(i)
+
         try:
             parsed_registers = parse_modbus_text(self.filepath)
+
             if not parsed_registers:
                 messagebox.showwarning("Avertissement", "Aucun registre Modbus n'a été trouvé dans les tables du document.")
                 return
 
+            # Populate the preview tree
+            for reg in parsed_registers:
+                values = (reg.index, reg.name, reg.address, reg.type, reg.unit, f"{reg.gain:.2f}", reg.scope)
+                self.tree.insert("", tk.END, values=values)
+
+            # Ask user to save the file
             csv_content = generate_csv_data(parsed_registers, header_info)
             model_name = header_info.get('model', 'definition')
             filename = f"webdyn_def_{model_name}.csv"
