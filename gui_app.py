@@ -96,9 +96,11 @@ class ModbusDefGeneratorApp(tk.Tk):
             messagebox.showerror("Erreur", "Veuillez d'abord charger un fichier PDF.")
             return
 
-        # Clear previous results from the treeview
+        # Clear previous results and set busy cursor
         for i in self.tree.get_children():
             self.tree.delete(i)
+        self.config(cursor="watch")
+        self.update_idletasks()
 
         try:
             parsed_registers = parse_modbus_text(self.filepath)
@@ -135,6 +137,9 @@ class ModbusDefGeneratorApp(tk.Tk):
             messagebox.showerror("Erreur de Parsing", str(e))
         except Exception as e:
             messagebox.showerror("Erreur Inattendue", f"Une erreur inattendue est survenue :\n{e}")
+        finally:
+            # Always reset cursor
+            self.config(cursor="")
 
 if __name__ == "__main__":
     app = ModbusDefGeneratorApp()
